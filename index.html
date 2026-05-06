@@ -1,0 +1,2265 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Capacitación Sistema VixiOn — Instituto de Ojos de Puerto Rico</title>
+<style>
+:root {
+  --navy: #00024F;
+  --azure: #0574CE;
+  --teal: #00A889;
+  --sand: #F0E6D8;
+  --sand-light: #FAF6EE;
+  --grey-bg: #E8E8E8;
+  --grey: #666666;
+  --warning: #F39C12;
+  --success: #27AE60;
+  --danger: #C0392B;
+  --white: #FFFFFF;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Calibri', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: var(--sand-light);
+  color: #2c2c2c;
+  line-height: 1.6;
+  display: flex;
+  min-height: 100vh;
+}
+
+.sidebar {
+  width: 280px;
+  background: var(--navy);
+  color: white;
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  overflow-y: auto;
+  padding: 24px 0;
+  box-shadow: 2px 0 12px rgba(0,0,0,0.12);
+  z-index: 100;
+}
+.sidebar-header { padding: 0 24px 24px; border-bottom: 1px solid rgba(255,255,255,0.15); margin-bottom: 16px; }
+.sidebar-logo { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+.sidebar-logo-icon { width: 40px; height: 40px; background: var(--teal); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 14px; color: white; letter-spacing: 0.5px; }
+.sidebar-logo-text { font-size: 16px; font-weight: 600; line-height: 1.2; }
+.sidebar-logo-text small { display: block; font-size: 11px; font-weight: 400; opacity: 0.7; margin-top: 2px; }
+.progress-bar { background: rgba(255,255,255,0.15); height: 4px; border-radius: 2px; overflow: hidden; margin-top: 12px; }
+.progress-fill { background: var(--teal); height: 100%; width: 0%; transition: width 0.3s ease; }
+.progress-text { font-size: 11px; opacity: 0.7; margin-top: 6px; }
+.sidebar-nav { list-style: none; padding: 0 12px; }
+.sidebar-nav li { margin-bottom: 2px; }
+.sidebar-nav a { display: flex; align-items: center; padding: 10px 14px; color: rgba(255,255,255,0.85); text-decoration: none; border-radius: 6px; font-size: 13px; transition: all 0.2s; cursor: pointer; gap: 10px; }
+.sidebar-nav a:hover { background: rgba(255,255,255,0.08); color: white; }
+.sidebar-nav a.active { background: var(--azure); color: white; font-weight: 600; }
+.sidebar-nav a.completed::before { content: "✓"; color: var(--teal); font-weight: 700; }
+.section-num { width: 22px; height: 22px; background: rgba(255,255,255,0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 600; flex-shrink: 0; }
+.sidebar-nav a.active .section-num { background: white; color: var(--navy); }
+.sidebar-footer { padding: 16px 24px; margin-top: 24px; border-top: 1px solid rgba(255,255,255,0.15); font-size: 11px; opacity: 0.6; }
+.reset-btn { background: transparent; border: 1px solid rgba(255,255,255,0.3); color: white; padding: 6px 12px; border-radius: 4px; font-size: 11px; cursor: pointer; margin-top: 8px; transition: all 0.2s; }
+.reset-btn:hover { background: rgba(255,255,255,0.1); }
+
+.main { margin-left: 280px; flex: 1; padding: 48px 64px; max-width: 1200px; }
+.section { display: none; animation: fadeIn 0.4s ease; }
+.section.active { display: block; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+.section-header { margin-bottom: 32px; padding-bottom: 16px; border-bottom: 2px solid var(--sand); }
+.section-tag { display: inline-block; background: var(--teal); color: white; padding: 4px 12px; border-radius: 12px; font-size: 11px; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 12px; }
+
+h1 { color: var(--navy); font-size: 32px; font-weight: 700; letter-spacing: -0.5px; line-height: 1.15; margin-bottom: 8px; }
+h2 { color: var(--navy); font-size: 24px; font-weight: 600; margin: 36px 0 16px; letter-spacing: -0.3px; }
+h3 { color: var(--azure); font-size: 18px; font-weight: 600; margin: 28px 0 12px; }
+h4 { color: var(--navy); font-size: 15px; font-weight: 600; margin: 20px 0 8px; }
+p { margin-bottom: 14px; color: #2c2c2c; }
+.lead { font-size: 17px; color: var(--grey); margin-bottom: 24px; line-height: 1.6; }
+.subtitle { font-size: 15px; color: var(--grey); font-style: italic; }
+ul, ol { margin-left: 24px; margin-bottom: 16px; }
+li { margin-bottom: 6px; }
+strong { color: var(--navy); font-weight: 600; }
+
+.card { background: white; border-radius: 12px; padding: 24px; margin-bottom: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); border: 1px solid var(--sand); }
+.card-icon { display: inline-block; width: 44px; height: 44px; border-radius: 10px; background: var(--azure); color: white; font-size: 22px; display: flex; align-items: center; justify-content: center; margin-bottom: 12px; }
+.card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; margin: 24px 0; }
+
+.profile-card { background: white; border-radius: 12px; padding: 20px; border-top: 4px solid var(--azure); box-shadow: 0 2px 8px rgba(0,0,0,0.04); transition: transform 0.2s; }
+.profile-card:hover { transform: translateY(-2px); box-shadow: 0 4px 16px rgba(0,0,0,0.08); }
+.profile-card.esencial { border-top-color: #95C5E5; }
+.profile-card.equilibrada { border-top-color: var(--azure); }
+.profile-card.completa { border-top-color: var(--teal); }
+.profile-card.combinada { border-top-color: var(--navy); }
+.profile-card h4 { color: var(--navy); font-size: 16px; margin-bottom: 8px; }
+.profile-card .profile-tagline { color: var(--grey); font-size: 13px; margin-bottom: 12px; font-style: italic; }
+.profile-card .profile-desc { font-size: 13px; line-height: 1.5; }
+
+.table-wrapper { overflow-x: auto; margin: 20px 0; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+table { width: 100%; border-collapse: collapse; background: white; font-size: 14px; }
+th { background: var(--navy); color: white; text-align: left; padding: 12px 14px; font-weight: 600; font-size: 13px; }
+td { padding: 12px 14px; border-bottom: 1px solid var(--sand); }
+tr:last-child td { border-bottom: none; }
+tr:hover td { background: var(--sand-light); }
+.table-price th { background: linear-gradient(135deg, var(--navy) 0%, var(--azure) 100%); }
+.price-cell { font-weight: 700; color: var(--azure); }
+
+.callout { border-radius: 10px; padding: 18px 22px; margin: 20px 0; border-left: 4px solid; }
+.callout-info { background: #EBF5FB; border-left-color: var(--azure); }
+.callout-success { background: #E8F5E9; border-left-color: var(--success); }
+.callout-warning { background: #FEF5E7; border-left-color: var(--warning); }
+.callout-danger { background: #FADBD8; border-left-color: var(--danger); }
+.callout-teal { background: #E0F2EE; border-left-color: var(--teal); }
+.callout strong { display: block; margin-bottom: 6px; color: inherit; }
+.callout p { margin-bottom: 6px; font-size: 14px; }
+.callout p:last-child { margin-bottom: 0; }
+
+.script-box { background: white; border: 1px solid var(--sand); border-radius: 10px; padding: 18px 22px; margin: 16px 0; }
+.script-box .script-label { display: inline-block; background: var(--teal); color: white; padding: 3px 10px; border-radius: 10px; font-size: 10px; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 10px; }
+.script-box .script-label.dont { background: var(--danger); }
+.script-box .script-text { font-style: italic; color: #2c2c2c; font-size: 14px; line-height: 1.55; margin: 0; }
+
+.flow { display: flex; align-items: stretch; gap: 12px; margin: 24px 0; flex-wrap: wrap; }
+.flow-step { flex: 1; min-width: 180px; background: white; border-radius: 10px; padding: 16px; border-top: 3px solid var(--azure); position: relative; text-align: center; box-shadow: 0 2px 6px rgba(0,0,0,0.04); }
+.flow-step .flow-num { width: 28px; height: 28px; background: var(--azure); color: white; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-weight: 700; font-size: 13px; margin-bottom: 8px; }
+.flow-step h5 { color: var(--navy); font-size: 14px; margin-bottom: 6px; font-weight: 600; }
+.flow-step p { font-size: 12px; color: var(--grey); line-height: 1.4; margin: 0; }
+
+.quiz-question { background: white; border-radius: 12px; padding: 24px; margin-bottom: 16px; border-left: 4px solid var(--azure); }
+.quiz-question h4 { margin-bottom: 14px; font-size: 15px; }
+.quiz-options { display: flex; flex-direction: column; gap: 8px; }
+.quiz-option { padding: 12px 16px; background: var(--sand-light); border: 1px solid var(--sand); border-radius: 8px; cursor: pointer; font-size: 14px; transition: all 0.2s; }
+.quiz-option:hover { background: var(--sand); border-color: var(--azure); }
+.quiz-option.selected { background: var(--azure); color: white; border-color: var(--azure); }
+.quiz-option.correct { background: var(--success); color: white; border-color: var(--success); }
+.quiz-option.incorrect { background: var(--danger); color: white; border-color: var(--danger); }
+.quiz-feedback { margin-top: 12px; padding: 12px; border-radius: 6px; font-size: 13px; display: none; }
+.quiz-feedback.show { display: block; }
+.quiz-feedback.correct-fb { background: #E8F5E9; color: var(--success); }
+.quiz-feedback.incorrect-fb { background: #FADBD8; color: var(--danger); }
+.quiz-result { text-align: center; padding: 32px; background: white; border-radius: 12px; margin-top: 24px; display: none; }
+.quiz-result.show { display: block; }
+.quiz-score { font-size: 48px; font-weight: 700; color: var(--azure); margin: 12px 0; }
+.quiz-score.passed { color: var(--success); }
+.quiz-score.failed { color: var(--danger); }
+
+.section-nav { display: flex; justify-content: space-between; margin-top: 48px; padding-top: 24px; border-top: 2px solid var(--sand); gap: 12px; }
+.btn { padding: 12px 24px; border: none; border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.2s; font-family: inherit; }
+.btn-primary { background: var(--navy); color: white; }
+.btn-primary:hover { background: #000139; }
+.btn-secondary { background: var(--sand); color: var(--navy); }
+.btn-secondary:hover { background: #E0D6C8; }
+.btn:disabled { opacity: 0.4; cursor: not-allowed; }
+.btn-large { padding: 14px 32px; font-size: 15px; }
+
+.icon-circle { display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; background: var(--teal); color: white; border-radius: 50%; font-weight: 700; font-size: 14px; flex-shrink: 0; }
+
+.tech-image-placeholder { background: linear-gradient(135deg, var(--sand-light) 0%, var(--sand) 100%); border: 2px dashed var(--azure); border-radius: 10px; padding: 32px 20px; text-align: center; margin: 14px 0; position: relative; }
+.tech-image-placeholder .placeholder-icon { font-size: 36px; color: var(--azure); margin-bottom: 8px; opacity: 0.5; }
+.tech-image-placeholder .placeholder-text { color: var(--navy); font-size: 13px; font-weight: 600; margin-bottom: 4px; }
+.tech-image-placeholder .placeholder-attribution { color: var(--grey); font-size: 11px; font-style: italic; }
+.tech-image-placeholder.has-image .placeholder-content { display: none; }
+.tech-image-actual { width: 100%; max-width: 400px; border-radius: 10px; display: block; margin: 14px auto; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+.image-attribution { font-size: 11px; color: var(--grey); font-style: italic; text-align: center; margin-top: 6px; }
+
+.external-link { color: var(--azure); text-decoration: none; font-weight: 600; border-bottom: 1px dotted var(--azure); transition: all 0.2s; display: inline-flex; align-items: center; gap: 4px; }
+.external-link:hover { color: var(--navy); border-bottom-color: var(--navy); }
+.external-link::after { content: "↗"; font-size: 0.85em; opacity: 0.7; }
+
+.resource-link-block { background: white; border-radius: 10px; padding: 16px 18px; margin: 10px 0; border-left: 3px solid var(--teal); display: flex; align-items: center; gap: 16px; }
+.resource-link-block .link-icon { width: 40px; height: 40px; background: var(--teal); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 18px; color: white; flex-shrink: 0; }
+.resource-link-block .link-content { flex: 1; }
+.resource-link-block .link-title { font-weight: 700; color: var(--navy); font-size: 14px; margin-bottom: 2px; }
+.resource-link-block .link-desc { font-size: 12px; color: var(--grey); margin-bottom: 6px; }
+.resource-link-block a { color: var(--azure); text-decoration: none; font-size: 13px; font-weight: 600; }
+.resource-link-block a:hover { text-decoration: underline; }
+
+.role-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; margin: 20px 0; }
+.role-box { background: white; border-radius: 10px; padding: 20px; border-left: 4px solid var(--azure); }
+.role-box h4 { color: var(--azure); font-size: 14px; margin-bottom: 10px; letter-spacing: 0.3px; text-transform: uppercase; }
+.role-box ul { margin-left: 16px; font-size: 13px; }
+.role-box li { margin-bottom: 4px; }
+
+.welcome-hero { background: linear-gradient(135deg, var(--navy) 0%, var(--azure) 100%); border-radius: 16px; padding: 48px 40px; color: white; margin-bottom: 32px; position: relative; overflow: hidden; }
+.welcome-hero::before { content: ""; position: absolute; top: -50%; right: -10%; width: 400px; height: 400px; background: radial-gradient(circle, var(--teal) 0%, transparent 70%); opacity: 0.2; border-radius: 50%; }
+.welcome-hero h1 { color: white; font-size: 36px; margin-bottom: 12px; position: relative; }
+.welcome-hero .lead { color: rgba(255,255,255,0.9); font-size: 18px; position: relative; margin-bottom: 0; }
+.stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 16px; margin-top: 24px; position: relative; }
+.stat { background: rgba(255,255,255,0.12); backdrop-filter: blur(10px); border-radius: 10px; padding: 16px 20px; border: 1px solid rgba(255,255,255,0.2); }
+.stat-number { font-size: 32px; font-weight: 700; color: white; line-height: 1; }
+.stat-label { color: rgba(255,255,255,0.85); font-size: 12px; margin-top: 6px; letter-spacing: 0.3px; }
+
+.glossary-item { background: white; border-radius: 8px; padding: 14px 18px; margin-bottom: 10px; border-left: 3px solid var(--teal); }
+.glossary-term { font-weight: 700; color: var(--navy); font-size: 14px; margin-bottom: 4px; }
+.glossary-def { font-size: 13px; color: #2c2c2c; line-height: 1.5; }
+
+.case-study { background: white; border-radius: 12px; padding: 24px; margin: 20px 0; border-left: 4px solid var(--teal); box-shadow: 0 2px 8px rgba(0,0,0,0.04); }
+.case-tag { display: inline-block; background: var(--teal); color: white; padding: 3px 10px; border-radius: 10px; font-size: 11px; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 10px; }
+.case-study h4 { margin-bottom: 12px; font-size: 16px; }
+.case-block { background: var(--sand-light); border-radius: 6px; padding: 12px 14px; margin: 10px 0; }
+.case-block strong { color: var(--navy); display: block; margin-bottom: 4px; font-size: 13px; text-transform: uppercase; letter-spacing: 0.3px; }
+.case-block p { font-size: 13px; margin: 0; line-height: 1.5; }
+
+@media (max-width: 900px) {
+  .sidebar { width: 100%; height: auto; position: relative; }
+  .main { margin-left: 0; padding: 24px; }
+  .welcome-hero { padding: 32px 24px; }
+  .welcome-hero h1 { font-size: 26px; }
+}
+</style>
+</head>
+<body>
+
+<aside class="sidebar">
+  <div class="sidebar-header">
+    <div class="sidebar-logo">
+      <div class="sidebar-logo-icon">VX</div>
+      <div class="sidebar-logo-text">
+        Capacitación VixiOn
+        <small>Instituto de Ojos de PR</small>
+      </div>
+    </div>
+    <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+    <div class="progress-text"><span id="progressText">0% completado</span></div>
+  </div>
+  <ul class="sidebar-nav" id="sidebarNav">
+    <li><a onclick="goToSection('s0')" data-section="s0"><span class="section-num">0</span><span>Bienvenida</span></a></li>
+    <li><a onclick="goToSection('s1')" data-section="s1"><span class="section-num">1</span><span>Sistema VixiOn</span></a></li>
+    <li><a onclick="goToSection('s2')" data-section="s2"><span class="section-num">2</span><span>Arquitectura clínica</span></a></li>
+    <li><a onclick="goToSection('s3')" data-section="s3"><span class="section-num">3</span><span>Tecnologías exclusivas</span></a></li>
+    <li><a onclick="goToSection('s4')" data-section="s4"><span class="section-num">4</span><span>VixiOn Compass</span></a></li>
+    <li><a onclick="goToSection('s5')" data-section="s5"><span class="section-num">5</span><span>Política RLE vs Catarata</span></a></li>
+    <li><a onclick="goToSection('s6')" data-section="s6"><span class="section-num">6</span><span>Flujo del paciente</span></a></li>
+    <li><a onclick="goToSection('s7')" data-section="s7"><span class="section-num">7</span><span>Inversión y precios</span></a></li>
+    <li><a onclick="goToSection('s8')" data-section="s8"><span class="section-num">8</span><span>Roles del equipo</span></a></li>
+    <li><a onclick="goToSection('s9')" data-section="s9"><span class="section-num">9</span><span>Casos clínicos</span></a></li>
+    <li><a onclick="goToSection('s10')" data-section="s10"><span class="section-num">10</span><span>Manejo de objeciones</span></a></li>
+    <li><a onclick="goToSection('s11')" data-section="s11"><span class="section-num">11</span><span>Banderas rojas urgentes</span></a></li>
+    <li><a onclick="goToSection('s12')" data-section="s12"><span class="section-num">12</span><span>Errores a evitar</span></a></li>
+    <li><a onclick="goToSection('s13')" data-section="s13"><span class="section-num">13</span><span>Glosario</span></a></li>
+    <li><a onclick="goToSection('s14')" data-section="s14"><span class="section-num">14</span><span>Evaluación final</span></a></li>
+    <li><a onclick="goToSection('s15')" data-section="s15"><span class="section-num">15</span><span>Recursos adicionales</span></a></li>
+  </ul>
+  <div class="sidebar-footer">
+    Su progreso se guarda automáticamente.
+    <br>
+    <button class="reset-btn" onclick="resetProgress()">Reiniciar progreso</button>
+  </div>
+</aside>
+
+<main class="main" id="mainContent">
+
+<section class="section active" id="s0">
+  <div class="welcome-hero">
+    <h1>Bienvenido a la capacitación del Sistema VixiOn</h1>
+    <p class="lead">Una guía completa para entender, comunicar y aplicar el sistema integrado de visión del Instituto de Ojos de Puerto Rico.</p>
+    <div class="stat-grid">
+      <div class="stat"><div class="stat-number">15</div><div class="stat-label">Secciones</div></div>
+      <div class="stat"><div class="stat-number">~90 min</div><div class="stat-label">Duración total</div></div>
+      <div class="stat"><div class="stat-number">4</div><div class="stat-label">Perfiles visuales</div></div>
+      <div class="stat"><div class="stat-number">100%</div><div class="stat-label">Auto-guardado</div></div>
+    </div>
+  </div>
+
+  <h2>¿Qué aprenderás en esta capacitación?</h2>
+  <p class="lead">Al completar este módulo, tendrás claridad operativa sobre el Sistema VixiOn de iOPR — desde su arquitectura clínica hasta su aplicación práctica con pacientes.</p>
+
+  <div class="card-grid">
+    <div class="card">
+      <div class="card-icon" style="background: var(--azure);">📚</div>
+      <h4>Fundamentos del sistema</h4>
+      <p style="font-size:13px;">Entenderás qué es VixiOn, cómo funciona y por qué representa una mejora significativa en el cuidado del paciente.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon" style="background: var(--teal);">🎯</div>
+      <h4>Aplicación operativa</h4>
+      <p style="font-size:13px;">Aprenderás a aplicar el sistema en el día a día: scripts, casos prácticos, manejo de objeciones, errores comunes a evitar.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon" style="background: var(--navy);">💼</div>
+      <h4>Protocolos y políticas</h4>
+      <p style="font-size:13px;">Dominarás las políticas críticas como RLE vs Catarata, banderas rojas urgentes, y protocolos de escalamiento.</p>
+    </div>
+  </div>
+
+  <div class="callout callout-teal">
+    <strong>Esta capacitación es para todo el equipo de iOPR.</strong>
+    <p>Aunque cada rol tiene responsabilidades distintas, todos compartimos el mismo sistema y los mismos principios. Comprender el sistema completo te permite apoyar mejor al paciente y al equipo, sin importar tu posición específica.</p>
+  </div>
+
+  <h3>¿Cómo navegar la capacitación?</h3>
+  <ul>
+    <li>Las secciones están diseñadas para tomarse en orden, pero puedes navegar libremente desde el menú lateral.</li>
+    <li>Tu progreso se guarda automáticamente. Puedes pausar y retomar cuando quieras.</li>
+    <li>Al final hay una <strong>evaluación de 13 preguntas</strong> que valida tu comprensión. Necesitas <strong>80% o más</strong> para considerarla aprobada.</li>
+    <li>Si tienes preguntas durante la capacitación, anótalas y consúltalas con tu supervisor o el Director Médico.</li>
+  </ul>
+
+  <div class="section-nav">
+    <button class="btn btn-secondary" disabled>← Anterior</button>
+    <button class="btn btn-primary btn-large" onclick="nextSection('s0', 's1')">Comenzar capacitación →</button>
+  </div>
+</section>
+
+<section class="section" id="s1">
+  <div class="section-header">
+    <span class="section-tag">Sección 1</span>
+    <h1>¿Qué es el Sistema VixiOn?</h1>
+    <p class="subtitle">Una visión integrada de cómo iOPR guía al paciente hacia su mejor visión posible.</p>
+  </div>
+
+  <p class="lead">El <strong>Sistema VixiOn</strong> es un marco clínico-operativo que organiza todas las decisiones de corrección visual en iOPR bajo una arquitectura coherente. No es solo un cuestionario, ni solo una metodología — es la columna vertebral que conecta al paciente, al cirujano y al equipo en una sola conversación clara.</p>
+
+  <h2>El propósito fundamental</h2>
+  <p>VixiOn existe para resolver un problema real que enfrentan los pacientes: la complejidad de las opciones quirúrgicas oftalmológicas modernas puede ser abrumadora. Con docenas de tecnologías, lentes y procedimientos disponibles, el paciente típico no tiene cómo navegar esa complejidad por su cuenta.</p>
+
+  <div class="callout callout-info">
+    <strong>El paciente no busca un lente, busca un resultado visual.</strong>
+    <p>VixiOn traduce las opciones técnicas (lentes, láseres, procedimientos) en términos que el paciente puede entender: <em>qué resultado visual va a vivir después del procedimiento</em>. Esa es la innovación central del sistema.</p>
+  </div>
+
+  <h2>Los tres pilares del sistema</h2>
+
+  <div class="card-grid">
+    <div class="profile-card">
+      <h4>1. Perfiles visuales</h4>
+      <p class="profile-tagline">¿Qué resultado busca el paciente?</p>
+      <p class="profile-desc">Cuatro categorías que describen el resultado visual buscado: Esencial, Equilibrada, Completa y Combinada. El paciente vive y entiende su perfil — no marcas comerciales.</p>
+    </div>
+    <div class="profile-card equilibrada">
+      <h4>2. Enfoques anatómicos</h4>
+      <p class="profile-tagline">¿Qué procedimiento se aplica?</p>
+      <p class="profile-desc">Dos enfoques principales según la anatomía intervenida: Corneal (cornea) y Lenticular (cristalino), cada uno con niveles Standard y Premium.</p>
+    </div>
+    <div class="profile-card completa">
+      <h4>3. Tecnologías exclusivas</h4>
+      <p class="profile-tagline">¿Qué hace iOPR diferente?</p>
+      <p class="profile-desc">LenSx para cirugía lenticular Premium y WaveLight Plus para LASIK Premium — ambas tecnologías exclusivas de iOPR en Puerto Rico.</p>
+    </div>
+  </div>
+
+  <h2>Lo que VixiOn NO es</h2>
+
+  <div class="callout callout-warning">
+    <strong>VixiOn no es un sistema de venta.</strong>
+    <p>El sistema NO existe para empujar al paciente hacia opciones premium. Existe para identificar la mejor opción clínica para su perfil específico, dentro de su realidad financiera.</p>
+  </div>
+
+  <div class="callout callout-warning">
+    <strong>VixiOn no reemplaza el juicio clínico.</strong>
+    <p>El cirujano siempre tiene la decisión final. VixiOn proporciona estructura, scoring y banderas — pero la evaluación clínica es lo que determina la recomendación.</p>
+  </div>
+
+  <div class="callout callout-warning">
+    <strong>VixiOn no es solo el cuestionario.</strong>
+    <p>VixiOn es el sistema completo. <strong>VixiOn Compass</strong> es el cuestionario digital específico que captura las respuestas del paciente — pero VixiOn como sistema incluye también la matriz de perfiles, los enfoques, las tecnologías, las políticas operativas, y el flujo completo del paciente.</p>
+  </div>
+
+  <h2>El slogan que resume el sistema</h2>
+  <div class="callout callout-teal">
+    <p style="font-size:18px; font-style:italic; text-align:center; margin:8px 0; color:var(--navy); font-weight:500;">"El primer paso hacia su mejor visión posible."</p>
+    <p style="font-size:13px; text-align:center; color:var(--grey);">Este es el mensaje central que comunicamos al paciente. No prometemos perfección — ofrecemos un proceso estructurado para encontrar su mejor opción clínica posible.</p>
+  </div>
+
+  <div class="section-nav">
+    <button class="btn btn-secondary" onclick="goToSection('s0')">← Anterior</button>
+    <button class="btn btn-primary" onclick="nextSection('s1', 's2')">Siguiente: Arquitectura clínica →</button>
+  </div>
+</section>
+
+<section class="section" id="s2">
+  <div class="section-header">
+    <span class="section-tag">Sección 2</span>
+    <h1>Arquitectura clínica</h1>
+    <p class="subtitle">Los dos ejes complementarios que estructuran todas las decisiones del sistema.</p>
+  </div>
+
+  <p class="lead">VixiOn organiza la realidad clínica en <strong>dos ejes complementarios</strong> que se cruzan para producir recomendaciones específicas para cada paciente. Comprender estos dos ejes es fundamental — son la "gramática" del sistema.</p>
+
+  <h2>Eje 1: Perfiles visuales (qué busca el paciente)</h2>
+  <p>El primer eje captura el <strong>resultado visual</strong> que el paciente busca. Son cuatro perfiles graduados según la independencia funcional que el paciente desea de los espejuelos:</p>
+
+  <div class="card-grid">
+    <div class="profile-card esencial">
+      <h4>Visión Esencial</h4>
+      <p class="profile-tagline">Funcional básica</p>
+      <p class="profile-desc"><strong>Para quién:</strong> pacientes que buscan visión funcional clara con monofocal estándar. Aceptan usar espejuelos para ciertas distancias.</p>
+      <p class="profile-desc" style="margin-top:8px;"><strong>Resultado típico:</strong> visión clara para una distancia (lejos o cerca), espejuelos para la otra.</p>
+    </div>
+    <div class="profile-card equilibrada">
+      <h4>Visión Equilibrada</h4>
+      <p class="profile-tagline">Balance entre calidad y funcionalidad</p>
+      <p class="profile-desc"><strong>Para quién:</strong> pacientes que buscan más independencia que Esencial pero sin los compromisos de la independencia total.</p>
+      <p class="profile-desc" style="margin-top:8px;"><strong>Resultado típico:</strong> visión clara mid-distancia y lejos, lectura ocasional con espejuelos.</p>
+    </div>
+    <div class="profile-card completa">
+      <h4>Visión Completa</h4>
+      <p class="profile-tagline">Independencia funcional total</p>
+      <p class="profile-desc"><strong>Para quién:</strong> pacientes que buscan independencia funcional de espejuelos en las tres distancias (cerca, intermedia, lejos).</p>
+      <p class="profile-desc" style="margin-top:8px;"><strong>Resultado típico:</strong> independencia mayoritaria de espejuelos, con compromisos típicos de multifocalidad (halos, glare nocturno).</p>
+    </div>
+    <div class="profile-card combinada">
+      <h4>Visión Combinada</h4>
+      <p class="profile-tagline">Mix &amp; match clínico</p>
+      <p class="profile-desc"><strong>Para quién:</strong> casos donde el cirujano determina clínicamente que combinar approaches o lentes entre los dos ojos es la mejor estrategia.</p>
+      <p class="profile-desc" style="margin-top:8px;"><strong>Importante:</strong> Visión Combinada NO es asignada por el algoritmo del cuestionario. Es una decisión exclusivamente clínica del cirujano post-evaluación.</p>
+    </div>
+  </div>
+
+  <h2>Eje 2: Enfoques anatómicos (qué procedimiento se aplica)</h2>
+  <p>El segundo eje describe la <strong>anatomía intervenida</strong>. Esto NO es decisión del paciente — es decisión clínica basada en la evaluación del cirujano. Cada enfoque tiene niveles Standard y Premium según la tecnología utilizada.</p>
+
+  <div class="role-grid">
+    <div class="role-box">
+      <h4>Enfoque Corneal</h4>
+      <p style="font-size:13px;">Toda intervención sobre la córnea para corregir el error refractivo, sin alterar el cristalino natural.</p>
+      <ul>
+        <li><strong>Standard:</strong> LASIK regular, PRK</li>
+        <li><strong>Premium:</strong> WaveLight Plus (AI-Assisted LASIK)</li>
+      </ul>
+    </div>
+    <div class="role-box">
+      <h4>Enfoque Lenticular sin remoción del cristalino</h4>
+      <p style="font-size:13px;">Lente fáquico implantado sin remover el cristalino natural. Reversible.</p>
+      <ul>
+        <li><strong>EVO ICL</strong> (único producto en esta subcategoría)</li>
+      </ul>
+    </div>
+    <div class="role-box">
+      <h4>Enfoque Lenticular con remoción del cristalino</h4>
+      <p style="font-size:13px;">Cristalino natural se reemplaza con un lente intraocular (IOL).</p>
+      <ul>
+        <li><strong>Standard:</strong> faco manual</li>
+        <li><strong>Premium:</strong> FLACS con LenSx</li>
+        <li>Aplica a catarata diagnosticada o RLE electivo</li>
+      </ul>
+    </div>
+    <div class="role-box">
+      <h4>Tratamiento farmacológico</h4>
+      <p style="font-size:13px;">Opción no quirúrgica para presbicia incipiente (40-49 años).</p>
+      <ul>
+        <li><strong>Vizz</strong> (gotas para presbicia)</li>
+      </ul>
+    </div>
+  </div>
+
+  <h2>Cómo se cruzan los dos ejes: Matriz Perfiles × Enfoques</h2>
+  <p>Esta matriz es <strong>la herramienta central de comunicación</strong> entre el equipo clínico y el paciente. Muestra qué producto/procedimiento típicamente corresponde a cada combinación de perfil + enfoque.</p>
+
+  <div class="table-wrapper">
+    <table class="table-price">
+      <thead><tr><th>Perfil visual</th><th>Corneal</th><th>Lenticular sin remoción</th><th>Lenticular con remoción</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Esencial</strong></td><td>Standard (LASIK)</td><td>—</td><td>Monofocal estándar</td></tr>
+        <tr><td><strong>Equilibrada</strong></td><td>Premium (WaveLight Plus)</td><td>EVO ICL</td><td>Monofocal Plus</td></tr>
+        <tr><td><strong>Completa</strong></td><td>—</td><td>EVO ICL Toric</td><td>PanOptix Pro</td></tr>
+        <tr><td><strong>Combinada</strong></td><td>Bióptica</td><td>Bióptica</td><td>Apthera IC-8 + Tórico / mix &amp; match IOL</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout callout-info">
+    <strong>Lectura de la matriz:</strong>
+    <p>Cada celda representa la combinación típica para ese perfil + enfoque. Por ejemplo: un paciente con perfil <strong>Equilibrada</strong> que el cirujano determinó es candidato a <strong>Enfoque Corneal</strong> recibiría <strong>WaveLight Plus</strong>. La matriz sugiere — la decisión clínica final siempre es del cirujano.</p>
+  </div>
+
+  <div class="callout callout-teal">
+    <strong>Bióptica</strong>
+    <p>Bióptica es una técnica donde se combinan dos procedimientos refractivos en el mismo paciente — típicamente un lente intraocular más LASIK/PRK para refinamiento residual. Aplica solo en perfil Combinada cuando el cirujano lo determina clínicamente.</p>
+  </div>
+
+  <div class="section-nav">
+    <button class="btn btn-secondary" onclick="goToSection('s1')">← Anterior</button>
+    <button class="btn btn-primary" onclick="nextSection('s2', 's3')">Siguiente: Tecnologías exclusivas →</button>
+  </div>
+</section>
+
+<section class="section" id="s3">
+  <div class="section-header">
+    <span class="section-tag">Sección 3</span>
+    <h1>Tecnologías exclusivas iOPR</h1>
+    <p class="subtitle">Las dos tecnologías que definen el nivel Premium de iOPR en Puerto Rico.</p>
+  </div>
+
+  <p class="lead">iOPR cuenta con <strong>dos tecnologías quirúrgicas exclusivas</strong> en el mercado de Puerto Rico, cada una correspondiente a un enfoque anatómico distinto. Estas tecnologías son lo que diferencia el nivel Premium del Standard dentro de cada enfoque.</p>
+
+  <h2>WaveLight Plus — el Premium del Enfoque Corneal</h2>
+  <div class="card">
+    <div style="display:flex; align-items:start; gap:16px; margin-bottom:12px;">
+      <div class="card-icon" style="background: linear-gradient(135deg, var(--azure), var(--teal)); flex-shrink:0;">⚡</div>
+      <div>
+        <h3 style="margin-top:0;">WaveLight Plus</h3>
+        <p class="subtitle">AI-Assisted LASIK · <em>Fabricado por Alcon</em></p>
+      </div>
+    </div>
+
+    <img src="https://www.myalcon.com/sites/g/files/rbvwei2521/files/Cross-section-image-of-the-eye-with-descriptions.png" alt="Diagrama de wavefront aberration y ray tracing con WaveLight Plus" class="tech-image-actual" style="max-width:560px;" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+    <div class="tech-image-placeholder" style="display:none;">
+      <div class="placeholder-content">
+        <div class="placeholder-icon">⚡</div>
+        <div class="placeholder-text">[Imagen del sistema WaveLight Plus]</div>
+        <div class="placeholder-attribution">Imagen no disponible — verificar conexión</div>
+      </div>
+    </div>
+    <p class="image-attribution">Diagrama de ray tracing aplicado al ojo. Imagen propiedad de Alcon. Usada con autorización.</p>
+
+    <p>Tecnología de LASIK personalizada guiada por inteligencia artificial. Utiliza ray-tracing para crear un mapa tridimensional único del ojo del paciente, midiendo más de 100,000 puntos para personalizar el láser de forma única.</p>
+
+    <h4>Indicaciones donde aporta valor diferenciado:</h4>
+    <ul>
+      <li>Aberraciones de orden alto presentes (coma, esférica, trefoil)</li>
+      <li>Pupila grande (mayor riesgo de aberraciones nocturnas con LASIK estándar)</li>
+      <li>Profesiones con demandas visuales altas (pilotos, cirujanos, conductores nocturnos frecuentes)</li>
+      <li>Conducción nocturna problemática actual</li>
+      <li>Miopía moderada-alta hasta -9.00 D con astigmatismo hasta -3.00 D</li>
+    </ul>
+
+    <h4>Ventaja diferencial vs LASIK Standard:</h4>
+    <ul>
+      <li>Mayor precisión y personalización de la corrección</li>
+      <li>Reducción significativa de halos, glare y starbursts postoperatorios</li>
+      <li>Mejor calidad visual nocturna</li>
+    </ul>
+
+    <h4>Tres pasos del proceso WaveLight Plus:</h4>
+    <div class="card-grid" style="grid-template-columns:repeat(3, 1fr); gap:12px; margin:14px 0;">
+      <div style="text-align:center;">
+        <img src="https://www.myalcon.com/sites/g/files/rbvwei2521/files/Close-up-of-a-persons-face-during-an-eye-examination-in-muted-grey-tones.png" alt="Examen del ojo" style="width:100%; border-radius:8px;" onerror="this.style.display='none';">
+        <p style="font-size:13px; font-weight:600; color:var(--navy); margin-top:6px; margin-bottom:0;">1. Medir</p>
+        <p style="font-size:11px; color:var(--grey); margin:0;">Refracción subjetiva y valores K</p>
+      </div>
+      <div style="text-align:center;">
+        <img src="https://www.myalcon.com/sites/g/files/rbvwei2521/files/Wavefront-image.png" alt="Análisis de wavefront" style="width:100%; border-radius:8px;" onerror="this.style.display='none';">
+        <p style="font-size:13px; font-weight:600; color:var(--navy); margin-top:6px; margin-bottom:0;">2. Personalizar</p>
+        <p style="font-size:11px; color:var(--grey); margin:0;">Ray tracing crea perfil personalizado</p>
+      </div>
+      <div style="text-align:center;">
+        <img src="https://www.myalcon.com/sites/g/files/rbvwei2521/files/Anterior-cornea-image.png" alt="Topografía corneal" style="width:100%; border-radius:8px;" onerror="this.style.display='none';">
+        <p style="font-size:13px; font-weight:600; color:var(--navy); margin-top:6px; margin-bottom:0;">3. Tratar</p>
+        <p style="font-size:11px; color:var(--grey); margin:0;">Más allá de la visión 20/20</p>
+      </div>
+    </div>
+    <p class="image-attribution">Imágenes propiedad de Alcon. Usadas con autorización.</p>
+
+    <p style="margin-top:14px;"><a href="https://www.myalcon.com/professional/refractive/wavelight-plus/" target="_blank" rel="noopener noreferrer" class="external-link">Más información oficial sobre WaveLight Plus en Alcon (sitio profesional)</a></p>
+  </div>
+
+  <h3>Cómo Alcon comunica WaveLight Plus al paciente</h3>
+  <p>Esta subsección muestra el material de marketing que Alcon utiliza para comunicar WaveLight Plus al paciente final. Comprenderlo ayuda al equipo a <strong>alinear su narrativa con la del fabricante</strong> y ofrecer una experiencia coherente al paciente cuando éste investigue por su cuenta.</p>
+
+  <div class="callout callout-teal">
+    <strong>Slogan de Alcon para WaveLight Plus:</strong>
+    <p style="font-size:16px; font-style:italic; color:var(--navy); margin-top:8px; font-weight:500;">"Glasses off. Life on."</p>
+    <p style="font-size:13px; margin-top:4px;">El mensaje central que Alcon comunica es <strong>liberación</strong> — dejar atrás los espejuelos para vivir plenamente. Vale alinear nuestro lenguaje con esta narrativa cuando aplique.</p>
+  </div>
+
+  <div class="card">
+    <h4 style="margin-top:0;">Resultados clínicos comunicados al paciente</h4>
+    <p>Alcon comunica al paciente tres datos clave de outcomes (estudio prospectivo, 212 ojos, 3 meses post-op):</p>
+    <ul>
+      <li><strong>98%</strong> de los pacientes con WaveLight Plus alcanzan visión 20/20 o mejor</li>
+      <li><strong>83%</strong> de los pacientes con WaveLight Plus alcanzan visión 20/16 o mejor (above-standard)</li>
+      <li><strong>45%</strong> de los pacientes con WaveLight Plus alcanzan visión 20/12.5 o mejor (above-standard)</li>
+    </ul>
+    <img src="https://www.myalcon.com/uk/sites/g/files/rbvwei2676/files/img2.png" alt="Estadísticas 98% y 83% de pacientes WaveLight Plus" style="width:100%; max-width:480px; border-radius:10px; margin:14px auto; display:block;" onerror="this.style.display='none';">
+    <p class="image-attribution">Estadísticas comunicadas al paciente por Alcon. Imagen propiedad de Alcon. Usada con autorización.</p>
+  </div>
+
+  <div class="card">
+    <h4 style="margin-top:0;">Satisfacción del paciente con WaveLight Plus</h4>
+    <p>Alcon comunica también dos datos de satisfacción que vale conocer (estudio clínico, cuestionario PROWL, n=106):</p>
+    <ul>
+      <li><strong>99%</strong> de los pacientes elegirían someterse al procedimiento WaveLight Plus nuevamente</li>
+      <li><strong>99%</strong> de los pacientes recomendarían WaveLight Plus a un familiar o amigo</li>
+    </ul>
+    <img src="https://www.myalcon.com/uk/sites/g/files/rbvwei2676/files/img1.png" alt="Estadísticas 99% recomendación y satisfacción WaveLight Plus" style="width:100%; max-width:480px; border-radius:10px; margin:14px auto; display:block;" onerror="this.style.display='none';">
+    <p class="image-attribution">Estadísticas de satisfacción comunicadas al paciente por Alcon. Imagen propiedad de Alcon. Usada con autorización.</p>
+  </div>
+
+  <div class="card">
+    <h4 style="margin-top:0;">¿Qué es visión "estándar" vs "above-standard"?</h4>
+    <p>Alcon educa al paciente sobre los niveles de visión usando esta tabla visual. Conocerla permite al equipo explicar al paciente por qué WaveLight Plus puede ofrecer mejor que 20/20:</p>
+    <img src="https://www.myalcon.com/uk/sites/g/files/rbvwei2676/files/vision-chart.png" alt="Tabla de visión estándar vs above-standard" style="width:100%; max-width:480px; border-radius:10px; margin:14px auto; display:block;" onerror="this.style.display='none';">
+    <ul style="font-size:13px;">
+      <li><strong>Visión por debajo del estándar:</strong> 20/200 a 20/25 (necesita corrección)</li>
+      <li><strong>Visión estándar:</strong> 20/20 (visión promedio considerada normal)</li>
+      <li><strong>Visión above-standard:</strong> 20/15, 20/13, 20/10 (mejor que el promedio)</li>
+    </ul>
+    <p class="image-attribution">Tabla educativa propiedad de Alcon. Usada con autorización.</p>
+  </div>
+
+  <div class="card">
+    <h4 style="margin-top:0;">SightMap — el dispositivo diagnóstico de WaveLight Plus</h4>
+    <p>SightMap (también conocido como InnovEyes Sightmap) es el dispositivo que combina <strong>tres mediciones diagnósticas en uno</strong>: refracción subjetiva, wavefront, y topografía. Es el corazón del proceso WaveLight Plus.</p>
+    <img src="https://www.myalcon.com/uk/sites/g/files/rbvwei2676/files/A-gray-and-black-medical-device-in-front-of-a-dark-blue-background.png" alt="Equipo SightMap de Alcon" style="width:100%; max-width:480px; border-radius:10px; margin:14px auto; display:block;" onerror="this.style.display='none';">
+    <p class="image-attribution">Equipo SightMap. Imagen propiedad de Alcon. Usada con autorización.</p>
+    <p style="font-size:13px; font-style:italic; color:var(--grey); margin-top:8px;">Nota terminológica: <strong>WaveLight Plus es también conocido como InnovEyes</strong>. <strong>SightMap es también conocido como InnovEyes Sightmap</strong>. Si el paciente menciona estos nombres alternativos, vale reconocer que se refiere a la misma tecnología.</p>
+  </div>
+
+  <h3>Imágenes lifestyle del paciente con WaveLight Plus</h3>
+  <p>Alcon presenta WaveLight Plus al paciente con imágenes lifestyle que evocan libertad, actividades sin límites, y momentos de la vida sin espejuelos. Comprender esta narrativa visual ayuda al equipo a alinearse con las expectativas del paciente.</p>
+
+  <div class="card-grid" style="grid-template-columns:repeat(2, 1fr); gap:16px; margin:20px 0;">
+    <div>
+      <img src="https://www.myalcon.com/uk/sites/g/files/rbvwei2676/files/Image-of-a-person-swimming-underwater-banner-desktop-full-width.png" alt="Persona nadando — libertad sin espejuelos" style="width:100%; border-radius:10px;" onerror="this.style.display='none';">
+      <p style="font-size:12px; color:var(--grey); margin-top:6px; font-style:italic;">Actividades acuáticas sin restricciones</p>
+    </div>
+    <div>
+      <img src="https://www.myalcon.com/uk/sites/g/files/rbvwei2676/files/A-woman-in-a-blue-lifejacket-paddles-a-yellow-kayak-on-a-lake.png" alt="Mujer en kayak — actividades al aire libre" style="width:100%; border-radius:10px;" onerror="this.style.display='none';">
+      <p style="font-size:12px; color:var(--grey); margin-top:6px; font-style:italic;">Aventuras al aire libre con visión clara</p>
+    </div>
+    <div>
+      <img src="https://www.myalcon.com/uk/sites/g/files/rbvwei2676/files/two-women-in-the-car.png" alt="Mujeres conduciendo — independencia visual" style="width:100%; border-radius:10px;" onerror="this.style.display='none';">
+      <p style="font-size:12px; color:var(--grey); margin-top:6px; font-style:italic;">Conducción con confianza visual</p>
+    </div>
+    <div>
+      <img src="https://www.myalcon.com/uk/sites/g/files/rbvwei2676/files/A-newlywed-couple-sits-side-by-side-in-a-car.png" alt="Pareja recién casada — momentos importantes" style="width:100%; border-radius:10px;" onerror="this.style.display='none';">
+      <p style="font-size:12px; color:var(--grey); margin-top:6px; font-style:italic;">Momentos importantes vividos plenamente</p>
+    </div>
+  </div>
+  <p class="image-attribution">Imágenes lifestyle de campaña WaveLight Plus. Propiedad de Alcon. Usadas con autorización.</p>
+
+  <div class="callout callout-info" style="margin-top:20px;">
+    <strong>Cómo usar este conocimiento operativamente:</strong>
+    <p>Cuando un paciente investigue WaveLight Plus por su cuenta, encontrará estas imágenes y este lenguaje en los materiales de Alcon. Si el paciente menciona "Glasses off, Life on" o estadísticas como "98% logran 20/20", reconocer la fuente y validar — esto refuerza la confianza del paciente en que iOPR está alineado con la información oficial del fabricante.</p>
+  </div>
+
+  <p style="margin-top:14px;"><a href="https://www.myalcon.com/uk/lasik/wavelight-plus/" target="_blank" rel="noopener noreferrer" class="external-link">Ver sitio consumer de WaveLight Plus (Alcon UK)</a></p>
+
+  <h3>WaveLight Plus vs SMILE — comparativa basada en evidencia clínica</h3>
+  <p>Es común que pacientes lleguen a la consulta preguntando por <strong>SMILE</strong> (Small Incision Lenticule Extraction) — una técnica de cirugía refractiva sin flap que ha recibido marketing significativo en años recientes. Esta sección equipa al equipo con la información necesaria para responder con precisión y basada en evidencia.</p>
+
+  <div class="callout callout-teal">
+    <strong>Hallazgo clave de la AAO 2025:</strong>
+    <p style="font-size:14px; margin-top:8px;">En octubre de 2025, la <strong>American Academy of Ophthalmology</strong> presentó un estudio comparativo head-to-head entre WaveLight Plus y SMILE Pro. El estudio enroló 60 pacientes que recibieron WaveLight Plus en un ojo y SMILE Pro en el ojo contralateral — un diseño que elimina variabilidad biológica entre pacientes. <strong>Los resultados favorecieron consistentemente a WaveLight Plus.</strong></p>
+    <p style="font-size:12px; margin-top:8px; font-style:italic;">Fuente: Kanellopoulos AJ. Estudio presentado en 129ª Reunión Anual de la AAO, octubre 2025. Investigador principal: profesor clínico de oftalmología, NYU Medical School.</p>
+  </div>
+
+  <h4>Resultados clínicos del estudio AAO 2025 (3 meses post-operatorio)</h4>
+  <div class="table-wrapper">
+    <table>
+      <thead>
+        <tr><th>Métrica</th><th style="background:var(--teal); color:white;">WaveLight Plus</th><th>SMILE Pro</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Pacientes que alcanzan visión 20/12.5 o mejor</strong><br><span style="font-size:11px; color:var(--grey);">(above-standard, mejor que el promedio)</span></td><td style="background:#E6F7F4; font-weight:600;">98%</td><td>82%</td></tr>
+        <tr><td><strong>Predictibilidad refractiva</strong><br><span style="font-size:11px; color:var(--grey);">(ojos dentro de ¼ dioptría del objetivo)</span></td><td style="background:#E6F7F4; font-weight:600;">100%</td><td>~75%</td></tr>
+        <tr><td><strong>Ganancia de líneas de visión</strong><br><span style="font-size:11px; color:var(--grey);">(ojos que ganaron línea adicional vs línea base)</span></td><td style="background:#E6F7F4; font-weight:600;">&gt;80%</td><td>&lt;33%</td></tr>
+        <tr><td><strong>Aberraciones de orden alto inducidas</strong><br><span style="font-size:11px; color:var(--grey);">(menor es mejor — afecta visión nocturna)</span></td><td style="background:#E6F7F4; font-weight:600;">Menores</td><td>Mayores</td></tr>
+        <tr><td><strong>Corrección de astigmatismo</strong></td><td style="background:#E6F7F4; font-weight:600;">Mejor predictibilidad</td><td>Predictibilidad menor</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h4>Por qué WaveLight Plus produce estos resultados superiores</h4>
+  <ul>
+    <li><strong>Personalización con ray-tracing:</strong> WaveLight Plus mide más de 100,000 puntos del ojo individual y crea un "digital twin" tridimensional del ojo del paciente. SMILE Pro utiliza parámetros más estandarizados sin esta personalización individualizada.</li>
+    <li><strong>Corrección de aberraciones de orden alto:</strong> WaveLight Plus las identifica y corrige específicamente. SMILE Pro no las aborda como objetivo de tratamiento.</li>
+    <li><strong>Rango refractivo amplio:</strong> WaveLight Plus trata miopía hasta -9.00 D y astigmatismo hasta -3.00 D con alta predictibilidad.</li>
+    <li><strong>Calidad visual nocturna:</strong> menores aberraciones inducidas resultan en menos halos, glare y starbursts post-operatorios.</li>
+  </ul>
+
+  <h4>Cuándo SMILE puede ser apropiado (para ser informativos con el paciente)</h4>
+  <p>Vale ser transparentes — SMILE tiene contextos donde puede ser apropiado, y conocerlos ayuda al equipo a tener conversaciones honestas con pacientes informados:</p>
+  <ul>
+    <li><strong>No requiere flap corneal:</strong> esto puede ser preferible en pacientes con riesgo de trauma ocular (atletas de contacto, militares).</li>
+    <li><strong>Menor disrupción de nervios corneales superficiales:</strong> algunos estudios sugieren menor síndrome de ojo seco post-operatorio inicial — aunque esto se equilibra a largo plazo.</li>
+    <li><strong>Integridad biomecánica corneal:</strong> proponentes de SMILE argumentan mejor preservación de la estructura corneal al no requerir flap.</li>
+  </ul>
+
+  <div class="callout callout-info">
+    <strong>Posicionamiento ético en iOPR:</strong>
+    <p style="font-size:13px;">El equipo NO debe denigrar SMILE ante el paciente. La narrativa correcta es: <em>"SMILE es una técnica válida con sus propias indicaciones. En iOPR ofrecemos WaveLight Plus porque la evidencia clínica más reciente — incluyendo el estudio de la AAO 2025 — demuestra que ofrece mejor calidad visual, mayor predictibilidad refractiva y mejor corrección de aberraciones para la mayoría de pacientes. La decisión final siempre la toma el cirujano evaluando cada caso individual."</em></p>
+  </div>
+
+  <h4>Cómo manejar la objeción "He leído que SMILE es mejor porque no requiere flap"</h4>
+  <div class="card">
+    <p><strong>Script recomendado para coordinadora (versión completa — 30-45 segundos):</strong></p>
+    <p style="font-style:italic; padding-left:14px; border-left:3px solid var(--teal);">"Es muy buena pregunta — efectivamente SMILE no usa flap, lo cual es una característica que ha sido bien comunicada en su marketing. Sin embargo, la evidencia clínica más reciente, incluyendo un estudio presentado en la American Academy of Ophthalmology en octubre del 2025, encontró que WaveLight Plus produce mejor calidad visual: 98% de pacientes alcanzan visión mejor que 20/20 con WaveLight Plus, comparado con 82% con SMILE Pro. Para muchos pacientes, especialmente aquellos con astigmatismo o que buscan máxima calidad visual, esa diferencia en outcomes puede ser más importante que la presencia o ausencia de flap. El Dr. Santiago va a evaluar su caso particular y le explicará cuál tecnología es la apropiada para usted."</p>
+
+    <p style="margin-top:16px;"><strong>Versión corta (para llamadas rápidas — 15-20 segundos):</strong></p>
+    <p style="font-style:italic; padding-left:14px; border-left:3px solid var(--azure);">"Buena pregunta. La diferencia clave es que SMILE no usa flap, pero WaveLight Plus produce mejor calidad visual según evidencia reciente: el estudio de la AAO 2025 encontró que 98% de pacientes con WaveLight Plus alcanzan mejor que 20/20, comparado con 82% con SMILE. Para la mayoría de pacientes esa diferencia importa más. El Dr. Santiago va a evaluar su caso específico."</p>
+
+    <p style="margin-top:16px;"><strong>Versión ultra-corta (elevator pitch — 10-15 segundos):</strong></p>
+    <p style="font-style:italic; padding-left:14px; border-left:3px solid var(--navy);">"WaveLight Plus tiene mejores resultados clínicos según el estudio de la AAO 2025 — 98% logran mejor que 20/20 vs 82% con SMILE. Por eso el Dr. Santiago lo seleccionó para iOPR."</p>
+
+    <p style="margin-top:14px; font-size:12px; color:var(--grey); font-style:italic;">Tip operativo: la versión ultra-corta es ideal para situaciones de tránsito (mientras se camina hacia el consultorio, mientras se procesa documentación). La versión completa es para llamadas iniciales o consultas que el paciente quiere profundizar.</p>
+  </div>
+
+  <p style="margin-top:14px;">
+    <a href="https://www.aao.org/newsroom/news-releases/detail/latest-evolution-of-lasik-technology-shows-results" target="_blank" rel="noopener noreferrer" class="external-link">Press release oficial AAO — Estudio comparativo WaveLight Plus vs SMILE Pro (octubre 2025)</a>
+  </p>
+
+  <h2>LenSx — el Premium del Enfoque Lenticular</h2>
+  <div class="card">
+    <div style="display:flex; align-items:start; gap:16px; margin-bottom:12px;">
+      <div class="card-icon" style="background: linear-gradient(135deg, var(--navy), var(--azure)); flex-shrink:0;">⊙</div>
+      <div>
+        <h3 style="margin-top:0;">LenSx</h3>
+        <p class="subtitle">Femtosecond Laser-Assisted Cataract Surgery (FLACS) · <em>Fabricado por Alcon</em></p>
+      </div>
+    </div>
+
+    <div style="position:relative; padding-bottom:56.25%; height:0; overflow:hidden; border-radius:10px; margin:14px 0; background:#000;">
+      <iframe src="https://www.youtube.com/embed/C633Zcfw8Io" title="Alcon LenSx Laser - Cirugía de Catarata FLACS (Español)" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="position:absolute; top:0; left:0; width:100%; height:100%;"></iframe>
+    </div>
+    <p class="image-attribution">Video oficial de Alcon en español. Propiedad de Alcon. Usado con autorización.</p>
+
+    <p>Tecnología de cirugía lenticular asistida por láser de femtosegundo. Realiza varios pasos críticos del procedimiento (capsulotomía, fragmentación del cristalino, incisiones corneales) con un láser ultrarrápido en lugar de manualmente.</p>
+
+    <h4>Indicaciones donde aporta valor diferenciado:</h4>
+    <ul>
+      <li>Astigmatismo significativo (≥1.0 D) — incisiones arcuatas precisas</li>
+      <li>Catarata densa (grado 3-4) — fragmentación pre-faco reduce energía ultrasónica</li>
+      <li>Distrofia de Fuchs / endotelio comprometido</li>
+      <li>Pseudoexfoliación (zónula débil)</li>
+      <li>Pupila pequeña — capsulotomía precisa donde dilatación es subóptima</li>
+      <li>Implantación de IOL premium (multifocal, EDOF, tórico)</li>
+    </ul>
+
+    <h4>Ventaja diferencial vs faco manual:</h4>
+    <ul>
+      <li>Capsulotomía precisa centrada en eje visual</li>
+      <li>Fragmentación pre-faco que reduce energía ultrasónica</li>
+      <li>Incisiones arcuatas guiadas que corrigen astigmatismo de forma más predecible</li>
+      <li>Mejor centración del IOL (especialmente crítico para lentes premium)</li>
+    </ul>
+
+    <div class="callout callout-teal" style="margin-top:14px;">
+      <strong>Para profundizar:</strong>
+      <p style="font-size:13px;">Existe un <a href="https://us.alconscience.com/sites/g/files/rbvwei1736/files/pdf/LenSx-Laser_p-US-LSX-2000012.pdf" target="_blank" rel="noopener noreferrer" class="external-link">Clinical Science Compendium de LenSx</a> que resume 79 estudios peer-reviewed sobre la tecnología. Recomendado para Dr. Santiago, cirujanos y equipo de research clínico.</p>
+    </div>
+
+    <p style="margin-top:14px;"><a href="https://www.youtube.com/watch?v=7mPnEjtNiDA" target="_blank" rel="noopener noreferrer" class="external-link">Ver video adicional: LenSx en Harvard Eye (inglés)</a></p>
+  </div>
+
+  <h2>iTrace — diagnóstico de aberraciones para selección de tecnología</h2>
+  <div class="card">
+    <div style="display:flex; align-items:start; gap:16px; margin-bottom:12px;">
+      <div class="card-icon" style="background: linear-gradient(135deg, var(--teal), var(--azure)); flex-shrink:0;">◉</div>
+      <div>
+        <h3 style="margin-top:0;">iTrace</h3>
+        <p class="subtitle">Aberrómetro de wavefront + topógrafo corneal · <em>Fabricado por Tracey Technologies</em></p>
+      </div>
+    </div>
+
+    <p>Sistema diagnóstico que combina aberrometría de wavefront con topografía corneal. Permite analizar la calidad óptica del ojo (aberraciones internas vs corneales) — clave para seleccionar la tecnología quirúrgica más apropiada para cada paciente.</p>
+
+    <h4>Aplicaciones diagnósticas en iOPR:</h4>
+    <ul>
+      <li>Identificación de aberraciones de orden alto (HOA) — soporte para indicación de WaveLight Plus</li>
+      <li>Evaluación de calidad óptica pre-cirugía lenticular</li>
+      <li>Cálculo de IOL en pacientes complejos (post-LASIK, asimetrías)</li>
+      <li>Identificación de candidatos a Apthera IC-8</li>
+    </ul>
+
+    <div class="callout callout-info" style="margin-top:14px;">
+      <strong>Por qué iTrace es estratégico para iOPR:</strong>
+      <p style="font-size:13px;">Tecnología de ray-tracing similar al concepto de WaveLight Plus, pero aplicada a diagnóstico. Permite al cirujano decidir con datos objetivos cuál enfoque (corneal vs lenticular, Standard vs Premium) maximiza el resultado del paciente.</p>
+    </div>
+
+    <p style="margin-top:14px;">
+      <a href="https://www.traceytechnologies.com/" target="_blank" rel="noopener noreferrer" class="external-link">Sitio oficial Tracey Technologies</a>
+      &nbsp;·&nbsp;
+      <a href="https://www.traceytechnologies.com/itrace-ophthalmic-technology/" target="_blank" rel="noopener noreferrer" class="external-link">Cómo funciona la tecnología ray tracing de iTrace</a>
+    </p>
+  </div>
+
+  <h2>Cómo se integran al cuestionario VixiOn Compass</h2>
+  <p>El cuestionario VixiOn Compass incorpora un <strong>sistema de scoring de tres capas</strong> que identifica automáticamente cuándo el perfil del paciente justifica considerar estas tecnologías Premium:</p>
+
+  <div class="flow">
+    <div class="flow-step"><span class="flow-num">1</span><h5>Capa 1: Scoring acumulativo</h5><p>Cada respuesta del paciente que indica un beneficio potencial añade puntos al score de la tecnología correspondiente.</p></div>
+    <div class="flow-step"><span class="flow-num">2</span><h5>Capa 2: Reglas categóricas</h5><p>Combinaciones específicas (ej. astigmatismo + tier Completa) activan la sugerencia automáticamente.</p></div>
+    <div class="flow-step"><span class="flow-num">3</span><h5>Capa 3: Umbral final</h5><p>Si el score supera el umbral (6 puntos), se genera una bandera amarilla en la vista clínica.</p></div>
+  </div>
+
+  <div class="callout callout-info">
+    <strong>Importante:</strong>
+    <p>El cuestionario <strong>sugiere</strong> evaluar estas tecnologías — no las prescribe. La indicación final depende de exámenes clínicos que el cuestionario no puede realizar (densidad de catarata, topografía, aberrometría, paquimetría, etc.). El cirujano siempre toma la decisión final.</p>
+  </div>
+
+  <div class="section-nav">
+    <button class="btn btn-secondary" onclick="goToSection('s2')">← Anterior</button>
+    <button class="btn btn-primary" onclick="nextSection('s3', 's4')">Siguiente: VixiOn Compass →</button>
+  </div>
+</section>
+
+<section class="section" id="s4">
+  <div class="section-header">
+    <span class="section-tag">Sección 4</span>
+    <h1>VixiOn Compass: el cuestionario</h1>
+    <p class="subtitle">La herramienta digital que captura el perfil del paciente y lo prepara para la consulta.</p>
+  </div>
+
+  <p class="lead"><strong>VixiOn Compass</strong> es el cuestionario digital del sistema. Es la entrada del paciente al ecosistema VixiOn — la primera interacción estructurada con la metodología iOPR.</p>
+
+  <h2>Características técnicas</h2>
+  <div class="role-grid">
+    <div class="role-box">
+      <h4>Estructura</h4>
+      <ul>
+        <li>25 preguntas potenciales</li>
+        <li>17-23 preguntas reales (según condicionales)</li>
+        <li>4 secciones temáticas</li>
+        <li>Tiempo: 8-12 minutos</li>
+      </ul>
+    </div>
+    <div class="role-box">
+      <h4>Funcionalidades</h4>
+      <ul>
+        <li>Auto-guardado de progreso (localStorage)</li>
+        <li>Revisión opcional al final</li>
+        <li>Descarga del resumen en PDF</li>
+        <li>Compartir/enviar resumen</li>
+        <li>Bilingüe (Español / Inglés)</li>
+      </ul>
+    </div>
+    <div class="role-box">
+      <h4>Diseño UX</h4>
+      <ul>
+        <li>Lenguaje accesible primero, término clínico en paréntesis</li>
+        <li>Demo visual de halos para preguntas relevantes</li>
+        <li>Preguntas condicionales (solo aparecen cuando aplican)</li>
+        <li>Diseño responsive (móvil/tablet/desktop)</li>
+      </ul>
+    </div>
+    <div class="role-box">
+      <h4>Marca y tono</h4>
+      <ul>
+        <li>Slogan: "El primer paso hacia su mejor visión posible"</li>
+        <li>Invitación: "Antes de conocer sus ojos, queremos conocerle a usted"</li>
+        <li>Tono cálido, profesional, no comercial</li>
+        <li>Branding iOPR consistente</li>
+      </ul>
+    </div>
+  </div>
+
+  <h2>Las cuatro secciones del cuestionario</h2>
+  <div class="flow">
+    <div class="flow-step"><span class="flow-num">1</span><h5>Su situación actual</h5><p>Edad, motivo de consulta, corrección actual, magnitud del error refractivo</p></div>
+    <div class="flow-step"><span class="flow-num">2</span><h5>Su vida visual</h5><p>Actividades, prioridades de distancia, conducción nocturna, uso de espejuelos</p></div>
+    <div class="flow-step"><span class="flow-num">3</span><h5>Sus preferencias y expectativas</h5><p>Motivación, relación con espejuelos, multifocalidad, tolerancia a halos, reversibilidad, apertura a inversión</p></div>
+    <div class="flow-step"><span class="flow-num">4</span><h5>Información clínica</h5><p>Condiciones oculares, medicamentos, profesión, comentario abierto</p></div>
+  </div>
+
+  <h2>Lo que produce el cuestionario</h2>
+
+  <h3>Para el paciente (vista pública)</h3>
+  <p>Después de completar el cuestionario, el paciente recibe:</p>
+  <ul>
+    <li>Una pantalla de agradecimiento amable y profesional</li>
+    <li>Resumen de su perfil tentativo</li>
+    <li>Información sobre el próximo paso (su consulta)</li>
+    <li>Si su perfil lo justifica: sección educativa sobre tecnologías exclusivas que pudieran considerarse</li>
+    <li>Opción de descargar/compartir su resumen</li>
+  </ul>
+
+  <h3>Para el equipo clínico (vista backend)</h3>
+  <p>El equipo clínico tiene acceso a una vista enriquecida que incluye:</p>
+  <ul>
+    <li><strong>Narrativa estructurada:</strong> resumen en lenguaje natural del estado, motivo, vida visual y preferencias del paciente</li>
+    <li><strong>Banderas clínicas automáticas:</strong> verdes (perfil ideal), amarillas (atención), rojas (evaluación especializada urgente)</li>
+    <li><strong>Recomendación tentativa:</strong> perfil sugerido + enfoque clínico + scores transparentes</li>
+    <li><strong>Reglas algorítmicas trazables:</strong> cada decisión del algoritmo está explicada</li>
+    <li><strong>Contexto financiero automático:</strong> identifica si el escenario es catarata diagnosticada vs candidato RLE</li>
+    <li><strong>Sugerencias de tecnología:</strong> banderas amarillas para LenSx o WaveLight Plus cuando aplican</li>
+  </ul>
+
+  <div class="callout callout-success">
+    <strong>El cuestionario NUNCA reemplaza la consulta clínica.</strong>
+    <p>El output del cuestionario es información estructurada para preparar al equipo. La evaluación clínica completa (exámenes, refracción, OCT, topografía, etc.) sigue siendo indispensable. El cuestionario acelera y enriquece la consulta, no la sustituye.</p>
+  </div>
+
+  <div class="section-nav">
+    <button class="btn btn-secondary" onclick="goToSection('s3')">← Anterior</button>
+    <button class="btn btn-primary" onclick="nextSection('s4', 's5')">Siguiente: Política RLE vs Catarata →</button>
+  </div>
+</section>
+
+<section class="section" id="s5">
+  <div class="section-header">
+    <span class="section-tag">Sección 5</span>
+    <h1>Política RLE vs Catarata</h1>
+    <p class="subtitle">Cómo iOPR aborda la distinción crítica entre cirugía electiva y diagnosticada.</p>
+  </div>
+
+  <p class="lead">Esta es una de las políticas <strong>más importantes</strong> del Sistema VixiOn. Define cómo y cuándo se introduce la distinción entre RLE (electivo) y cirugía de catarata (diagnosticada) al paciente. Su correcta aplicación protege la integridad clínica del proceso y la confianza del paciente.</p>
+
+  <h2>El concepto clave</h2>
+  <p>RLE (Refractive Lens Exchange / Lensectomía Refractiva) y cirugía de catarata son <strong>el mismo procedimiento físico</strong>: remover el cristalino natural y reemplazarlo con un lente intraocular (IOL). La diferencia es:</p>
+
+  <div class="role-grid">
+    <div class="role-box">
+      <h4>Cirugía de catarata</h4>
+      <ul style="margin-left:0; list-style:none;">
+        <li><strong>Motivo:</strong> el cristalino natural está dañado (opacificado), causando síntomas visuales</li>
+        <li><strong>Indicación:</strong> terapéutica (médica)</li>
+        <li><strong>Cobertura:</strong> el plan médico cubre el procedimiento base</li>
+      </ul>
+    </div>
+    <div class="role-box">
+      <h4>RLE (Lensectomía Refractiva)</h4>
+      <ul style="margin-left:0; list-style:none;">
+        <li><strong>Motivo:</strong> el cristalino natural funciona, pero el paciente quiere mejor visión refractiva</li>
+        <li><strong>Indicación:</strong> electiva</li>
+        <li><strong>Cobertura:</strong> típicamente NO cubierta por plan médico</li>
+      </ul>
+    </div>
+  </div>
+
+  <h2>El principio rector: "Approach C"</h2>
+  <div class="callout callout-teal">
+    <strong>La decisión clínica precede a la conversación financiera.</strong>
+    <p>El paciente recibe información sobre RLE vs Catarata <strong>cuando es relevante para su caso específico</strong>, y no antes. Esto significa que el cirujano evalúa primero clínicamente, y solo después se introduce la conversación financiera con la coordinadora.</p>
+  </div>
+
+  <h3>¿Por qué este enfoque?</h3>
+  <p>Si presentamos la distinción RLE vs Catarata al paciente prematuramente, generamos varios problemas:</p>
+  <ul>
+    <li>Sesgamos la decisión clínica con consideraciones financieras antes que la evaluación profesional</li>
+    <li>Generamos ansiedad innecesaria en el paciente</li>
+    <li>Pre-condicionamos al paciente hacia opciones que pueden no ser las mejores para su caso</li>
+    <li>Erosionamos la confianza si después la evaluación clínica revela un escenario distinto</li>
+  </ul>
+
+  <h2>Política por fase del paciente</h2>
+
+  <h3>Fase 1: Pre-consulta (cuestionario y materiales)</h3>
+  <p>El paciente NO ve la distinción RLE vs Catarata. Las opciones se presentan únicamente por <strong>resultado visual buscado</strong> (perfiles), no por categoría administrativa.</p>
+
+  <div class="script-box">
+    <span class="script-label">✓ Script correcto</span>
+    <p class="script-text">"Hay opciones de corrección visual que evaluaremos juntos en su consulta. El equipo clínico determinará la mejor opción para su caso específico, basándose en los exámenes que se le realizarán."</p>
+  </div>
+
+  <div class="script-box">
+    <span class="script-label dont">✗ Script a evitar</span>
+    <p class="script-text">"Si tiene catarata, su plan cubre la cirugía. Si no tiene catarata, el procedimiento se llama RLE y no está cubierto."</p>
+  </div>
+
+  <h3>Fase 2: Consulta (evaluación clínica)</h3>
+  <p>El cirujano evalúa al paciente y determina:</p>
+  <ul>
+    <li>Si hay catarata diagnóstica</li>
+    <li>Si el paciente es candidato a cirugía lenticular electiva (RLE)</li>
+    <li>Si otro enfoque (corneal, ICL, gotas) es más apropiado</li>
+  </ul>
+
+  <h3>Fase 3: Post-consulta (con coordinadora)</h3>
+  <p>Aquí se introduce la distinción según el resultado clínico determinado por el cirujano. Hay tres escenarios posibles:</p>
+
+  <h4>Escenario A: Paciente con catarata diagnosticada</h4>
+  <div class="script-box">
+    <span class="script-label">✓ Script correcto</span>
+    <p class="script-text">"Su evaluación muestra catarata diagnosticada. Esto es bueno desde el punto de vista de cobertura — su plan médico cubre la cirugía base. Vamos a hablar de las opciones de lente disponibles para su caso, las que cubre completamente su plan y las opciones premium que requieren inversión adicional."</p>
+  </div>
+
+  <h4>Escenario B: Paciente sin catarata, candidato a RLE</h4>
+  <div class="script-box">
+    <span class="script-label">✓ Script correcto</span>
+    <p class="script-text">"Su evaluación no muestra catarata, pero hay una opción quirúrgica similar llamada Lensectomía Refractiva (RLE) que puede darle el resultado que busca. Es un procedimiento electivo, no cubierto por su plan médico — vamos a hablar tanto de lo clínico como del aspecto financiero para que pueda decidir con información completa."</p>
+  </div>
+
+  <h4>Escenario C: Paciente con otro enfoque (Corneal, ICL, Vizz)</h4>
+  <p>El cirujano explica el enfoque recomendado. La distinción RLE vs Catarata no aplica porque la cirugía no es lenticular con remoción del cristalino.</p>
+
+  <h2>Casos de excepción</h2>
+
+  <h3>Si el paciente pregunta directamente sobre RLE pre-consulta</h3>
+  <div class="script-box">
+    <span class="script-label">✓ Respuesta modelo</span>
+    <p class="script-text">"RLE es una opción que evaluaremos junto con todas las demás durante su consulta. El cirujano determinará si es la opción más apropiada para su caso específico. En esa consulta hablaremos también del aspecto financiero, ya que RLE es electivo."</p>
+  </div>
+
+  <h3>Si el paciente pregunta sobre cobertura pre-consulta</h3>
+  <div class="script-box">
+    <span class="script-label">✓ Respuesta modelo</span>
+    <p class="script-text">"La cobertura depende del diagnóstico clínico que se determine en su consulta. Si tiene catarata diagnosticada, su plan médico cubre la cirugía base. Si la opción recomendada es electiva, no cubierta, le presentaremos esa información con detalle después de su evaluación."</p>
+  </div>
+
+  <h3>Si el paciente llega referido específicamente para RLE</h3>
+  <p>La coordinadora puede confirmar el referido sin entrar en detalles. La consulta confirmará si es candidato y la conversación financiera ocurre post-consulta.</p>
+
+  <div class="callout callout-warning">
+    <strong>Lo que NUNCA se hace:</strong>
+    <ul style="margin-top:8px; margin-bottom:0;">
+      <li>Mencionar precios de RLE pre-consulta</li>
+      <li>Asumir cobertura sin evaluación clínica</li>
+      <li>Empujar al paciente hacia opciones específicas por consideraciones financieras</li>
+      <li>Permitir que el paciente sea sorprendido por un costo no cubierto al final del proceso</li>
+    </ul>
+  </div>
+
+  <div class="section-nav">
+    <button class="btn btn-secondary" onclick="goToSection('s4')">← Anterior</button>
+    <button class="btn btn-primary" onclick="nextSection('s5', 's6')">Siguiente: Flujo del paciente →</button>
+  </div>
+</section>
+
+<section class="section" id="s6">
+  <div class="section-header">
+    <span class="section-tag">Sección 6</span>
+    <h1>Flujo del paciente</h1>
+    <p class="subtitle">El recorrido completo desde el primer contacto hasta el resultado final.</p>
+  </div>
+
+  <p class="lead">Comprender el flujo completo del paciente permite a cada miembro del equipo entender <strong>dónde encaja su rol</strong> dentro del sistema y cómo cada interacción contribuye al resultado final.</p>
+
+  <h2>Las cinco etapas del flujo VixiOn</h2>
+
+  <div class="flow">
+    <div class="flow-step" style="border-top-color:#95C5E5;"><span class="flow-num" style="background:#95C5E5;">1</span><h5>Pre-consulta</h5><p>Cuestionario VixiOn Compass + información inicial</p></div>
+    <div class="flow-step" style="border-top-color:var(--azure);"><span class="flow-num">2</span><h5>Consulta</h5><p>Evaluación clínica completa con cirujano</p></div>
+    <div class="flow-step" style="border-top-color:var(--teal);"><span class="flow-num" style="background:var(--teal);">3</span><h5>Post-consulta</h5><p>Recomendación + VirtuaLens + conversación financiera</p></div>
+    <div class="flow-step" style="border-top-color:var(--navy);"><span class="flow-num" style="background:var(--navy);">4</span><h5>Procedimiento</h5><p>Cirugía o tratamiento según plan</p></div>
+    <div class="flow-step" style="border-top-color:var(--success);"><span class="flow-num" style="background:var(--success);">5</span><h5>Seguimiento</h5><p>Visitas de control y resultado final</p></div>
+  </div>
+
+  <h2>Etapa 1: Pre-consulta</h2>
+  <p>El paciente se registra para una consulta y completa el cuestionario VixiOn Compass — idealmente antes de su cita, pero puede completarlo en sala de espera si es necesario.</p>
+
+  <h4>Lo que el equipo debe hacer:</h4>
+  <ul>
+    <li>Front Desk envía el link del cuestionario al confirmarse la cita</li>
+    <li>Coordinadoras pueden ayudar a pacientes que tienen dificultad con tecnología</li>
+    <li>El equipo verifica que el cuestionario esté completo antes de la consulta</li>
+    <li>Vista clínica del cuestionario está disponible para el cirujano</li>
+  </ul>
+
+  <h2>Etapa 2: Consulta</h2>
+  <p>El cirujano evalúa al paciente con todos los exámenes necesarios (refracción, OCT, topografía, biometría, queratometría, según el caso) y revisa la información del cuestionario.</p>
+
+  <h4>Lo que el equipo debe hacer:</h4>
+  <ul>
+    <li>Técnicos oftálmicos preparan los exámenes según el perfil identificado</li>
+    <li>El cirujano realiza la evaluación clínica</li>
+    <li>El cirujano determina el perfil definitivo + enfoque + tecnología recomendada</li>
+    <li>El cirujano informa al paciente de su evaluación clínica</li>
+  </ul>
+
+  <h2>Etapa 3: Post-consulta</h2>
+  <p>Esta es la etapa más importante para la coordinadora. El paciente, ya con la recomendación clínica del cirujano, transita a:</p>
+
+  <h4>Experiencia inmersiva con VirtuaLens</h4>
+  <p>iOPR está incorporando el dispositivo <strong>VirtuaLens</strong> que permite al paciente experimentar virtualmente cómo vería tras el procedimiento indicado. Esto ocurre <strong>después</strong> de la recomendación clínica del cirujano. Adicionalmente, se le muestra un video explicativo del enfoque/tratamiento recomendado.</p>
+
+  <div class="callout callout-info">
+    <strong>El propósito de VirtuaLens:</strong>
+    <p>VirtuaLens NO reemplaza la consulta clínica. Es una herramienta educativa que ayuda al paciente a tomar una decisión informada al permitirle aproximarse a la experiencia visual esperada. Reduce ansiedad y aumenta confianza en la decisión.</p>
+  </div>
+
+  <h4>Conversación financiera con coordinadora</h4>
+  <p>Después de la experiencia VirtuaLens, la coordinadora aborda el aspecto financiero según el escenario clínico determinado:</p>
+  <ul>
+    <li>Si paciente tiene catarata: presenta estructura de cobertura del plan + opciones premium</li>
+    <li>Si paciente es candidato RLE: presenta inversión total del procedimiento electivo</li>
+    <li>Si otro enfoque: presenta inversión correspondiente</li>
+    <li>Se ofrecen opciones de financiamiento si aplican</li>
+    <li>Se le da tiempo al paciente para reflexionar — NO presión inmediata</li>
+  </ul>
+
+  <h2>Etapa 4: Procedimiento</h2>
+  <p>Una vez el paciente decide, se programa el procedimiento. Este puede incluir:</p>
+  <ul>
+    <li>Evaluación pre-operatoria adicional si aplica (internista, anestesia)</li>
+    <li>Procedimiento quirúrgico en quirófano</li>
+    <li>Recuperación inicial inmediata</li>
+  </ul>
+
+  <h2>Etapa 5: Seguimiento</h2>
+  <p>Visitas postoperatorias programadas para monitorear el resultado:</p>
+  <ul>
+    <li>Visita de 24 horas</li>
+    <li>Visita de 1 semana</li>
+    <li>Visita de 1 mes</li>
+    <li>Visita de 3 meses (resultado final)</li>
+  </ul>
+
+  <h2>Visualización del flujo completo</h2>
+  <div class="card">
+    <h4>Cómo se conectan todos los elementos del sistema</h4>
+    <p>El cuestionario VixiOn Compass entrega información estructurada al cirujano. El cirujano evalúa y produce una recomendación clínica. La coordinadora aplica la política RLE vs Catarata según corresponda. VirtuaLens permite al paciente experimentar visualmente. El equipo apoya al paciente durante todo el proceso. El resultado final es un paciente <strong>informado, satisfecho, y con la mejor visión posible para su caso</strong>.</p>
+  </div>
+
+  <div class="section-nav">
+    <button class="btn btn-secondary" onclick="goToSection('s5')">← Anterior</button>
+    <button class="btn btn-primary" onclick="nextSection('s6', 's7')">Siguiente: Inversión y precios →</button>
+  </div>
+</section>
+
+<section class="section" id="s7">
+  <div class="section-header">
+    <span class="section-tag">Sección 7</span>
+    <h1>Inversión y precios</h1>
+    <p class="subtitle">Estructura tarifaria del Sistema VixiOn — para uso interno del equipo.</p>
+  </div>
+
+  <div class="callout callout-warning">
+    <strong>Información confidencial — uso interno solamente.</strong>
+    <p>Esta sección contiene los precios oficiales de iOPR. Estos precios NO se comparten con el paciente pre-consulta. La conversación financiera ocurre exclusivamente post-consulta con la coordinadora, después de la recomendación clínica del cirujano. Todos los precios están sujetos a cambio con autorización del Director Ejecutivo.</p>
+  </div>
+
+  <h2>Cómo funcionan los tiers de inversión</h2>
+  <p>El Sistema VixiOn organiza la inversión por <strong>tiers de lentes</strong> con add-ons opcionales. Esta estructura permite flexibilidad clínica y transparencia financiera. La inversión está dividida en dos categorías principales: <strong>Cirugía Refractiva Corneal</strong> y <strong>Cirugía Refractiva Lenticular</strong>.</p>
+
+  <h2>Cirugía Refractiva Corneal</h2>
+
+  <div class="table-wrapper">
+    <table class="table-price">
+      <thead><tr><th>Tier</th><th>Tecnología</th><th>Inversión por ojo</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Standard</strong></td><td>LASIK convencional (CVL)</td><td class="price-cell">$1,500</td></tr>
+        <tr><td><strong>Premium</strong></td><td>WaveLight Plus (AI-Assisted LASIK)</td><td class="price-cell">$2,000 (Standard + $500)</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h4>Cargos adicionales corneales</h4>
+  <div class="table-wrapper">
+    <table>
+      <tbody>
+        <tr><td>Procedimiento de mejoramiento (&lt; 3 años post-cirugía)</td><td class="price-cell">$350</td></tr>
+        <tr><td>Procedimiento de mejoramiento (&gt; 3 años post-cirugía)</td><td class="price-cell">$500</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p style="font-size:13px; color:var(--grey); margin-top:8px;"><em>Rango refractivo: -8.00 D a +6.00 D</em></p>
+
+  <h2>Cirugía Refractiva Lenticular — SIN cubierta de plan médico</h2>
+  <p style="font-size:14px;">Aplica para pacientes con miopía, hipermetropía, o presbicia <strong>sin catarata diagnosticada</strong> (escenario RLE electivo).</p>
+
+  <div class="table-wrapper">
+    <table class="table-price">
+      <thead><tr><th>Tier</th><th>Lente</th><th>Base por ojo</th><th>+ LenSx</th><th>+ Tórico</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Monofocal Standard</strong></td><td>Clareon</td><td class="price-cell">$2,500</td><td>+$400</td><td>+$500</td></tr>
+        <tr><td><strong>Monofocal Plus</strong></td><td>PureSee / TruePlus</td><td class="price-cell">$3,500</td><td>+$400</td><td>+$500</td></tr>
+        <tr><td><strong>Premium Trifocal</strong></td><td>PanOptix Pro</td><td class="price-cell">Pendiente confirmación</td><td>+$400</td><td>+$500</td></tr>
+        <tr><td><strong>Premium EDOF</strong></td><td>Apthera IC-8</td><td class="price-cell">$3,800</td><td>+$400</td><td>—</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2>Cirugía Refractiva Lenticular — CON cubierta de plan médico</h2>
+  <p style="font-size:14px;">Aplica para pacientes con <strong>catarata diagnosticada</strong> (escenario cubierto). El paciente paga solo el co-pago / diferencial.</p>
+
+  <div class="table-wrapper">
+    <table class="table-price">
+      <thead><tr><th>Tier</th><th>Lente</th><th>Co-pago paciente</th><th>+ LenSx</th><th>+ Tórico</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Monofocal Standard</strong></td><td>Clareon</td><td class="price-cell">Cubierto por plan</td><td>+$400</td><td>+$1,300</td></tr>
+        <tr><td><strong>Monofocal Plus</strong></td><td>PureSee / TruePlus</td><td class="price-cell">+$2,000</td><td>+$400</td><td>+$500</td></tr>
+        <tr><td><strong>Premium Trifocal</strong></td><td>PanOptix Pro</td><td class="price-cell">Pendiente confirmación</td><td>+$400</td><td>+$500</td></tr>
+        <tr><td><strong>Premium EDOF</strong></td><td>Apthera IC-8</td><td class="price-cell">+$2,300</td><td>+$400</td><td>—</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2>Catálogo visual de lentes intraoculares (IOLs)</h2>
+  <p>Este catálogo permite al equipo familiarizarse visualmente con cada lente que ofrecemos. <strong>Recordatorio importante:</strong> los nombres comerciales (Clareon, PanOptix Pro, etc.) NO se mencionan al paciente — al paciente se le habla en términos de su perfil (Visión Esencial, Equilibrada, Completa, Combinada).</p>
+
+  <div class="card-grid">
+    <div class="card">
+      <h4 style="color:var(--navy); margin-top:0;">Clareon Monofocal</h4>
+      <p class="subtitle" style="margin-bottom:8px;">Tier base — Visión Esencial</p>
+      <img src="https://www.myalcon.com/ec/sites/g/files/rbvwei3431/files/2023-03/3-dimensional-image-of-a-yellow-Clareon-toric2.png" alt="Clareon Monofocal IOL" style="width:100%; max-width:240px; display:block; margin:8px auto; border-radius:8px;" onerror="this.style.display='none';">
+      <p style="font-size:13px;">Lente monofocal de Alcon enfocado a una distancia (típicamente lejos). Material biocompatible avanzado. El estándar de cobertura para pacientes con catarata diagnosticada.</p>
+      <p class="image-attribution" style="text-align:left;">Propiedad de Alcon. Usada con autorización.</p>
+      <p style="font-size:12px; margin-top:8px;"><a href="https://www.myalcon.com/ec/professional/cataract-surgery/iols/clareon-monofocal-and-toric/" target="_blank" rel="noopener noreferrer" class="external-link">Información oficial</a></p>
+    </div>
+
+    <div class="card">
+      <h4 style="color:var(--navy); margin-top:0;">Clareon Tórico</h4>
+      <p class="subtitle" style="margin-bottom:8px;">Add-on para astigmatismo</p>
+      <img src="https://www.myalcon.com/ec/sites/g/files/rbvwei3431/files/2024-04/Image-of-different-sizes-Clareon1.png" alt="Clareon Tórico — diferentes tamaños" style="width:100%; max-width:240px; display:block; margin:8px auto; border-radius:8px;" onerror="this.style.display='none';">
+      <p style="font-size:13px;">Versión tórica del Clareon. Corrige astigmatismo simultáneamente con la corrección de afaquia. Aplica cuando el paciente tiene astigmatismo significativo (≥1.0 D).</p>
+      <p class="image-attribution" style="text-align:left;">Propiedad de Alcon. Usada con autorización.</p>
+      <p style="font-size:12px; margin-top:8px;"><a href="https://www.myalcon.com/ec/professional/cataract-surgery/iols/clareon-monofocal-and-toric/" target="_blank" rel="noopener noreferrer" class="external-link">Información oficial</a></p>
+    </div>
+
+    <div class="card">
+      <h4 style="color:var(--azure); margin-top:0;">Monofocal Plus (Vivity / TruePlus)</h4>
+      <p class="subtitle" style="margin-bottom:8px;">Tier medio — Visión Equilibrada</p>
+      <img src="https://www.myalcon.com/ec/sites/g/files/rbvwei3431/files/2023-03/Close-up-of-the-letters.png" alt="Monofocal Plus — óptica asférica de 6mm" style="width:100%; max-width:240px; display:block; margin:8px auto; border-radius:8px;" onerror="this.style.display='none';">
+      <p style="font-size:13px;">Lente EDOF (Extended Depth of Focus). Ofrece mejor visión intermedia que monofocal estándar manteniendo calidad óptica alta. Sin disfotopsias del multifocal.</p>
+      <p class="image-attribution" style="text-align:left;">Propiedad de Alcon. Usada con autorización.</p>
+      <p style="font-size:12px; margin-top:8px;"><a href="https://www.myalcon.com/ec/professional/cataract-surgery/iols/clareon-monofocal-and-toric/" target="_blank" rel="noopener noreferrer" class="external-link">Información oficial</a></p>
+    </div>
+
+    <div class="card">
+      <h4 style="color:var(--teal); margin-top:0;">PanOptix Pro</h4>
+      <p class="subtitle" style="margin-bottom:8px;">Premium Trifocal — Visión Completa</p>
+      <img src="https://www.myalcon.com/sites/g/files/rbvwei2521/files/clareon-panoptix-pro.png" alt="Clareon PanOptix Pro logo" style="width:100%; max-width:240px; display:block; margin:8px auto; border-radius:8px;" onerror="this.style.display='none';">
+      <p style="font-size:13px;">Lente trifocal difractivo. Ofrece visión clara a tres distancias (cerca, intermedia, lejos). Compromiso típico: posibles halos nocturnos durante neuro-adaptación.</p>
+      <p style="font-size:12px; color:var(--teal); margin-top:6px;"><strong>Dato relevante:</strong> 99.2% de pacientes elegirían el mismo lente nuevamente; 98% lo recomendaría a familia y amigos.</p>
+      <p class="image-attribution" style="text-align:left;">Propiedad de Alcon. Usada con autorización.</p>
+      <p style="font-size:12px; margin-top:8px;">
+        <a href="https://www.myalcon.com/professional/cataract-surgery/iols/clareon-panoptix-pro/" target="_blank" rel="noopener noreferrer" class="external-link">Sitio profesional</a>
+        &nbsp;·&nbsp;
+        <a href="https://www.myalcon.com/cataracts/clareon-iols/panoptix-pro/" target="_blank" rel="noopener noreferrer" class="external-link">Sitio consumer</a>
+      </p>
+    </div>
+
+    <div class="card">
+      <h4 style="color:var(--navy); margin-top:0;">Apthera IC-8</h4>
+      <p class="subtitle" style="margin-bottom:8px;">Premium EDOF — Visión Combinada</p>
+      <img src="https://www.bauschsurgical.com/siteassets/img/catract/ic-8-beauty-shot.png" alt="Apthera IC-8 IOL" style="width:100%; max-width:240px; display:block; margin:8px auto; border-radius:8px;" onerror="this.style.display='none';">
+      <p style="font-size:13px;">Lente de pequeña apertura (small-aperture EDOF). <strong>Implantación monocular</strong> en ojo no dominante. Ventaja: tolera asimetrías corneales, ofrece rango sin disfotopsias del multifocal.</p>
+      <p style="font-size:12px; color:var(--teal); margin-top:6px;"><strong>Dato relevante:</strong> resultados consistentes incluso con astigmatismo hasta 1.5 D, sin alineación angular requerida.</p>
+      <p class="image-attribution" style="text-align:left;">Propiedad de Bausch + Lomb. Usada con autorización.</p>
+      <p style="font-size:12px; margin-top:8px;">
+        <a href="https://www.bauschsurgical.com/cataract/ic-8-apthera-iol/" target="_blank" rel="noopener noreferrer" class="external-link">Sitio oficial</a>
+        &nbsp;·&nbsp;
+        <a href="https://www.bauschsurgical.com/siteassets/pdf/ic-8_apthera_patient_brochure_es_apt0007usa26.pdf" target="_blank" rel="noopener noreferrer" class="external-link">Brochure paciente (español)</a>
+      </p>
+    </div>
+
+    <div class="card">
+      <h4 style="color:var(--azure); margin-top:0;">EVO ICL</h4>
+      <p class="subtitle" style="margin-bottom:8px;">Lente fáquico — Sin remoción del cristalino</p>
+      <img src="https://us.discovericl.com/_next/image?url=https%3A%2F%2Foptimise2.assets-servd.host%2Fstimulating-bird%2Fproduction%2Fassets%2Fimages%2F39b48a1bcaa72f81485855f9556175f8-1.png%3Fw%3D900%26auto%3Dcompress%252Cformat%26fit%3Dcrop%26dm%3D1709736563%26s%3D6d29b387e4f281ea786ba9abf18b7dab&w=1080&q=75" alt="EVO ICL — lente fáquico" style="width:100%; max-width:240px; display:block; margin:8px auto; border-radius:8px;" onerror="this.style.display='none';">
+      <p style="font-size:13px;">Implantable Collamer Lens. Se implanta entre el iris y el cristalino natural sin removerlo. Reversible — puede explantarse si es necesario. Ideal para miopía alta donde LASIK no es opción.</p>
+      <p style="font-size:12px; color:var(--teal); margin-top:6px;"><strong>Dato relevante:</strong> 4+ millones de lentes ICL distribuidos a nivel mundial; 99.4% de pacientes encuestados se sometería al procedimiento nuevamente.</p>
+      <p class="image-attribution" style="text-align:left;">Propiedad de STAAR Surgical. Usada con autorización.</p>
+      <p style="font-size:12px; margin-top:8px;">
+        <a href="https://us.discovericl.com/" target="_blank" rel="noopener noreferrer" class="external-link">Sitio oficial paciente</a>
+        &nbsp;·&nbsp;
+        <a href="https://www.staar.com/products/evo-visian-icl" target="_blank" rel="noopener noreferrer" class="external-link">Sitio profesional</a>
+      </p>
+    </div>
+
+    <div class="card">
+      <h4 style="color:var(--teal); margin-top:0;">VIZZ (gotas)</h4>
+      <p class="subtitle" style="margin-bottom:8px;">Tratamiento farmacológico — Visión Esencial</p>
+      <div style="text-align:center; padding:20px 0;">
+        <div style="display:inline-block; font-size:60px; line-height:1;">💧</div>
+      </div>
+      <p style="font-size:13px;">Gotas oftalmológicas (aceclidina 1.44%) para presbicia. Aprobadas por FDA en 2025. Una dosis diaria, efecto en 30 minutos, dura hasta 10 horas. Opción no quirúrgica reversible.</p>
+      <p style="font-size:12px; color:var(--teal); margin-top:6px;"><strong>Dato relevante:</strong> primera opción farmacológica con eficacia comprobada hasta 10 horas. Apropiado para presbicia incipiente (40-49 años).</p>
+      <p style="font-size:12px; margin-top:8px;">
+        <a href="https://www.vizz.com/" target="_blank" rel="noopener noreferrer" class="external-link">Sitio oficial VIZZ</a>
+      </p>
+    </div>
+  </div>
+
+  <h2>Cargos adicionales y servicios complementarios</h2>
+  <div class="table-wrapper">
+    <table>
+      <thead><tr><th>Servicio</th><th>Inversión</th><th>Notas</th></tr></thead>
+      <tbody>
+        <tr><td>Evaluación con internista (pre-operatoria)</td><td class="price-cell">$125</td><td>Cuando aplique según protocolo médico</td></tr>
+        <tr><td>Anestesia</td><td class="price-cell">$200</td><td>Por procedimiento</td></tr>
+        <tr><td>Cargo por cancelación tardía</td><td class="price-cell">$200</td><td>Política de cancelación</td></tr>
+        <tr><td>Refracción (servicio independiente)</td><td class="price-cell">$45</td><td>Cuando se realiza como servicio independiente</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2>Principios de comunicación financiera</h2>
+
+  <div class="callout callout-teal">
+    <strong>Mostrar primero la opción clínica ideal.</strong>
+    <p>Si hay limitación económica, ajustar hacia abajo. <strong>Nunca empezar por "lo que cubre el plan"</strong>. La conversación inicia con la mejor opción clínica para el perfil del paciente, no con la opción más económica.</p>
+  </div>
+
+  <h3>Estructura de inversión por perfil — guía para coordinadora</h3>
+  <div class="table-wrapper">
+    <table>
+      <thead><tr><th>Perfil</th><th>Tipo</th><th>Notas para coordinadora</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Esencial</strong> (con catarata)</td><td>Plan médico</td><td>Cubierto. NO mencionar como "gratis" — tiene valor clínico real. "Su plan médico cubre la inversión."</td></tr>
+        <tr><td><strong>Equilibrada</strong></td><td>Premium parcial</td><td>Presentar como inversión en mejor calidad visual. "Está invirtiendo en una visión más natural y de mayor calidad."</td></tr>
+        <tr><td><strong>Completa</strong></td><td>Premium</td><td>Presentar como inversión en independencia visual. "Está invirtiendo en no depender de espejuelos para ver de lejos, intermedio y cerca."</td></tr>
+        <tr><td><strong>Combinada</strong></td><td>Premium personalizada</td><td>Presentar el valor de la solución combinada. "Esta es una solución personalizada para su caso específico que requiere combinación de tecnologías."</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Add-ons: cómo presentarlos</h3>
+
+  <div class="script-box">
+    <span class="script-label">LenSx (Femtolaser)</span>
+    <p class="script-text">"LenSx es una tecnología de láser que mejora la precisión de la cirugía. Es una recomendación que mejora las probabilidades de un resultado óptimo, especialmente con lentes premium. NO es impuesto — es una opción que el cirujano recomienda según su caso."</p>
+  </div>
+
+  <div class="script-box">
+    <span class="script-label">Tórico</span>
+    <p class="script-text">"El componente tórico corrige el astigmatismo. Aplica solo cuando hay astigmatismo significativo y el cirujano lo recomienda según los exámenes. Su inversión es por la corrección angular precisa de su astigmatismo."</p>
+  </div>
+
+  <div class="callout callout-info">
+    <strong>Recordatorio crítico:</strong>
+    <p>Nunca preguntar al paciente "¿cuál es su presupuesto?" o presentar precios <strong>antes</strong> de que el cirujano haya hecho su recomendación clínica. La conversación financiera siempre ocurre <strong>post-consulta</strong> y <strong>basada en la recomendación clínica</strong>, nunca antes.</p>
+  </div>
+
+  <div class="section-nav">
+    <button class="btn btn-secondary" onclick="goToSection('s6')">← Anterior</button>
+    <button class="btn btn-primary" onclick="nextSection('s7', 's8')">Siguiente: Roles del equipo →</button>
+  </div>
+</section>
+
+<section class="section" id="s8">
+  <div class="section-header">
+    <span class="section-tag">Sección 8</span>
+    <h1>Roles del equipo en el Sistema VixiOn</h1>
+    <p class="subtitle">Cómo cada miembro del equipo contribuye al sistema completo.</p>
+  </div>
+
+  <p class="lead">El Sistema VixiOn solo funciona cuando <strong>todo el equipo opera de forma coordinada</strong>. Cada rol tiene responsabilidades específicas que se conectan con los demás. Comprender el rol propio y los demás permite mejor colaboración y experiencia del paciente.</p>
+
+  <h2>Roles principales</h2>
+
+  <div class="role-grid">
+    <div class="role-box">
+      <h4>Facultad Médica (Cirujanos)</h4>
+      <ul>
+        <li>Realiza la evaluación clínica completa</li>
+        <li>Determina el perfil definitivo del paciente</li>
+        <li>Selecciona el enfoque anatómico apropiado</li>
+        <li>Decide si Visión Combinada aplica (mix &amp; match)</li>
+        <li>Prescribe el plan quirúrgico final</li>
+        <li>Es la autoridad clínica del sistema</li>
+      </ul>
+    </div>
+
+    <div class="role-box">
+      <h4>Coordinadoras de Cirugía</h4>
+      <ul>
+        <li>Aplican la política RLE vs Catarata correctamente</li>
+        <li>Manejan la conversación financiera post-consulta</li>
+        <li>Presentan opciones de inversión según el escenario clínico</li>
+        <li>Programan el procedimiento</li>
+        <li>Son el puente entre lo clínico y lo administrativo</li>
+        <li>Capacitación específica en scripts y manejo de objeciones</li>
+      </ul>
+    </div>
+
+    <div class="role-box">
+      <h4>Optómetras</h4>
+      <ul>
+        <li>Refractan al paciente con precisión</li>
+        <li>Identifican candidatos para evaluación quirúrgica</li>
+        <li>Refieren al sistema VixiOn cuando aplica</li>
+        <li>Apoyan en seguimiento postoperatorio refractivo</li>
+        <li>Punto de entrada importante para captar pacientes</li>
+      </ul>
+    </div>
+
+    <div class="role-box">
+      <h4>Técnicos Oftálmicos</h4>
+      <ul>
+        <li>Realizan exámenes pre-consulta (OCT, topografía, biometría, etc.)</li>
+        <li>Preparan al paciente para la evaluación</li>
+        <li>Operan equipos diagnósticos especializados</li>
+        <li>Apoyan al cirujano durante la consulta</li>
+        <li>Conocen las indicaciones de cada examen</li>
+      </ul>
+    </div>
+
+    <div class="role-box">
+      <h4>Front Desk / Recepción</h4>
+      <ul>
+        <li>Primera interacción del paciente con iOPR</li>
+        <li>Confirma cita y envía cuestionario VixiOn Compass</li>
+        <li>Verifica datos del paciente y aseguradora</li>
+        <li>Maneja preguntas básicas pre-consulta correctamente</li>
+        <li>Crea la primera impresión del sistema VixiOn</li>
+      </ul>
+    </div>
+
+    <div class="role-box">
+      <h4>Cuadro Telefónico</h4>
+      <ul>
+        <li>Maneja llamadas entrantes de pacientes potenciales</li>
+        <li>Programa citas iniciales</li>
+        <li>Responde preguntas básicas sin entrar en detalles clínicos</li>
+        <li>Reconoce banderas rojas urgentes y escala apropiadamente</li>
+        <li>Aplica la política de no compartir precios pre-consulta</li>
+      </ul>
+    </div>
+
+    <div class="role-box">
+      <h4>Supervisoras</h4>
+      <ul>
+        <li>Aseguran que el sistema se aplique correctamente</li>
+        <li>Manejan escalamientos de coordinadoras</li>
+        <li>Identifican oportunidades de mejora en el flujo</li>
+        <li>Colaboran con Director Médico y Director Ejecutivo</li>
+        <li>Capacitan al personal nuevo en el sistema</li>
+      </ul>
+    </div>
+  </div>
+
+  <h2>Protocolo de escalamiento</h2>
+  <p>Algunos casos requieren escalamiento. Aquí están los criterios claros para escalar:</p>
+
+  <div class="callout callout-warning">
+    <strong>Cuándo escalar al Director Médico (Dr. Santiago):</strong>
+    <ul style="margin-top:8px; margin-bottom:0;">
+      <li>Caso clínico fuera del estándar (queratocono complejo, post-cirugía atípica)</li>
+      <li>Paciente con expectativas no realistas que requieren manejo experto</li>
+      <li>Disputa o queja relacionada con resultado clínico</li>
+      <li>Decisión sobre Visión Combinada (mix &amp; match) compleja</li>
+      <li>Validación de protocolo en caso atípico</li>
+    </ul>
+  </div>
+
+  <div class="callout callout-warning">
+    <strong>Cuándo escalar al Director Ejecutivo (Salim):</strong>
+    <ul style="margin-top:8px; margin-bottom:0;">
+      <li>Disputa financiera, queja sobre cobros</li>
+      <li>Solicitud de descuentos o ajustes de precio fuera de protocolo</li>
+      <li>Queja sobre experiencia de servicio</li>
+      <li>Caso con implicaciones legales o de cumplimiento</li>
+      <li>Solicitud de paciente VIP o referido especial</li>
+      <li>Decisiones operativas que afecten el sistema</li>
+    </ul>
+  </div>
+
+  <h2>Comunicación entre roles</h2>
+  <p>El sistema funciona porque la información fluye correctamente entre roles. Las reglas básicas:</p>
+  <ul>
+    <li><strong>El cuestionario fluye al cirujano:</strong> antes de cada consulta, el cirujano debe tener acceso a la vista clínica del cuestionario completado</li>
+    <li><strong>La recomendación clínica fluye a la coordinadora:</strong> el cirujano comunica el plan quirúrgico claramente a la coordinadora</li>
+    <li><strong>La conversación financiera no contamina la clínica:</strong> la coordinadora no comparte detalles financieros con el cirujano antes de la decisión clínica</li>
+    <li><strong>Las banderas rojas se comunican inmediatamente:</strong> cualquier rol que detecte una bandera roja la escala sin demora</li>
+  </ul>
+
+  <div class="section-nav">
+    <button class="btn btn-secondary" onclick="goToSection('s7')">← Anterior</button>
+    <button class="btn btn-primary" onclick="nextSection('s8', 's9')">Siguiente: Casos clínicos →</button>
+  </div>
+</section>
+
+<section class="section" id="s9">
+  <div class="section-header">
+    <span class="section-tag">Sección 9</span>
+    <h1>Casos clínicos prácticos</h1>
+    <p class="subtitle">Ejemplos reales del sistema en acción para entender mejor su aplicación.</p>
+  </div>
+
+  <p class="lead">Estos casos ilustran cómo el Sistema VixiOn opera con pacientes reales. Lee cada caso, identifica los elementos clave, y comprende la lógica detrás de la recomendación. Estos casos están basados en escenarios típicos pero <strong>no son recomendaciones para casos específicos</strong> — cada paciente real requiere evaluación individual.</p>
+
+  <h2>Caso 1: Catarata diagnosticada con perfil Equilibrada</h2>
+  <div class="case-study">
+    <span class="case-tag">Caso 1</span>
+    <h4>Sra. María, 64 años, ingeniera retirada</h4>
+    <div class="case-block"><strong>Perfil del paciente</strong><p>Edad 64 años. Presbicia + catarata bilateral leve. Conduce de día principalmente. Lee mucho con espejuelos progresivos. Astigmatismo moderado en ambos ojos. Plan médico: Triple-S Platino. Profesión retirada, sin demandas visuales extraordinarias.</p></div>
+    <div class="case-block"><strong>Cuestionario VixiOn Compass</strong><p>Resultado: Perfil tentativo "Visión Equilibrada". Vía clínica: Vía D — Cirugía de catarata premium. Sin sugerencias de tecnología Premium activadas (score Femto: 4, Plus: 0).</p></div>
+    <div class="case-block"><strong>Evaluación clínica</strong><p>El cirujano confirma catarata bilateral con indicación quirúrgica. Astigmatismo confirmado en topografía 1.25 D. No hay condiciones complicantes adicionales. Recomendación final: Monofocal Plus tórico bilateral (perfil Equilibrada Lenticular con remoción).</p></div>
+    <div class="case-block"><strong>Conversación financiera</strong><p>Coordinadora aplica Escenario A (catarata diagnosticada). Plan cubre cirugía base. Co-pago para Monofocal Plus + Tórico: $2,000 + $500 = $2,500 por ojo. La paciente acepta y programa cirugía.</p></div>
+    <div class="case-block"><strong>Lecciones de este caso</strong><p>Astigmatismo significativo justifica el upgrade a tórico. El perfil Equilibrada conecta con Monofocal Plus de forma natural. La coordinadora presenta primero la opción clínica ideal (con tórico), no la base más económica.</p></div>
+  </div>
+
+  <h2>Caso 2: Joven con miopía buscando independencia de espejuelos</h2>
+  <div class="case-study">
+    <span class="case-tag">Caso 2</span>
+    <h4>Sr. Roberto, 32 años, fotógrafo profesional</h4>
+    <div class="case-block"><strong>Perfil del paciente</strong><p>Edad 32 años. Miopía -4.50 OD / -5.00 OS. Astigmatismo leve. Sin presbicia. Profesión visualmente exigente (fotógrafo). Conduce de noche frecuentemente. Le molestan los halos. Quiere dejar los espejuelos definitivamente.</p></div>
+    <div class="case-block"><strong>Cuestionario VixiOn Compass</strong><p>Resultado: Perfil tentativo "Visión Equilibrada". Vía clínica: Vía A — Refractiva corneal. Bandera amarilla activada: "Considerar evaluación de WaveLight Plus" (score Plus: 14 — trigger categórico por profesión exigente + conducción nocturna).</p></div>
+    <div class="case-block"><strong>Evaluación clínica</strong><p>El cirujano evalúa córnea, paquimetría, topografía. Aberraciones de orden alto detectadas (consistente con bandera del cuestionario). Pupila grande. Recomendación: WaveLight Plus bilateral (perfil Equilibrada Corneal).</p></div>
+    <div class="case-block"><strong>Conversación financiera</strong><p>Como Vía A es refractiva electiva, NO hay cobertura de plan médico. Inversión: $2,000 por ojo. Total $4,000. Se ofrecen opciones de financiamiento. El paciente acepta y programa cirugía.</p></div>
+    <div class="case-block"><strong>Lecciones de este caso</strong><p>Las señales del cuestionario (profesión, conducción nocturna, astigmatismo) confirmaron la indicación clínica de WaveLight Plus. El sistema funcionó correctamente al sugerir la tecnología Premium. La coordinadora explicó la inversión post-consulta.</p></div>
+  </div>
+
+  <h2>Caso 3: Candidato a RLE sin catarata</h2>
+  <div class="case-study">
+    <span class="case-tag">Caso 3</span>
+    <h4>Sra. Carmen, 56 años, contadora</h4>
+    <div class="case-block"><strong>Perfil del paciente</strong><p>Edad 56 años. Hipermetropía moderada + presbicia avanzada. Sin catarata diagnosticada. Cansada de cargar dos pares de espejuelos (uno para cerca, otro para lejos). Está dispuesta a invertir en una solución definitiva. Buena salud ocular general.</p></div>
+    <div class="case-block"><strong>Cuestionario VixiOn Compass</strong><p>Resultado: Perfil tentativo "Visión Completa". Vía clínica: Vía C — Lensectomía refractiva. Narrativa clínica incluye: "[Contexto: posible candidato a Lensectomía Refractiva (RLE) electiva — sin diagnóstico de catarata, sin cobertura de plan médico estándar]".</p></div>
+    <div class="case-block"><strong>Evaluación clínica</strong><p>El cirujano confirma cristalino transparente (sin catarata). Mide biometría. Confirma candidata a RLE. Recomendación: PanOptix Pro bilateral con LenSx (perfil Completa Lenticular con remoción).</p></div>
+    <div class="case-block"><strong>Conversación financiera</strong><p>Coordinadora aplica Escenario B (RLE electivo). Explica que NO hay cobertura. Inversión: PanOptix Pro $X + LenSx $400 por ojo. Total a confirmar con precio actualizado. Se ofrecen opciones de financiamiento. La paciente toma 1 semana para decidir.</p></div>
+    <div class="case-block"><strong>Lecciones de este caso</strong><p>La política RLE vs Catarata se aplicó correctamente. La paciente NO se enteró del aspecto financiero hasta post-consulta. La narrativa del cuestionario alertó al equipo del escenario RLE sin necesidad de hacer preguntas administrativas al paciente.</p></div>
+  </div>
+
+  <h2>Caso 4: Visión Combinada (mix &amp; match)</h2>
+  <div class="case-study">
+    <span class="case-tag">Caso 4</span>
+    <h4>Sr. Eduardo, 70 años, post-LASIK hace 15 años</h4>
+    <div class="case-block"><strong>Perfil del paciente</strong><p>Edad 70 años. Catarata bilateral. Cirugía LASIK previa hace 15 años. Astigmatismo irregular en ojo derecho por LASIK histórico (medición desafiante). Conductor frecuente. Quiere independencia de espejuelos en la medida de lo posible.</p></div>
+    <div class="case-block"><strong>Cuestionario VixiOn Compass</strong><p>Resultado: Perfil tentativo "Visión Completa". Vía clínica: Vía D. Banderas múltiples: cirugía refractiva previa (q14_conditions), astigmatismo significativo. Sugerencias de tecnología: LenSx (score 11) — trigger categórico.</p></div>
+    <div class="case-block"><strong>Evaluación clínica</strong><p>El cirujano confirma catarata bilateral. Topografía revela asimetría corneal por LASIK previo en ojo derecho. Decisión clínica: este caso requiere mix &amp; match. Recomendación final: Apthera IC-8 + monofocal tórico Plus en ojo derecho (asimétrico) y PanOptix Pro en ojo izquierdo (más regular). Esto es perfil <strong>Visión Combinada</strong>.</p></div>
+    <div class="case-block"><strong>Conversación financiera</strong><p>Caso complejo con catarata diagnosticada. Cobertura del plan + co-pago de premium combinado. La coordinadora explica el valor de la solución personalizada y la inversión total. El paciente acepta.</p></div>
+    <div class="case-block"><strong>Lecciones de este caso</strong><p>Visión Combinada NO fue asignada por el algoritmo (algoritmo sugirió Completa). Fue decisión clínica del cirujano basada en la evaluación. Esto demuestra que el sistema permite override clínico cuando es necesario. La cirugía refractiva previa fue una bandera importante que el cuestionario detectó correctamente.</p></div>
+  </div>
+
+  <h2>Caso 5: Paciente joven con presbicia incipiente</h2>
+  <div class="case-study">
+    <span class="case-tag">Caso 5</span>
+    <h4>Sr. Luis, 44 años, ejecutivo</h4>
+    <div class="case-block"><strong>Perfil del paciente</strong><p>Edad 44 años. Sin error refractivo significativo de lejos. Empieza a notar dificultad para leer letras pequeñas. No quiere usar espejuelos. Quiere una solución reversible si es posible. Excelente salud ocular general.</p></div>
+    <div class="case-block"><strong>Cuestionario VixiOn Compass</strong><p>Resultado: Perfil tentativo "Visión Esencial". Vía clínica: Vía E — Tratamiento farmacológico (Vizz). Sin sugerencias de tecnología.</p></div>
+    <div class="case-block"><strong>Evaluación clínica</strong><p>El cirujano confirma presbicia incipiente sin otras condiciones. Edad y características perfectas para tratamiento con gotas. Recomendación: Vizz como primera línea (gotas farmacológicas para presbicia).</p></div>
+    <div class="case-block"><strong>Conversación financiera</strong><p>Coordinadora explica el costo del tratamiento farmacológico. Es una opción reversible (deja de usar las gotas y vuelve a su estado anterior). Inversión mensual moderada. El paciente acepta probar.</p></div>
+    <div class="case-block"><strong>Lecciones de este caso</strong><p>No todos los pacientes son candidatos a cirugía. El sistema VixiOn incluye opciones no quirúrgicas cuando son apropiadas. La edad 40-49 con presbicia incipiente es perfil ideal para Vizz como primera línea, antes de considerar cirugía.</p></div>
+  </div>
+
+  <div class="section-nav">
+    <button class="btn btn-secondary" onclick="goToSection('s8')">← Anterior</button>
+    <button class="btn btn-primary" onclick="nextSection('s9', 's10')">Siguiente: Manejo de objeciones →</button>
+  </div>
+</section>
+
+<section class="section" id="s10">
+  <div class="section-header">
+    <span class="section-tag">Sección 10</span>
+    <h1>Manejo de objeciones del paciente</h1>
+    <p class="subtitle">Cómo responder a las preocupaciones más comunes con respeto y profesionalismo.</p>
+  </div>
+
+  <p class="lead">Cuando el paciente expresa una objeción, NO está diciendo "no" definitivamente. Está pidiendo más información o validación emocional. Manejar bien las objeciones <strong>respeta la autonomía del paciente</strong> y construye confianza.</p>
+
+  <div class="callout callout-info">
+    <strong>Principio rector:</strong>
+    <p>Validar la preocupación, reafirmar el valor, ofrecer alternativa sin juicio. Nunca presionar, descalificar o minimizar.</p>
+  </div>
+
+  <h2>Objeción 1: "Es muy caro"</h2>
+
+  <div class="script-box">
+    <span class="script-label">✓ Respuesta correcta</span>
+    <p class="script-text">"Entiendo. Permítame explicarle: esta es una inversión en su calidad de vida — la independencia visual que va a experimentar es permanente. Además, tenemos planes de pago flexibles que pueden facilitar la inversión. Si lo prefiere, hay otras opciones que se ajustan a un rango de inversión diferente y también son excelentes para su caso."</p>
+  </div>
+
+  <div class="script-box">
+    <span class="script-label dont">✗ Respuestas a evitar</span>
+    <p class="script-text">"Son $X pero le puedo hacer un descuento" — devalúa el valor del servicio.<br>
+    "Es caro pero vale la pena" — defensivo, no escucha al paciente.<br>
+    "¿Cuánto es su presupuesto?" — pone al paciente a la defensiva.</p>
+  </div>
+
+  <h2>Objeción 2: "Necesito pensarlo / consultarlo con mi familia"</h2>
+
+  <div class="script-box">
+    <span class="script-label">✓ Respuesta correcta</span>
+    <p class="script-text">"Por supuesto, es una decisión importante y vale tomarse el tiempo necesario. ¿Le parece si le doy un resumen escrito de su evaluación y las opciones que el cirujano recomienda, para que pueda revisarlo con calma? Cuando esté listo, estamos aquí para responder cualquier pregunta adicional."</p>
+  </div>
+
+  <div class="callout callout-success">
+    <strong>NUNCA presionar para decidir el mismo día.</strong>
+    <p>Una decisión apresurada es una decisión que el paciente puede arrepentirse después. Un paciente que decide con tiempo y información completa es un paciente más satisfecho a largo plazo.</p>
+  </div>
+
+  <h2>Objeción 3: "Voy a buscar otra opinión"</h2>
+
+  <div class="script-box">
+    <span class="script-label">✓ Respuesta correcta</span>
+    <p class="script-text">"Me parece muy bien. Buscar una segunda opinión es una decisión inteligente cuando se trata de salud. ¿Le doy un resumen completo de su evaluación con nosotros para que pueda compararlo con otra opinión? Estamos aquí cuando decida regresar."</p>
+  </div>
+
+  <h2>Objeción 4: "Mi seguro debería cubrir esto"</h2>
+  <p>Esto requiere educación del paciente sobre la diferencia entre cirugía electiva (RLE, refractiva) y cirugía cubierta (catarata).</p>
+
+  <div class="script-box">
+    <span class="script-label">✓ Respuesta correcta</span>
+    <p class="script-text">"Entiendo su frustración. Permítame explicarle la diferencia: los planes médicos cubren los procedimientos cuando hay una indicación médica diagnosticada (como catarata). Cuando el procedimiento es electivo — para mejorar la visión sin haber catarata — los planes típicamente no lo cubren. Es similar a otros procedimientos electivos en otras áreas de la medicina. Tenemos opciones de financiamiento que pueden ayudar."</p>
+  </div>
+
+  <h2>Objeción 5: "¿Por qué iOPR es más caro que otras clínicas?"</h2>
+
+  <div class="script-box">
+    <span class="script-label">✓ Respuesta correcta</span>
+    <p class="script-text">"En iOPR ofrecemos tecnologías exclusivas en Puerto Rico — como WaveLight Plus para LASIK Premium y LenSx para cirugía lenticular. También tenemos un equipo médico experimentado y un proceso clínico riguroso. La inversión refleja la calidad de la tecnología y la experiencia. Si el aspecto económico es una limitación, hay opciones de financiamiento o tiers más accesibles que también ofrecen excelente calidad."</p>
+  </div>
+
+  <h2>Objeción 6: "Tengo miedo a la cirugía"</h2>
+
+  <div class="script-box">
+    <span class="script-label">✓ Respuesta correcta</span>
+    <p class="script-text">"Es completamente normal sentir esa preocupación. Los procedimientos oftalmológicos modernos son muy seguros, pero entiendo que eso no quita el miedo. ¿Le ayudaría hablar nuevamente con el cirujano para que le explique el procedimiento en detalle? También tenemos una experiencia con VirtuaLens que le permite visualizar cómo verá después. Su tranquilidad es importante para nosotros — no hay prisa en decidir."</p>
+  </div>
+
+  <h2>Objeción 7: "¿Y si no funciona?"</h2>
+
+  <div class="script-box">
+    <span class="script-label">✓ Respuesta correcta</span>
+    <p class="script-text">"Es una pregunta justa. La realidad es que ningún procedimiento médico tiene 100% de garantía, pero los procedimientos refractivos modernos tienen tasas de éxito muy altas. Vamos a hablar con el cirujano sobre las expectativas realistas para su caso específico, los posibles resultados y los procedimientos de mejoramiento si aplican. La transparencia sobre estos temas es parte de nuestro proceso."</p>
+  </div>
+
+  <h2>Objeción 8: "¿Por qué iOPR no ofrece SMILE? He leído que es mejor"</h2>
+  <p>Esta objeción aparece con frecuencia creciente — SMILE ha tenido marketing significativo en redes sociales y en el extranjero. El equipo debe responder con confianza basada en evidencia, sin denigrar SMILE.</p>
+
+  <div class="script-box">
+    <span class="script-label">✓ Respuesta correcta (versión completa)</span>
+    <p class="script-text">"Es muy buena pregunta — efectivamente SMILE no usa flap, lo cual es una característica que ha sido bien comunicada en su marketing. Sin embargo, la evidencia clínica más reciente, incluyendo un estudio presentado en la American Academy of Ophthalmology en octubre del 2025, encontró que WaveLight Plus produce mejor calidad visual: 98% de pacientes alcanzan visión mejor que 20/20 con WaveLight Plus, comparado con 82% con SMILE Pro. Para muchos pacientes, especialmente aquellos con astigmatismo o que buscan máxima calidad visual, esa diferencia en outcomes puede ser más importante que la presencia o ausencia de flap. El Dr. Santiago va a evaluar su caso particular y le explicará cuál tecnología es la apropiada para usted."</p>
+  </div>
+
+  <div class="script-box" style="border-left:4px solid var(--azure);">
+    <span class="script-label" style="background:var(--azure);">⚡ Versión corta (para llamadas rápidas)</span>
+    <p class="script-text">"Buena pregunta. La diferencia clave es que SMILE no usa flap, pero WaveLight Plus produce mejor calidad visual según evidencia reciente: el estudio de la AAO 2025 encontró que 98% de pacientes con WaveLight Plus alcanzan mejor que 20/20, comparado con 82% con SMILE. Para la mayoría de pacientes esa diferencia importa más. El Dr. Santiago va a evaluar su caso específico."</p>
+  </div>
+
+  <div class="script-box" style="border-left:4px solid var(--teal);">
+    <span class="script-label" style="background:var(--teal);">⚡⚡ Versión ultra-corta (elevator pitch — 15 segundos)</span>
+    <p class="script-text">"WaveLight Plus tiene mejores resultados clínicos según el estudio de la AAO 2025 — 98% logran mejor que 20/20 vs 82% con SMILE. Por eso el Dr. Santiago lo seleccionó para iOPR."</p>
+  </div>
+
+  <div class="script-box">
+    <span class="script-label dont">✗ Respuestas a evitar</span>
+    <p class="script-text">"SMILE no es bueno" — descalifica un procedimiento válido y daña credibilidad si paciente investiga.<br>
+    "Aquí no hacemos eso" — defensivo, no responde la pregunta del paciente.<br>
+    "SMILE es viejo / obsoleto" — falso, SMILE Pro es tecnología actual.<br>
+    "WaveLight Plus es mejor en todo" — exagerado, el paciente puede investigar y descubrir matices.</p>
+  </div>
+
+  <div class="callout callout-info">
+    <strong>Si el paciente insiste en querer SMILE específicamente:</strong>
+    <p style="font-size:13px;">No insistir ni presionar. Respuesta apropiada: <em>"Respeto su preferencia. SMILE es un procedimiento válido. En iOPR ofrecemos las tecnologías que el Dr. Santiago seleccionó porque considera que ofrecen mejores resultados para nuestros pacientes. Si decide buscar SMILE, le deseamos lo mejor — y la puerta de iOPR siempre está abierta si en el futuro necesita evaluación oftalmológica."</em></p>
+    <p style="font-size:13px; margin-top:8px;">Para profundizar en este tema, ver la <strong>Sección 3: Tecnologías exclusivas → WaveLight Plus vs SMILE — comparativa basada en evidencia clínica.</strong></p>
+  </div>
+
+  <h2>Principios generales para manejo de objeciones</h2>
+  <ul>
+    <li><strong>Escucha activa:</strong> deja al paciente expresar su preocupación completa antes de responder</li>
+    <li><strong>Validación emocional:</strong> reconoce que la preocupación es legítima ("Entiendo", "Es comprensible")</li>
+    <li><strong>Información clara:</strong> responde con datos concretos, no con generalidades</li>
+    <li><strong>Sin presión:</strong> nunca uses urgencia artificial ("Si no decide hoy...")</li>
+    <li><strong>Ofrece alternativas:</strong> si una opción no funciona, hay otras</li>
+    <li><strong>Respeta el "no":</strong> si el paciente decide no proceder, agradece y mantén la puerta abierta</li>
+  </ul>
+
+  <div class="section-nav">
+    <button class="btn btn-secondary" onclick="goToSection('s9')">← Anterior</button>
+    <button class="btn btn-primary" onclick="nextSection('s10', 's11')">Siguiente: Banderas rojas urgentes →</button>
+  </div>
+</section>
+
+<section class="section" id="s11">
+  <div class="section-header">
+    <span class="section-tag">Sección 11</span>
+    <h1>Banderas rojas urgentes</h1>
+    <p class="subtitle">Síntomas y situaciones que TODO el equipo debe reconocer y escalar inmediatamente.</p>
+  </div>
+
+  <div class="callout callout-danger">
+    <strong>Importante para todos los roles:</strong>
+    <p>Aunque el equipo no clínico (Front Desk, Cuadro Telefónico, Coordinadoras) NO realiza diagnósticos, debe reconocer ciertos síntomas o situaciones que requieren atención médica urgente. La identificación temprana puede prevenir pérdida de visión permanente.</p>
+  </div>
+
+  <h2>Síntomas oftalmológicos urgentes</h2>
+
+  <div class="role-grid">
+    <div class="role-box" style="border-left-color:var(--danger);"><h4 style="color:var(--danger);">⚠ Flotadores + destellos súbitos</h4><p style="font-size:13px;">Posible desprendimiento de retina. <strong>Ventana crítica de 24-48 horas</strong>. El paciente debe ser evaluado URGENTE.</p><p style="font-size:13px; margin-top:8px;"><strong>Acción:</strong> programar cita inmediata o referir a sala de emergencia oftalmológica.</p></div>
+    <div class="role-box" style="border-left-color:var(--danger);"><h4 style="color:var(--danger);">⚠ Pérdida súbita de visión</h4><p style="font-size:13px;">Pérdida total o parcial de visión en un ojo. Posible oclusión vascular, neuritis óptica, desprendimiento.</p><p style="font-size:13px; margin-top:8px;"><strong>Acción:</strong> referir a sala de emergencia INMEDIATAMENTE.</p></div>
+    <div class="role-box" style="border-left-color:var(--danger);"><h4 style="color:var(--danger);">⚠ Dolor ocular severo + visión borrosa</h4><p style="font-size:13px;">Posible glaucoma agudo de ángulo cerrado. Es una emergencia médica.</p><p style="font-size:13px; margin-top:8px;"><strong>Acción:</strong> referir a sala de emergencia INMEDIATAMENTE.</p></div>
+    <div class="role-box" style="border-left-color:var(--danger);"><h4 style="color:var(--danger);">⚠ Trauma ocular</h4><p style="font-size:13px;">Cualquier trauma físico al ojo (golpe, herida, cuerpo extraño) requiere evaluación urgente.</p><p style="font-size:13px; margin-top:8px;"><strong>Acción:</strong> referir a sala de emergencia, NO esperar.</p></div>
+    <div class="role-box" style="border-left-color:var(--danger);"><h4 style="color:var(--danger);">⚠ "Cortina" en el campo visual</h4><p style="font-size:13px;">Sensación de cortina o velo cubriendo parte de la visión. Posible desprendimiento de retina avanzado.</p><p style="font-size:13px; margin-top:8px;"><strong>Acción:</strong> evaluación urgente dentro de 24 horas.</p></div>
+    <div class="role-box" style="border-left-color:var(--danger);"><h4 style="color:var(--danger);">⚠ Doble visión súbita</h4><p style="font-size:13px;">Diplopia repentina sin causa obvia. Posible problema neurológico.</p><p style="font-size:13px; margin-top:8px;"><strong>Acción:</strong> evaluación urgente, posible referido a neurología.</p></div>
+    <div class="role-box" style="border-left-color:var(--warning);"><h4 style="color:var(--warning);">⚠ Postoperatorio: dolor severo o pérdida de visión</h4><p style="font-size:13px;">Cualquier paciente postoperatorio con dolor severo NUEVO o pérdida de visión debe ser visto el mismo día.</p><p style="font-size:13px; margin-top:8px;"><strong>Acción:</strong> contacto inmediato con cirujano operante.</p></div>
+    <div class="role-box" style="border-left-color:var(--warning);"><h4 style="color:var(--warning);">⚠ Postoperatorio: ojo rojo + secreción</h4><p style="font-size:13px;">Posible endoftalmitis (infección intraocular). Emergencia postoperatoria.</p><p style="font-size:13px; margin-top:8px;"><strong>Acción:</strong> evaluación dentro de 4-8 horas, contacto urgente con cirujano.</p></div>
+  </div>
+
+  <h2>Cómo manejar una bandera roja por teléfono</h2>
+
+  <div class="script-box">
+    <span class="script-label">Protocolo telefónico</span>
+    <p class="script-text">"Entiendo lo que me describe. Por la naturaleza de los síntomas, le pido que vaya a la sala de emergencia más cercana inmediatamente — no espere. [Si es horario de oficina] Voy a comunicarle también con el cirujano de turno. ¿Tiene cómo llegar a la emergencia?"</p>
+  </div>
+
+  <div class="callout callout-warning">
+    <strong>Ante la duda, escala.</strong>
+    <p>Si NO estás seguro de si un síntoma es bandera roja, asume que SÍ y escala al equipo clínico. Nunca minimizar síntomas oftalmológicos por teléfono o por texto.</p>
+  </div>
+
+  <h2>Banderas rojas no clínicas</h2>
+  <p>También hay situaciones que requieren escalamiento aunque NO sean médicas:</p>
+
+  <div class="role-grid">
+    <div class="role-box" style="border-left-color:var(--warning);"><h4>Paciente extremadamente angustiado</h4><p style="font-size:13px;">Paciente llorando, en crisis emocional, mencionando autolesión o desesperanza por su condición visual. Escalar a supervisor inmediatamente.</p></div>
+    <div class="role-box" style="border-left-color:var(--warning);"><h4>Queja sobre resultado clínico</h4><p style="font-size:13px;">Paciente postoperatorio insatisfecho con resultado. Escalar a Director Médico para evaluación.</p></div>
+    <div class="role-box" style="border-left-color:var(--warning);"><h4>Disputa financiera seria</h4><p style="font-size:13px;">Paciente cuestionando cobros, amenazando reclamación. Escalar a Director Ejecutivo.</p></div>
+    <div class="role-box" style="border-left-color:var(--warning);"><h4>Solicitud de información médica de tercero</h4><p style="font-size:13px;">Alguien que NO es el paciente solicitando información clínica. Verificar autorización HIPAA antes de cualquier intercambio.</p></div>
+  </div>
+
+  <div class="section-nav">
+    <button class="btn btn-secondary" onclick="goToSection('s10')">← Anterior</button>
+    <button class="btn btn-primary" onclick="nextSection('s11', 's12')">Siguiente: Errores a evitar →</button>
+  </div>
+</section>
+
+<section class="section" id="s12">
+  <div class="section-header">
+    <span class="section-tag">Sección 12</span>
+    <h1>Errores comunes a evitar</h1>
+    <p class="subtitle">Las prácticas que erosionan la calidad del Sistema VixiOn.</p>
+  </div>
+
+  <p class="lead">Estos son errores que el equipo iOPR debe evitar conscientemente. Cada uno parece pequeño en el momento, pero en conjunto pueden erosionar la integridad del Sistema VixiOn y la confianza del paciente.</p>
+
+  <h2>Errores en comunicación con el paciente</h2>
+
+  <div class="callout callout-danger"><strong>Error 1: Compartir precios pre-consulta</strong><p>Si un paciente pregunta el precio antes de su consulta clínica, NO compartir tarifas específicas. Explicar que la inversión depende de la recomendación clínica del cirujano. Solo después de la evaluación se discuten precios.</p></div>
+  <div class="callout callout-danger"><strong>Error 2: Asumir cobertura sin confirmación clínica</strong><p>Decir cosas como "Esto lo cubre su plan" o "RLE no se cubre" antes de la evaluación clínica es prematuro y puede generar problemas. La cobertura depende del diagnóstico clínico determinado por el cirujano.</p></div>
+  <div class="callout callout-danger"><strong>Error 3: Recomendar sin evaluación clínica</strong><p>Roles no clínicos NO recomiendan procedimientos específicos. Si el paciente pregunta "¿qué cirugía debo hacerme?", la respuesta es: "Esa es una pregunta para su consulta con el cirujano. Él evaluará su caso específico y le recomendará la mejor opción."</p></div>
+  <div class="callout callout-danger"><strong>Error 4: Hablar de marcas de lentes con el paciente</strong><p>Mencionar "PanOptix Pro", "Apthera IC-8", "Clareon" prematuramente confunde al paciente y va contra el principio de "lenguaje del paciente, no del producto". Hablar primero del resultado visual (perfil), luego del lente específico si aplica.</p></div>
+  <div class="callout callout-danger"><strong>Error 5: Presión por urgencia artificial</strong><p>Frases como "Tiene que decidir hoy", "Esta oferta vence", "Si no programa ahora pierde el descuento" son inaceptables. La decisión del paciente debe ser tomada con tranquilidad, no bajo presión.</p></div>
+
+  <h2>Errores en aplicación del sistema</h2>
+
+  <div class="callout callout-warning"><strong>Error 6: Olvidar el cuestionario VixiOn Compass</strong><p>Cada paciente debe completar el cuestionario antes de su consulta cuando aplique. Si el cuestionario no se envió, no se completó, o no se revisó por el cirujano, el sistema pierde su valor. Asegurar el flujo completo.</p></div>
+  <div class="callout callout-warning"><strong>Error 7: Romper la política RLE vs Catarata</strong><p>Mencionar la distinción RLE vs Catarata pre-consulta rompe el principio de "decisión clínica primero, financiera después". Mantener la política aunque el paciente pregunte o presione.</p></div>
+  <div class="callout callout-warning"><strong>Error 8: Interpretar el cuestionario sin contexto clínico</strong><p>El cuestionario produce sugerencias, no diagnósticos. Tratar las sugerencias del cuestionario como decisiones finales (sin la evaluación clínica) puede llevar a recomendaciones inadecuadas.</p></div>
+  <div class="callout callout-warning"><strong>Error 9: Confundir Visión Combinada con cualquier caso "complicado"</strong><p>Visión Combinada es una decisión clínica específica para mix &amp; match. NO es una categoría general para "casos difíciles". Solo el cirujano determina cuándo aplica.</p></div>
+
+  <h2>Errores en manejo de información</h2>
+
+  <div class="callout callout-warning"><strong>Error 10: Discutir información del paciente fuera de contexto profesional</strong><p>HIPAA y la práctica profesional requieren que la información del paciente se discuta solo en contextos clínicos apropiados. NO compartir casos en redes sociales, conversaciones casuales, o con personas no autorizadas.</p></div>
+  <div class="callout callout-warning"><strong>Error 11: Documentación incompleta</strong><p>Cada interacción importante con el paciente debe documentarse. Decisiones de coordinadora, conversaciones financieras importantes, escalamientos — todo debe quedar en el expediente.</p></div>
+
+  <h2>Errores éticos críticos</h2>
+
+  <div class="callout callout-danger"><strong>Error 12: Recomendaciones sesgadas por consideraciones financieras</strong><p>Recomendar opciones más caras "porque el cirujano gana más" es una violación ética seria. Las recomendaciones SIEMPRE deben basarse en el beneficio clínico para el paciente, no en márgenes.</p></div>
+  <div class="callout callout-danger"><strong>Error 13: Ocultar limitaciones o riesgos</strong><p>Cada procedimiento tiene limitaciones y posibles complicaciones. Ser transparente sobre estos aspectos es ético y construye confianza. Esconder información para "no asustar al paciente" es engañoso.</p></div>
+
+  <h2>Resumen: lista de control diaria</h2>
+  <p>Antes de cada interacción con un paciente, vale verificar mentalmente:</p>
+  <ul>
+    <li>¿Estoy respetando el orden "clínica primero, financiera después"?</li>
+    <li>¿Estoy hablando del resultado (perfil) antes de la marca específica?</li>
+    <li>¿Estoy presionando o dando espacio al paciente para decidir?</li>
+    <li>¿Estoy documentando las interacciones importantes?</li>
+    <li>¿Estoy escalando cuando es apropiado?</li>
+    <li>¿Estoy aplicando las políticas del sistema correctamente?</li>
+  </ul>
+
+  <div class="section-nav">
+    <button class="btn btn-secondary" onclick="goToSection('s11')">← Anterior</button>
+    <button class="btn btn-primary" onclick="nextSection('s12', 's13')">Siguiente: Glosario →</button>
+  </div>
+</section>
+
+<section class="section" id="s13">
+  <div class="section-header">
+    <span class="section-tag">Sección 13</span>
+    <h1>Glosario de términos</h1>
+    <p class="subtitle">Vocabulario clínico, comercial y operativo del Sistema VixiOn.</p>
+  </div>
+
+  <p class="lead">Comprender el vocabulario del sistema es esencial para todo el equipo. Este glosario contiene los términos más usados — desde conceptos clínicos hasta terminología operativa.</p>
+
+  <h2>Términos del sistema VixiOn</h2>
+
+  <div class="glossary-item"><div class="glossary-term">VixiOn (Sistema)</div><div class="glossary-def">Marco clínico-operativo integrado de iOPR para guiar al paciente en decisiones de corrección visual. Incluye perfiles, enfoques, tecnologías, políticas y flujo del paciente.</div></div>
+  <div class="glossary-item"><div class="glossary-term">VixiOn Compass</div><div class="glossary-def">Cuestionario digital específico del sistema. Es la herramienta que captura la información del paciente pre-consulta. NO es sinónimo de "VixiOn" (sistema completo).</div></div>
+  <div class="glossary-item"><div class="glossary-term">Perfil visual</div><div class="glossary-def">Categoría que describe el resultado visual buscado por el paciente. Hay cuatro: Esencial, Equilibrada, Completa, Combinada.</div></div>
+  <div class="glossary-item"><div class="glossary-term">Enfoque anatómico</div><div class="glossary-def">Categoría que describe la anatomía intervenida quirúrgicamente. Hay tres principales: Corneal, Lenticular sin remoción del cristalino, Lenticular con remoción del cristalino.</div></div>
+  <div class="glossary-item"><div class="glossary-term">Bióptica</div><div class="glossary-def">Técnica quirúrgica donde se combinan dos procedimientos refractivos en el mismo paciente — típicamente un lente intraocular más LASIK/PRK para refinamiento residual. Aplica solo en perfil Combinada.</div></div>
+  <div class="glossary-item"><div class="glossary-term">Mix &amp; Match</div><div class="glossary-def">Estrategia clínica de combinar diferentes lentes o approaches entre los dos ojos del paciente. Es decisión clínica del cirujano. Define el perfil Visión Combinada.</div></div>
+  <div class="glossary-item"><div class="glossary-term">Approach C</div><div class="glossary-def">Política del sistema que dicta que la decisión clínica precede a la conversación financiera. La distinción RLE vs Catarata se introduce post-consulta cuando aplica.</div></div>
+
+  <h2>Tecnologías y procedimientos</h2>
+
+  <div class="glossary-item"><div class="glossary-term">LenSx</div><div class="glossary-def">Femtosecond laser para cirugía lenticular (FLACS). Tecnología exclusiva de iOPR en Puerto Rico. Define el nivel Premium en Enfoque Lenticular con remoción del cristalino.</div></div>
+  <div class="glossary-item"><div class="glossary-term">FLACS</div><div class="glossary-def">Femtosecond Laser-Assisted Cataract Surgery. Cirugía de catarata asistida por láser de femtosegundo. En iOPR se realiza con LenSx.</div></div>
+  <div class="glossary-item"><div class="glossary-term">WaveLight Plus</div><div class="glossary-def">AI-Assisted LASIK. Tecnología de LASIK personalizada guiada por inteligencia artificial. Tecnología exclusiva de iOPR en Puerto Rico. Define el nivel Premium en Enfoque Corneal.</div></div>
+  <div class="glossary-item"><div class="glossary-term">LASIK</div><div class="glossary-def">Laser-Assisted in Situ Keratomileusis. Procedimiento refractivo corneal que reshape la córnea con láser excímer.</div></div>
+  <div class="glossary-item"><div class="glossary-term">PRK</div><div class="glossary-def">Photorefractive Keratectomy. Procedimiento refractivo corneal alternativo a LASIK, especialmente para córneas más delgadas.</div></div>
+  <div class="glossary-item"><div class="glossary-term">RLE</div><div class="glossary-def">Refractive Lens Exchange / Lensectomía Refractiva. Cirugía electiva donde se reemplaza el cristalino natural con un lente intraocular sin haber catarata. Procedimiento físicamente igual a cirugía de catarata, pero con indicación electiva.</div></div>
+  <div class="glossary-item"><div class="glossary-term">EVO ICL</div><div class="glossary-def">Implantable Collamer Lens. Lente fáquico que se implanta sin remover el cristalino natural. Reversible. Único producto en Enfoque Lenticular sin remoción.</div></div>
+  <div class="glossary-item"><div class="glossary-term">Vizz</div><div class="glossary-def">Tratamiento farmacológico (gotas) para presbicia incipiente. Apropiado para pacientes 40-49 años como primera línea no quirúrgica.</div></div>
+  <div class="glossary-item"><div class="glossary-term">VirtuaLens</div><div class="glossary-def">Dispositivo de simulación visual que permite al paciente experimentar virtualmente cómo vería tras el procedimiento recomendado. Se usa post-consulta como herramienta educativa. Próximamente en iOPR.</div></div>
+
+  <h2>Lentes intraoculares</h2>
+
+  <div class="glossary-item"><div class="glossary-term">Monofocal Standard (Clareon)</div><div class="glossary-def">Lente intraocular monofocal de Alcon, enfocado a una distancia. Tier base del enfoque Lenticular con remoción.</div></div>
+  <div class="glossary-item"><div class="glossary-term">Monofocal Plus (PureSee / TruePlus)</div><div class="glossary-def">Lente intraocular EDOF (rango extendido). Ofrece mejor visión intermedia que monofocal estándar manteniendo calidad óptica alta.</div></div>
+  <div class="glossary-item"><div class="glossary-term">Apthera IC-8</div><div class="glossary-def">Lente intraocular de pequeña apertura (small-aperture EDOF). Implantación monocular en ojo no dominante. Ventaja: tolera asimetrías corneales y ofrece rango extendido sin las disfotopsias del multifocal.</div></div>
+  <div class="glossary-item"><div class="glossary-term">PanOptix Pro</div><div class="glossary-def">Lente intraocular trifocal difractivo. Ofrece visión clara a tres distancias (cerca, intermedia, lejos) con compromiso de halos nocturnos.</div></div>
+  <div class="glossary-item"><div class="glossary-term">Tórico</div><div class="glossary-def">Componente de un lente que corrige astigmatismo. Aplica como add-on cuando el paciente tiene astigmatismo significativo (≥1.0 D).</div></div>
+
+  <h2>Términos clínicos generales</h2>
+
+  <div class="glossary-item"><div class="glossary-term">Catarata</div><div class="glossary-def">Opacificación del cristalino natural que causa visión borrosa. Indicación quirúrgica cuando afecta la calidad de vida del paciente.</div></div>
+  <div class="glossary-item"><div class="glossary-term">Presbicia</div><div class="glossary-def">Pérdida de la capacidad de enfoque cercano por endurecimiento del cristalino. Aparece típicamente después de los 40 años.</div></div>
+  <div class="glossary-item"><div class="glossary-term">Astigmatismo</div><div class="glossary-def">Error refractivo donde la córnea tiene curvatura irregular. Causa visión distorsionada en todas las distancias.</div></div>
+  <div class="glossary-item"><div class="glossary-term">Aberraciones de orden alto (HOA)</div><div class="glossary-def">Distorsiones ópticas más sutiles que las aberraciones simples (miopía, hipermetropía, astigmatismo). Causan halos, glare, problemas con visión nocturna. WaveLight Plus las corrige.</div></div>
+  <div class="glossary-item"><div class="glossary-term">Halos / Glare / Disfotopsias</div><div class="glossary-def">Fenómenos visuales no deseados típicos con lentes multifocales o cirugía estándar. Halos: anillos alrededor de luces. Glare: deslumbramiento. Disfotopsias: percepción visual atípica general.</div></div>
+
+  <h2>Términos operativos</h2>
+
+  <div class="glossary-item"><div class="glossary-term">Bandera amarilla</div><div class="glossary-def">Alerta del cuestionario que requiere atención del cirujano (no urgente). Ej: "Considerar evaluación de LenSx".</div></div>
+  <div class="glossary-item"><div class="glossary-term">Bandera roja</div><div class="glossary-def">Alerta urgente que requiere acción inmediata. Ej: "Paciente reporta flotadores + destellos súbitos — posible desprendimiento de retina".</div></div>
+  <div class="glossary-item"><div class="glossary-term">Bandera verde</div><div class="glossary-def">Confirmación de perfil ideal. Ej: "Convergencia de criterios — paciente alineado con tier Completa".</div></div>
+  <div class="glossary-item"><div class="glossary-term">Standard / Premium</div><div class="glossary-def">Niveles dentro de cada enfoque. Standard usa tecnología convencional. Premium usa tecnología avanzada exclusiva de iOPR (LenSx en Lenticular, WaveLight Plus en Corneal).</div></div>
+
+  <div class="section-nav">
+    <button class="btn btn-secondary" onclick="goToSection('s12')">← Anterior</button>
+    <button class="btn btn-primary" onclick="nextSection('s13', 's14')">Siguiente: Evaluación final →</button>
+  </div>
+</section>
+
+<section class="section" id="s14">
+  <div class="section-header">
+    <span class="section-tag">Sección 14</span>
+    <h1>Evaluación final</h1>
+    <p class="subtitle">Valida tu comprensión del Sistema VixiOn — necesitas 80% para aprobar.</p>
+  </div>
+
+  <p class="lead">Esta evaluación de <strong>13 preguntas</strong> valida tu comprensión de los conceptos clave del Sistema VixiOn. Cada pregunta requiere selección de una opción. Al final verás tu puntuación total. Si obtienes <strong>80% o más</strong>, has aprobado la capacitación.</p>
+
+  <div class="callout callout-info">
+    <strong>Recomendaciones:</strong>
+    <p>Lee cada pregunta con atención. Si dudas, vuelve a la sección correspondiente. No hay límite de tiempo. Tus respuestas se guardan automáticamente.</p>
+  </div>
+
+  <div class="quiz-question">
+    <h4>1. ¿Cuál es la diferencia entre "VixiOn" y "VixiOn Compass"?</h4>
+    <div class="quiz-options">
+      <div class="quiz-option" data-qid="q1" data-opt="a" onclick="selectQuizOption('q1','a')">Son sinónimos — ambos se refieren al cuestionario digital.</div>
+      <div class="quiz-option" data-qid="q1" data-opt="b" onclick="selectQuizOption('q1','b')">VixiOn es el sistema integrado completo; VixiOn Compass es el cuestionario digital específico.</div>
+      <div class="quiz-option" data-qid="q1" data-opt="c" onclick="selectQuizOption('q1','c')">VixiOn es el cuestionario; VixiOn Compass es la plataforma de capacitación.</div>
+      <div class="quiz-option" data-qid="q1" data-opt="d" onclick="selectQuizOption('q1','d')">No hay diferencia significativa.</div>
+    </div>
+    <div class="quiz-feedback" id="fb-q1"><strong>Correcto.</strong> VixiOn es el sistema completo que incluye perfiles, enfoques, tecnologías, políticas y flujo del paciente. VixiOn Compass es específicamente el cuestionario digital pre-consulta.</div>
+  </div>
+
+  <div class="quiz-question">
+    <h4>2. Un paciente pregunta el precio de la cirugía antes de su consulta clínica. ¿Cuál es la respuesta correcta?</h4>
+    <div class="quiz-options">
+      <div class="quiz-option" data-qid="q2" data-opt="a" onclick="selectQuizOption('q2','a')">Compartir el rango de precios para que tenga referencia.</div>
+      <div class="quiz-option" data-qid="q2" data-opt="b" onclick="selectQuizOption('q2','b')">Decir el precio mínimo para no perder al paciente.</div>
+      <div class="quiz-option" data-qid="q2" data-opt="c" onclick="selectQuizOption('q2','c')">Explicar que la inversión depende de la recomendación clínica del cirujano y se discutirá post-consulta.</div>
+      <div class="quiz-option" data-qid="q2" data-opt="d" onclick="selectQuizOption('q2','d')">Preguntar al paciente cuál es su presupuesto.</div>
+    </div>
+    <div class="quiz-feedback" id="fb-q2"><strong>Correcto.</strong> Esta es la aplicación correcta del Approach C: la decisión clínica precede a la conversación financiera. Compartir precios pre-consulta puede sesgar la decisión clínica.</div>
+  </div>
+
+  <div class="quiz-question">
+    <h4>3. ¿Cuáles son los cuatro perfiles visuales del Sistema VixiOn?</h4>
+    <div class="quiz-options">
+      <div class="quiz-option" data-qid="q3" data-opt="a" onclick="selectQuizOption('q3','a')">Esencial, Equilibrada, Completa, Combinada</div>
+      <div class="quiz-option" data-qid="q3" data-opt="b" onclick="selectQuizOption('q3','b')">Standard, Premium, Elite, Custom</div>
+      <div class="quiz-option" data-qid="q3" data-opt="c" onclick="selectQuizOption('q3','c')">Vital, Intacta, Xelecta, Infinita</div>
+      <div class="quiz-option" data-qid="q3" data-opt="d" onclick="selectQuizOption('q3','d')">Monofocal, Multifocal, Tórico, Premium</div>
+    </div>
+    <div class="quiz-feedback" id="fb-q3"><strong>Correcto.</strong> Los cuatro perfiles son Esencial, Equilibrada, Completa y Combinada. Estos describen el resultado visual buscado por el paciente.</div>
+  </div>
+
+  <div class="quiz-question">
+    <h4>4. ¿Quién determina si un paciente recibe Visión Combinada?</h4>
+    <div class="quiz-options">
+      <div class="quiz-option" data-qid="q4" data-opt="a" onclick="selectQuizOption('q4','a')">El algoritmo del cuestionario VixiOn Compass.</div>
+      <div class="quiz-option" data-qid="q4" data-opt="b" onclick="selectQuizOption('q4','b')">El cirujano, basado en evaluación clínica post-consulta.</div>
+      <div class="quiz-option" data-qid="q4" data-opt="c" onclick="selectQuizOption('q4','c')">La coordinadora, según preferencias del paciente.</div>
+      <div class="quiz-option" data-qid="q4" data-opt="d" onclick="selectQuizOption('q4','d')">El paciente, según su capacidad financiera.</div>
+    </div>
+    <div class="quiz-feedback" id="fb-q4"><strong>Correcto.</strong> Visión Combinada (mix &amp; match) es exclusivamente decisión clínica del cirujano post-evaluación. El algoritmo del cuestionario NO la asigna automáticamente.</div>
+  </div>
+
+  <div class="quiz-question">
+    <h4>5. WaveLight Plus es:</h4>
+    <div class="quiz-options">
+      <div class="quiz-option" data-qid="q5" data-opt="a" onclick="selectQuizOption('q5','a')">El femtosecond laser para cirugía de catarata.</div>
+      <div class="quiz-option" data-qid="q5" data-opt="b" onclick="selectQuizOption('q5','b')">Un tipo de lente intraocular premium.</div>
+      <div class="quiz-option" data-qid="q5" data-opt="c" onclick="selectQuizOption('q5','c')">Una marca de espejuelos premium.</div>
+      <div class="quiz-option" data-qid="q5" data-opt="d" onclick="selectQuizOption('q5','d')">AI-Assisted LASIK que define el nivel Premium en Enfoque Corneal.</div>
+    </div>
+    <div class="quiz-feedback" id="fb-q5"><strong>Correcto.</strong> WaveLight Plus es la tecnología de LASIK guiada por AI, exclusiva de iOPR en Puerto Rico, que define el nivel Premium del Enfoque Corneal.</div>
+  </div>
+
+  <div class="quiz-question">
+    <h4>6. La diferencia clínica entre RLE y cirugía de catarata es:</h4>
+    <div class="quiz-options">
+      <div class="quiz-option" data-qid="q6" data-opt="a" onclick="selectQuizOption('q6','a')">Son procedimientos completamente diferentes con técnicas distintas.</div>
+      <div class="quiz-option" data-qid="q6" data-opt="b" onclick="selectQuizOption('q6','b')">RLE usa lentes premium; cirugía de catarata usa solo monofocal.</div>
+      <div class="quiz-option" data-qid="q6" data-opt="c" onclick="selectQuizOption('q6','c')">Es el mismo procedimiento físico, la diferencia es el motivo: terapéutico (catarata) vs electivo (RLE).</div>
+      <div class="quiz-option" data-qid="q6" data-opt="d" onclick="selectQuizOption('q6','d')">RLE solo aplica para pacientes jóvenes; cirugía de catarata para mayores.</div>
+    </div>
+    <div class="quiz-feedback" id="fb-q6"><strong>Correcto.</strong> Quirúrgicamente son el mismo procedimiento. La diferencia es el motivo: terapéutico (catarata diagnosticada, cubierto por plan) vs electivo (RLE, sin cobertura).</div>
+  </div>
+
+  <div class="quiz-question">
+    <h4>7. Un paciente describe flotadores y destellos súbitos. ¿Cuál es la acción correcta?</h4>
+    <div class="quiz-options">
+      <div class="quiz-option" data-qid="q7" data-opt="a" onclick="selectQuizOption('q7','a')">Es una emergencia oftalmológica — programar evaluación urgente o referir a sala de emergencia.</div>
+      <div class="quiz-option" data-qid="q7" data-opt="b" onclick="selectQuizOption('q7','b')">Programar cita rutinaria en próximas semanas.</div>
+      <div class="quiz-option" data-qid="q7" data-opt="c" onclick="selectQuizOption('q7','c')">Recomendar al paciente que descanse y observe los síntomas por unos días.</div>
+      <div class="quiz-option" data-qid="q7" data-opt="d" onclick="selectQuizOption('q7','d')">Decir que es normal con la edad.</div>
+    </div>
+    <div class="quiz-feedback" id="fb-q7"><strong>Correcto.</strong> Flotadores + destellos súbitos pueden indicar desprendimiento de retina. La ventana crítica es 24-48 horas. Acción urgente.</div>
+  </div>
+
+  <div class="quiz-question">
+    <h4>8. ¿Cuál es el rol principal del cuestionario VixiOn Compass?</h4>
+    <div class="quiz-options">
+      <div class="quiz-option" data-qid="q8" data-opt="a" onclick="selectQuizOption('q8','a')">Diagnosticar al paciente automáticamente.</div>
+      <div class="quiz-option" data-qid="q8" data-opt="b" onclick="selectQuizOption('q8','b')">Capturar información del paciente pre-consulta para preparar al equipo y enriquecer la evaluación.</div>
+      <div class="quiz-option" data-qid="q8" data-opt="c" onclick="selectQuizOption('q8','c')">Reemplazar la consulta clínica con el cirujano.</div>
+      <div class="quiz-option" data-qid="q8" data-opt="d" onclick="selectQuizOption('q8','d')">Determinar el precio que el paciente debe pagar.</div>
+    </div>
+    <div class="quiz-feedback" id="fb-q8"><strong>Correcto.</strong> El cuestionario captura información estructurada del paciente para preparar al cirujano y enriquecer la consulta. NO reemplaza ni diagnostica.</div>
+  </div>
+
+  <div class="quiz-question">
+    <h4>9. Un paciente dice "es muy caro". ¿Cuál es la respuesta correcta?</h4>
+    <div class="quiz-options">
+      <div class="quiz-option" data-qid="q9" data-opt="a" onclick="selectQuizOption('q9','a')">"Vale lo que cuesta, créame."</div>
+      <div class="quiz-option" data-qid="q9" data-opt="b" onclick="selectQuizOption('q9','b')">"Le puedo dar un descuento si decide hoy."</div>
+      <div class="quiz-option" data-qid="q9" data-opt="c" onclick="selectQuizOption('q9','c')">"¿Cuánto puede pagar?"</div>
+      <div class="quiz-option" data-qid="q9" data-opt="d" onclick="selectQuizOption('q9','d')">Validar la preocupación, explicar el valor, ofrecer planes de pago u opciones alternativas sin presión.</div>
+    </div>
+    <div class="quiz-feedback" id="fb-q9"><strong>Correcto.</strong> Validar, reafirmar valor, ofrecer alternativas. NUNCA dar descuentos arbitrarios o presionar por urgencia artificial.</div>
+  </div>
+
+  <div class="quiz-question">
+    <h4>10. La invitación que el paciente lee al inicio del cuestionario VixiOn Compass dice:</h4>
+    <div class="quiz-options">
+      <div class="quiz-option" data-qid="q10" data-opt="a" onclick="selectQuizOption('q10','a')">"Vamos a evaluar sus ojos."</div>
+      <div class="quiz-option" data-qid="q10" data-opt="b" onclick="selectQuizOption('q10','b')">"Antes de conocer sus ojos, queremos conocerle a usted."</div>
+      <div class="quiz-option" data-qid="q10" data-opt="c" onclick="selectQuizOption('q10','c')">"Su visión es nuestra prioridad."</div>
+      <div class="quiz-option" data-qid="q10" data-opt="d" onclick="selectQuizOption('q10','d')">"Empecemos con su historial."</div>
+    </div>
+    <div class="quiz-feedback" id="fb-q10"><strong>Correcto.</strong> "Antes de conocer sus ojos, queremos conocerle a usted" comunica que iOPR centra al paciente como persona, no solo como caso clínico.</div>
+  </div>
+
+  <div class="quiz-question">
+    <h4>11. Un paciente refiere específicamente para evaluar RLE. ¿Cómo procede la coordinadora?</h4>
+    <div class="quiz-options">
+      <div class="quiz-option" data-qid="q11" data-opt="a" onclick="selectQuizOption('q11','a')">Confirma el referido sin entrar en detalles. La consulta confirmará si es candidato y la conversación financiera ocurre post-consulta.</div>
+      <div class="quiz-option" data-qid="q11" data-opt="b" onclick="selectQuizOption('q11','b')">Le explica al paciente todos los precios de RLE inmediatamente.</div>
+      <div class="quiz-option" data-qid="q11" data-opt="c" onclick="selectQuizOption('q11','c')">Le dice al paciente que probablemente no es candidato.</div>
+      <div class="quiz-option" data-qid="q11" data-opt="d" onclick="selectQuizOption('q11','d')">Le pregunta cuál es su presupuesto.</div>
+    </div>
+    <div class="quiz-feedback" id="fb-q11"><strong>Correcto.</strong> Aún cuando viene referido específicamente para RLE, se mantiene la política Approach C: la consulta clínica determina si es candidato, y la conversación financiera ocurre después.</div>
+  </div>
+
+  <div class="quiz-question">
+    <h4>12. ¿Cuándo se usa VirtuaLens?</h4>
+    <div class="quiz-options">
+      <div class="quiz-option" data-qid="q12" data-opt="a" onclick="selectQuizOption('q12','a')">Antes de la consulta clínica como diagnóstico.</div>
+      <div class="quiz-option" data-qid="q12" data-opt="b" onclick="selectQuizOption('q12','b')">Durante la cirugía como herramienta quirúrgica.</div>
+      <div class="quiz-option" data-qid="q12" data-opt="c" onclick="selectQuizOption('q12','c')">Post-consulta, después de la recomendación clínica del cirujano, como herramienta educativa para el paciente.</div>
+      <div class="quiz-option" data-qid="q12" data-opt="d" onclick="selectQuizOption('q12','d')">Solo para pacientes que no quieren cirugía.</div>
+    </div>
+    <div class="quiz-feedback" id="fb-q12"><strong>Correcto.</strong> VirtuaLens se usa post-consulta, después de la recomendación clínica, para que el paciente experimente virtualmente cómo verá tras el procedimiento. Es educativo, no diagnóstico.</div>
+  </div>
+
+  <div class="quiz-question">
+    <h4>13. Un add-on como LenSx debe presentarse al paciente como:</h4>
+    <div class="quiz-options">
+      <div class="quiz-option" data-qid="q13" data-opt="a" onclick="selectQuizOption('q13','a')">Un componente obligatorio del procedimiento.</div>
+      <div class="quiz-option" data-qid="q13" data-opt="b" onclick="selectQuizOption('q13','b')">Una recomendación clínica del cirujano que mejora las probabilidades de un resultado óptimo, no impuesta.</div>
+      <div class="quiz-option" data-qid="q13" data-opt="c" onclick="selectQuizOption('q13','c')">Una venta adicional opcional sin valor clínico.</div>
+      <div class="quiz-option" data-qid="q13" data-opt="d" onclick="selectQuizOption('q13','d')">Algo que solo aplica para pacientes con cobertura.</div>
+    </div>
+    <div class="quiz-feedback" id="fb-q13"><strong>Correcto.</strong> Los add-ons como LenSx son recomendaciones clínicas del cirujano basadas en su evaluación. NO son obligatorios, NO son ventas. Tienen valor clínico real.</div>
+  </div>
+
+  <div style="text-align:center; margin-top:32px;">
+    <button class="btn btn-primary btn-large" onclick="evaluateQuiz()">Evaluar mis respuestas</button>
+  </div>
+
+  <div class="quiz-result" id="quizResult">
+    <h3 style="color: var(--navy); margin-top:0;">Su resultado:</h3>
+    <div class="quiz-score" id="quizScoreNum">--</div>
+    <p id="quizScoreText" style="font-size:16px; color:var(--grey); margin-bottom:16px;"></p>
+    <div id="quizMessage" style="background:var(--sand-light); padding:16px; border-radius:8px; margin-top:16px;"></div>
+    <p style="margin-top:24px; font-size:13px; color:var(--grey);">Si necesita repasar conceptos, navegue a la sección correspondiente desde el menú lateral.</p>
+  </div>
+
+  <div class="section-nav">
+    <button class="btn btn-secondary" onclick="goToSection('s13')">← Anterior</button>
+    <button class="btn btn-primary" onclick="nextSection('s14', 's15')">Siguiente: Recursos adicionales →</button>
+  </div>
+</section>
+
+<section class="section" id="s15">
+  <div class="section-header">
+    <span class="section-tag">Sección 15</span>
+    <h1>Recursos adicionales</h1>
+    <p class="subtitle">Enlaces oficiales y materiales de referencia para profundizar.</p>
+  </div>
+
+  <p class="lead">Esta sección consolida todos los enlaces oficiales de las tecnologías y procedimientos del Sistema VixiOn. Útiles para profundizar conocimiento, validar información, o compartir con pacientes que solicitan más detalles después de su consulta.</p>
+
+  <div class="callout callout-info">
+    <strong>Nota sobre uso de estos recursos:</strong>
+    <p>Los enlaces a páginas oficiales de fabricantes son apropiados para que el equipo profundice conocimiento técnico. <strong>Para compartir con pacientes</strong>, valide primero con el cirujano o supervisor cuáles materiales son apropiados — algunos contenidos de fabricantes están diseñados para profesionales, no para pacientes.</p>
+  </div>
+
+  <h2>Tecnologías quirúrgicas exclusivas iOPR</h2>
+
+  <div class="resource-link-block">
+    <div class="link-icon">⚡</div>
+    <div class="link-content">
+      <div class="link-title">WaveLight Plus (Alcon)</div>
+      <div class="link-desc">AI-Assisted LASIK — Premium del Enfoque Corneal</div>
+      <a href="https://www.myalcon.com/professional/refractive/wavelight-plus/" target="_blank" rel="noopener noreferrer">Sitio profesional (US) ↗</a>
+      <br>
+      <a href="https://www.myalcon.com/uk/lasik/wavelight-plus/" target="_blank" rel="noopener noreferrer" style="margin-top:4px; display:inline-block;">Sitio consumer (UK) ↗</a>
+    </div>
+  </div>
+
+  <div class="resource-link-block">
+    <div class="link-icon">⊙</div>
+    <div class="link-content">
+      <div class="link-title">LenSx Laser System (Alcon)</div>
+      <div class="link-desc">Femtosecond Laser-Assisted Cataract Surgery — Premium del Enfoque Lenticular</div>
+      <a href="https://www.youtube.com/watch?v=C633Zcfw8Io" target="_blank" rel="noopener noreferrer">Video oficial Alcon (Español) ↗</a>
+      <br>
+      <a href="https://www.youtube.com/watch?v=7mPnEjtNiDA" target="_blank" rel="noopener noreferrer" style="margin-top:4px; display:inline-block;">Video Harvard Eye - LenSx (English) ↗</a>
+      <br>
+      <a href="https://us.alconscience.com/sites/g/files/rbvwei1736/files/pdf/LenSx-Laser_p-US-LSX-2000012.pdf" target="_blank" rel="noopener noreferrer" style="margin-top:4px; display:inline-block;">Clinical Science Compendium (PDF — para cirujanos/research) ↗</a>
+    </div>
+  </div>
+
+  <h2>Equipo diagnóstico</h2>
+
+  <div class="resource-link-block">
+    <div class="link-icon">◉</div>
+    <div class="link-content">
+      <div class="link-title">iTrace (Tracey Technologies)</div>
+      <div class="link-desc">Aberrómetro de wavefront + topógrafo corneal</div>
+      <a href="https://www.traceytechnologies.com/" target="_blank" rel="noopener noreferrer">Sitio oficial Tracey Technologies ↗</a>
+      <br>
+      <a href="https://www.traceytechnologies.com/itrace-ophthalmic-technology/" target="_blank" rel="noopener noreferrer" style="margin-top:4px; display:inline-block;">Cómo funciona el ray tracing de iTrace ↗</a>
+    </div>
+  </div>
+
+  <h2>Lentes intraoculares (IOLs)</h2>
+
+  <div class="resource-link-block">
+    <div class="link-icon">◯</div>
+    <div class="link-content">
+      <div class="link-title">Clareon Monofocal y Tórico (Alcon)</div>
+      <div class="link-desc">Tier base — Visión Esencial · Add-on tórico para astigmatismo</div>
+      <a href="https://www.myalcon.com/ec/professional/cataract-surgery/iols/clareon-monofocal-and-toric/" target="_blank" rel="noopener noreferrer">Sitio Alcon Ecuador (en español) ↗</a>
+    </div>
+  </div>
+
+  <div class="resource-link-block">
+    <div class="link-icon">◐</div>
+    <div class="link-content">
+      <div class="link-title">Monofocal Plus / Vivity / TruePlus (Alcon)</div>
+      <div class="link-desc">EDOF — Visión Equilibrada</div>
+      <a href="https://www.myalcon.com/ec/professional/cataract-surgery/iols/clareon-monofocal-and-toric/" target="_blank" rel="noopener noreferrer">Sitio Alcon Ecuador (en español) ↗</a>
+    </div>
+  </div>
+
+  <div class="resource-link-block">
+    <div class="link-icon">◉</div>
+    <div class="link-content">
+      <div class="link-title">PanOptix Pro (Alcon)</div>
+      <div class="link-desc">Premium Trifocal — Visión Completa</div>
+      <a href="https://www.myalcon.com/professional/cataract-surgery/iols/clareon-panoptix-pro/" target="_blank" rel="noopener noreferrer">Sitio profesional ↗</a>
+      <br>
+      <a href="https://www.myalcon.com/cataracts/clareon-iols/panoptix-pro/" target="_blank" rel="noopener noreferrer" style="margin-top:4px; display:inline-block;">Sitio consumer (paciente) ↗</a>
+    </div>
+  </div>
+
+  <div class="resource-link-block">
+    <div class="link-icon">⊚</div>
+    <div class="link-content">
+      <div class="link-title">Apthera IC-8 (Bausch + Lomb)</div>
+      <div class="link-desc">Premium EDOF — Visión Combinada (mix &amp; match)</div>
+      <a href="https://www.bauschsurgical.com/cataract/ic-8-apthera-iol/" target="_blank" rel="noopener noreferrer">Sitio oficial ↗</a>
+      <br>
+      <a href="https://www.bauschsurgical.com/siteassets/pdf/ic-8_apthera_patient_brochure_es_apt0007usa26.pdf" target="_blank" rel="noopener noreferrer" style="margin-top:4px; display:inline-block;">Brochure paciente (PDF en español) ↗</a>
+    </div>
+  </div>
+
+  <div class="resource-link-block">
+    <div class="link-icon">⬭</div>
+    <div class="link-content">
+      <div class="link-title">EVO ICL (STAAR Surgical)</div>
+      <div class="link-desc">Lente fáquico — Enfoque Lenticular sin remoción</div>
+      <a href="https://us.discovericl.com/" target="_blank" rel="noopener noreferrer">Sitio oficial paciente ↗</a>
+      <br>
+      <a href="https://www.staar.com/products/evo-visian-icl" target="_blank" rel="noopener noreferrer" style="margin-top:4px; display:inline-block;">Sitio profesional STAAR ↗</a>
+      <br>
+      <a href="https://www.silkvision.net/es/evo-icl-bienvenido-al-futuro-de-la-vision" target="_blank" rel="noopener noreferrer" style="margin-top:4px; display:inline-block;">Recurso adicional en español ↗</a>
+    </div>
+  </div>
+
+  <h2>Tratamientos farmacológicos</h2>
+
+  <div class="resource-link-block">
+    <div class="link-icon">💧</div>
+    <div class="link-content">
+      <div class="link-title">VIZZ (aceclidina ophthalmic solution 1.44%)</div>
+      <div class="link-desc">Tratamiento farmacológico para presbicia. FDA approved 2025. Una dosis diaria, hasta 10 horas.</div>
+      <a href="https://www.vizz.com/" target="_blank" rel="noopener noreferrer">Sitio oficial VIZZ ↗</a>
+    </div>
+  </div>
+
+  <h2>Recursos institucionales iOPR</h2>
+
+  <div class="resource-link-block">
+    <div class="link-icon">📚</div>
+    <div class="link-content">
+      <div class="link-title">Estudio AAO 2025: WaveLight Plus vs SMILE Pro</div>
+      <div class="link-desc">Press release oficial de la American Academy of Ophthalmology — comparativa head-to-head presentada en octubre 2025. Investigador principal: A. John Kanellopoulos, MD (NYU).</div>
+      <a href="https://www.aao.org/newsroom/news-releases/detail/latest-evolution-of-lasik-technology-shows-results" target="_blank" rel="noopener noreferrer">aao.org — Latest Evolution of LASIK Technology ↗</a>
+    </div>
+  </div>
+
+  <div class="resource-link-block">
+    <div class="link-icon">🏥</div>
+    <div class="link-content">
+      <div class="link-title">Sitio web institucional iOPR</div>
+      <div class="link-desc">Sitio oficial del Instituto de Ojos de Puerto Rico</div>
+      <a href="https://iojospr.com/" target="_blank" rel="noopener noreferrer">iojospr.com ↗</a>
+    </div>
+  </div>
+
+  <div class="resource-link-block">
+    <div class="link-icon">📋</div>
+    <div class="link-content">
+      <div class="link-title">VixiOn Compass (cuestionario)</div>
+      <div class="link-desc">El cuestionario digital del Sistema VixiOn que el paciente completa pre-consulta</div>
+      <a href="https://salimperez974.github.io/vixion.compass/" target="_blank" rel="noopener noreferrer">salimperez974.github.io/vixion.compass ↗</a>
+    </div>
+  </div>
+
+  <h2>Términos importantes a recordar</h2>
+  <p>Vale recordar los principios al usar estos recursos:</p>
+  <ul>
+    <li><strong>Lenguaje del paciente, no del producto:</strong> al hablar con pacientes, hablamos del resultado visual (perfil), no del nombre comercial del lente</li>
+    <li><strong>Información validada:</strong> si vale compartir un recurso con un paciente, primero confirmar con cirujano o supervisor</li>
+    <li><strong>Privacidad y HIPAA:</strong> nunca compartir información del paciente vía estos recursos</li>
+    <li><strong>Atribuciones de imágenes:</strong> las imágenes de los fabricantes son su propiedad — siempre con atribución apropiada</li>
+  </ul>
+
+  <h2>¡Felicidades por completar la capacitación!</h2>
+  <div class="callout callout-success">
+    <strong>Has completado la capacitación del Sistema VixiOn.</strong>
+    <p>Esto es solo el inicio — la maestría del sistema viene con la práctica. Mantén estos recursos a mano, consulta con tu equipo cuando tengas dudas, y recuerda que cada paciente que atendemos es una oportunidad de aplicar el sistema con excelencia.</p>
+  </div>
+
+  <p style="text-align:center; margin-top:24px; padding:16px; background:var(--sand-light); border-radius:10px; font-style:italic; color:var(--navy);">
+    <strong>"El primer paso hacia su mejor visión posible."</strong><br>
+    <span style="font-size:13px; color:var(--grey);">— Slogan del Sistema VixiOn</span>
+  </p>
+
+  <div class="section-nav">
+    <button class="btn btn-secondary" onclick="goToSection('s14')">← Anterior</button>
+    <button class="btn btn-primary" onclick="goToSection('s0')">Volver al inicio →</button>
+  </div>
+</section>
+
+</main>
+
+<script>
+const TOTAL_SECTIONS = 16;
+let state = {
+  currentSection: 's0',
+  completed: [],
+  quizScore: null
+};
+
+function loadProgress() {
+  const saved = localStorage.getItem('vixionTraining_v1');
+  if (saved) {
+    try {
+      state = JSON.parse(saved);
+    } catch(e) {}
+  }
+  updateProgress();
+  goToSection(state.currentSection || 's0', false);
+}
+
+function saveProgress() {
+  localStorage.setItem('vixionTraining_v1', JSON.stringify(state));
+}
+
+function updateProgress() {
+  const pct = Math.round((state.completed.length / TOTAL_SECTIONS) * 100);
+  document.getElementById('progressFill').style.width = pct + '%';
+  document.getElementById('progressText').innerText = pct + '% completado';
+  document.querySelectorAll('.sidebar-nav a').forEach(a => {
+    const id = a.dataset.section;
+    if (state.completed.includes(id)) {
+      a.classList.add('completed');
+    }
+    if (id === state.currentSection) {
+      a.classList.add('active');
+    } else {
+      a.classList.remove('active');
+    }
+  });
+}
+
+function goToSection(id, markCompleted = true) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  const sect = document.getElementById(id);
+  if (sect) sect.classList.add('active');
+  state.currentSection = id;
+  if (markCompleted && !state.completed.includes(id)) {
+    state.completed.push(id);
+  }
+  updateProgress();
+  saveProgress();
+  window.scrollTo(0, 0);
+}
+
+function nextSection(currentId, nextId) {
+  if (!state.completed.includes(currentId)) {
+    state.completed.push(currentId);
+  }
+  goToSection(nextId);
+}
+
+function resetProgress() {
+  if (confirm('¿Está seguro que desea reiniciar todo el progreso de la capacitación?')) {
+    localStorage.removeItem('vixionTraining_v1');
+    state = { currentSection: 's0', completed: [], quizScore: null };
+    location.reload();
+  }
+}
+
+const quizAnswers = {};
+const quizCorrect = {
+  q1: 'b', q2: 'c', q3: 'a', q4: 'b', q5: 'd',
+  q6: 'c', q7: 'a', q8: 'b', q9: 'd', q10: 'b',
+  q11: 'a', q12: 'c', q13: 'b'
+};
+
+function selectQuizOption(qid, opt) {
+  if (quizAnswers[qid]) return;
+  quizAnswers[qid] = opt;
+  const opts = document.querySelectorAll('[data-qid="' + qid + '"]');
+  opts.forEach(o => {
+    o.classList.remove('selected');
+    if (o.dataset.opt === opt) o.classList.add('selected');
+    if (o.dataset.opt === quizCorrect[qid]) o.classList.add('correct');
+    else if (o.dataset.opt === opt && opt !== quizCorrect[qid]) o.classList.add('incorrect');
+  });
+  const fb = document.getElementById('fb-' + qid);
+  if (fb) {
+    fb.classList.add('show');
+    if (opt === quizCorrect[qid]) {
+      fb.classList.add('correct-fb');
+    } else {
+      fb.classList.add('incorrect-fb');
+    }
+  }
+  saveProgress();
+}
+
+function evaluateQuiz() {
+  const total = Object.keys(quizCorrect).length;
+  const correct = Object.keys(quizCorrect).filter(q => quizAnswers[q] === quizCorrect[q]).length;
+  const pct = Math.round((correct / total) * 100);
+  state.quizScore = pct;
+  const result = document.getElementById('quizResult');
+  result.classList.add('show');
+  document.getElementById('quizScoreNum').innerText = pct + '%';
+  document.getElementById('quizScoreNum').classList.add(pct >= 80 ? 'passed' : 'failed');
+  document.getElementById('quizScoreText').innerText = correct + ' de ' + total + ' respuestas correctas';
+  if (pct >= 80) {
+    document.getElementById('quizMessage').innerHTML = '<strong>¡Excelente!</strong> Has demostrado un buen entendimiento del Sistema VixiOn. Estás capacitado para apoyar a pacientes y al equipo en su uso operativo.';
+  } else {
+    document.getElementById('quizMessage').innerHTML = '<strong>Vale revisar el contenido.</strong> Para apoyar correctamente a pacientes y al equipo, sugerimos repasar las secciones que aún no dominas y volver a tomar la evaluación.';
+  }
+  saveProgress();
+  window.scrollTo({top: result.offsetTop - 60, behavior: 'smooth'});
+}
+
+document.addEventListener('DOMContentLoaded', loadProgress);
+</script>
+
+</body>
+</html>
