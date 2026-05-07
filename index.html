@@ -1969,31 +1969,195 @@ tr:hover td {
   line-height: 1.5;
 }
 
-/* ===== MOBILE ===== */
+/* ===== MOBILE: hamburger menu + slide-in sidebar ===== */
+.mobile-menu-toggle {
+  display: none;
+  position: fixed;
+  top: 12px;
+  left: 12px;
+  z-index: 200;
+  background: var(--navy);
+  color: white;
+  border: none;
+  width: 44px;
+  height: 44px;
+  border-radius: 8px;
+  font-size: 20px;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  align-items: center;
+  justify-content: center;
+}
+.mobile-menu-toggle:active {
+  background: var(--azure);
+}
+.mobile-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,2,79,0.5);
+  z-index: 99;
+}
+.mobile-overlay.show {
+  display: block;
+}
+
 @media (max-width: 900px) {
+  .mobile-menu-toggle {
+    display: flex;
+  }
+  body {
+    display: block;
+  }
   .sidebar {
-    width: 100%;
-    height: auto;
-    position: relative;
+    width: 86%;
+    max-width: 320px;
+    height: 100vh;
+    transform: translateX(-100%);
+    transition: transform 0.25s ease;
+    z-index: 110;
+  }
+  .sidebar.open {
+    transform: translateX(0);
   }
   .main {
     margin-left: 0;
-    padding: 24px;
+    padding: 60px 16px 32px;
+    max-width: 100%;
   }
   .welcome-hero {
-    padding: 32px 24px;
+    padding: 28px 20px;
+    border-radius: 12px;
   }
   .welcome-hero h1 {
-    font-size: 26px;
+    font-size: 24px;
   }
+  .welcome-hero .lead {
+    font-size: 15px;
+  }
+  h1 { font-size: 26px; line-height: 1.2; }
+  h2 { font-size: 20px; margin: 28px 0 14px; }
+  h3 { font-size: 16px; margin: 22px 0 10px; }
+  h4 { font-size: 14px; }
+  .lead { font-size: 15px; }
+  .section-header { margin-bottom: 22px; padding-bottom: 12px; }
+
+  /* Welcome registration form: 2 cols → 1 col */
+  #userRegistrationCard > div[style*="grid-template-columns"] {
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+  }
+  /* Stats grid */
+  .stat-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+  .stat { padding: 12px 14px; }
+  .stat-number { font-size: 22px; }
+  .stat-label { font-size: 11px; }
+
+  /* Cards */
+  .card { padding: 18px; border-radius: 10px; }
+  .card-grid { grid-template-columns: 1fr; gap: 12px; }
+  .role-grid { grid-template-columns: 1fr; gap: 12px; }
+  .role-box { padding: 16px; }
+  .profile-card { padding: 16px; }
+
+  /* Tables: more compact + edge-to-edge */
+  table { font-size: 12px; }
+  th, td { padding: 8px 10px; font-size: 12px; }
+  .table-wrapper { margin: 14px -16px; border-radius: 0; }
+
+  /* Section navigation: stack and full-width */
+  .section-nav {
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 32px;
+  }
+  .btn { width: 100%; padding: 12px 18px; font-size: 14px; }
+  .btn-large { padding: 14px 20px; font-size: 14px; }
+
+  /* Calculator: tighter mobile layout */
+  .calculator-card { padding: 16px 14px; }
+  .calc-step { margin: 14px 0; padding-bottom: 14px; }
+  .calc-label { font-size: 14px; }
+  .calc-radios { flex-direction: column; }
+  .calc-radio { min-width: 0; }
+  .calc-total-box { flex-direction: column; gap: 6px; text-align: center; padding: 14px; }
+  .calc-total-value { font-size: 24px; }
+  .calc-actions { flex-direction: column; }
+  .calc-actions .btn { width: 100%; }
+  .mixmatch-eyes { grid-template-columns: 1fr; }
+
+  /* Coverage row: stack and let buttons wrap */
+  .coverage-row {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+  .coverage-row-info, .coverage-row-input { grid-column: 1; }
+  .coverage-row-input { grid-row: auto; flex-wrap: wrap; }
+  .coverage-row-input input[type="number"] { width: 100%; min-width: 0; }
+  .coverage-row-input .btn-mini { flex: 1; }
+
+  /* Quiz */
+  .quiz-question { padding: 18px 16px; }
+  .quiz-question h4 { font-size: 14px; line-height: 1.4; }
+  .quiz-option { padding: 11px 14px; font-size: 13px; line-height: 1.4; }
+
+  /* Certificate */
+  .certificate { margin: 12px 0; }
+  .cert-border { padding: 18px 18px; margin: 8px; }
+  .cert-header { flex-direction: column; gap: 14px; padding-bottom: 14px; margin-bottom: 16px; }
+  .cert-title { font-size: 26px; margin: 4px 0 16px 0; }
+  .cert-name { font-size: 22px; min-width: 0; width: 100%; box-sizing: border-box; }
+  .cert-stats { grid-template-columns: 1fr; gap: 10px; padding: 14px; }
+  .cert-stat { padding: 8px 0; border-bottom: 1px solid #E5E7EB; }
+  .cert-stat:last-child { border-bottom: none; }
+  .cert-signatures { grid-template-columns: 1fr; gap: 24px; margin: 22px 0 12px 0; }
+  .cert-description { font-size: 13px; }
+  .certificate-actions .btn {
+    margin: 4px 0 !important;
+    width: 100%;
+    display: block;
+  }
+
+  /* Resource link blocks: stack icon + content */
+  .resource-link-block { flex-direction: column; align-items: flex-start; gap: 10px; padding: 14px; }
+
+  /* Flow steps: full width on small screens */
+  .flow { gap: 8px; }
+  .flow-step { min-width: 100%; padding: 12px; }
+
+  /* Callouts */
+  .callout { padding: 14px 16px; }
+
+  /* Script boxes */
+  .script-box { padding: 14px 16px; }
+}
+
+@media (max-width: 480px) {
+  .main { padding: 56px 12px 24px; }
+  .welcome-hero { padding: 22px 16px; }
+  .welcome-hero h1 { font-size: 22px; }
+  .stat-grid { grid-template-columns: 1fr 1fr; }
+  .stat-number { font-size: 20px; }
+  table { font-size: 11px; }
+  th, td { padding: 6px 8px; }
+  .cert-title { font-size: 22px; }
+  .cert-name { font-size: 19px; }
+  .cert-logo-mark { width: 42px; height: 42px; font-size: 16px; }
 }
 </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 </head>
 <body>
 
+<!-- ===== MOBILE HAMBURGER + OVERLAY (only visible on mobile via CSS) ===== -->
+<button class="mobile-menu-toggle" id="mobileMenuToggle" onclick="toggleMobileMenu()" aria-label="Abrir menú">☰</button>
+<div class="mobile-overlay" id="mobileOverlay" onclick="closeMobileMenu()"></div>
+
 <!-- ===== SIDEBAR ===== -->
-<aside class="sidebar">
+<aside class="sidebar" id="sidebar">
   <div class="sidebar-header">
     <div class="sidebar-logo">
       <div class="sidebar-logo-icon">VX</div>
@@ -5238,7 +5402,29 @@ function goToSection(id, markCompleted = true) {
   }
   updateProgress();
   saveProgress();
+  closeMobileMenu();
   window.scrollTo(0, 0);
+}
+
+// Mobile menu controls
+function toggleMobileMenu() {
+  const sidebar = document.getElementById('sidebar');
+  const overlay = document.getElementById('mobileOverlay');
+  const isOpen = sidebar.classList.contains('open');
+  if (isOpen) {
+    closeMobileMenu();
+  } else {
+    sidebar.classList.add('open');
+    overlay.classList.add('show');
+    document.body.style.overflow = 'hidden';
+  }
+}
+function closeMobileMenu() {
+  const sidebar = document.getElementById('sidebar');
+  const overlay = document.getElementById('mobileOverlay');
+  if (sidebar) sidebar.classList.remove('open');
+  if (overlay) overlay.classList.remove('show');
+  document.body.style.overflow = '';
 }
 
 function nextSection(currentId, nextId) {
