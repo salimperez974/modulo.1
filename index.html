@@ -2939,6 +2939,10 @@ tr:hover td { background: var(--sand-light); }
 .vx-promo img{max-width:100%;}
 @media(max-width:640px){.vx-promo{max-width:100%;}}
 @media print{.vx-promo{break-inside:avoid;}}
+.vx-changelog summary::-webkit-details-marker{display:none;}
+.vx-changelog summary::before{content:"▸ ";color:var(--teal);}
+.vx-changelog[open] summary::before{content:"▾ ";}
+@media print{.vx-changelog{break-inside:avoid;}.vx-changelog[open] summary::before{content:"";}}
 </style>
 </head>
 <body>
@@ -3080,74 +3084,6 @@ tr:hover td { background: var(--sand-light); }
     <li>Al final hay una <strong>evaluación de 15 preguntas</strong>. Necesitas <strong>80% o más</strong> para aprobar.</li>
     <li>Al pasar la evaluación, recibirás un <strong>certificado de finalización</strong>.</li>
   </ul>
-
-  <div class="card" style="background:var(--bg-callout-azure, var(--bg-surface)); border-left:4px solid var(--azure); margin-top:30px;">
-    <h4 style="margin-top:0; color:var(--text-strong);">🔄 Cambios recientes, qué actualizar si ya tomaste la capacitación antes</h4>
-    <p>Si completaste una versión anterior de esta capacitación, hay actualizaciones clave que conviene revisar. La arquitectura clínica y la nomenclatura institucional se actualizaron entre marzo y junio de 2026.</p>
-
-    <div style="margin-top:14px;">
-      <p style="margin:0 0 6px 0;"><strong>Junio 2026, Marcos clínicos de comunicación y decisión</strong></p>
-      <p style="font-size:14px; margin:0 0 12px 18px;">Añadidos a soft skills cinco referentes que complementan los de venta: el modelo de tres conversaciones de Elwyn (decisión compartida), la entrevista motivacional (Miller y Rollnick), el protocolo SPIKES para malas noticias (refuerza el Escenario 17 del Playbook), Gap Selling (estado actual vs deseado) y la Buoyancy de Daniel Pink (resiliencia ante el "no"). Los tres primeros son marcos clínicos basados en evidencia. Ver la sección de Soft skills.</p>
-    </div>
-
-    <div style="margin-top:14px;">
-      <p style="margin:0 0 6px 0;"><strong>Junio 2026, Principios de Jim Camp (traducidos al marco colaborativo)</strong></p>
-      <p style="font-size:14px; margin:0 0 12px 18px;">Añadidos a soft skills tres principios de Camp que complementan a Voss y SPIN, en clave ética y centrada en el paciente: empezar con el "No" (permiso para declinar), la ausencia de necesidad (cero presión por vender) y la pizarra en blanco (no asumir). Se adopta el principio, no el lenguaje adversarial. Ver la sección de Soft skills.</p>
-    </div>
-
-    <div style="margin-top:14px;">
-      <p style="margin:0 0 6px 0;"><strong>Junio 2026, Prácticas de experiencia del paciente (basadas en evidencia)</strong></p>
-      <p style="font-size:14px; margin:0 0 12px 18px;">Incorporadas prácticas de instituciones líderes y literatura peer-reviewed: regla del pico-final y diseño del cierre de la visita, la conversación financiera como acto de cuidado, los frameworks AIDET y R.E.D.E. en soft skills, teach-back en el handoff de gotas, recuperación del servicio en situaciones difíciles, y el Compass como ayuda de decisión. Ver <a onclick="goToSection('s4')" style="cursor:pointer; color:var(--teal); text-decoration:underline;">Sección 4</a>, <a onclick="goToSection('s6')" style="cursor:pointer; color:var(--teal); text-decoration:underline;">Sección 6</a>, <a onclick="goToSection('s10')" style="cursor:pointer; color:var(--teal); text-decoration:underline;">Sección 10</a> y la sección de Soft skills.</p>
-    </div>
-
-    <div style="margin-top:14px;">
-      <p style="margin:0 0 6px 0;"><strong>Junio 2026, Principio de counseling: conversar el qué antes del cómo</strong></p>
-      <p style="font-size:14px; margin:0 0 12px 18px;">La satisfacción del paciente depende más de la conversación y las expectativas que del resultado técnico. El equipo invierte el tiempo en qué quiere lograr el paciente y qué es alcanzable para su ojo; el doctor determina el cómo después. Base de evidencia (PubMed) en <a onclick="goToSection('s4')" style="cursor:pointer; color:var(--teal); text-decoration:underline;">Sección 4</a>, con refuerzo en <a onclick="goToSection('s6')" style="cursor:pointer; color:var(--teal); text-decoration:underline;">Sección 6, Etapa 2</a>.</p>
-    </div>
-
-    <div style="margin-top:14px;">
-      <p style="margin:0 0 6px 0;"><strong>Junio 2026, Feedback clínico del Dr. Santiago</strong></p>
-      <p style="font-size:14px; margin:0 0 8px 18px;"><strong>Apthera IC-8, reframe a "visión continua":</strong> Apthera ya no se presenta primariamente como "el lente para córnea irregular", sino como la opción de <strong>visión continua de lejos a cerca</strong>. La anatomía irregular es una indicación entre varias, no la definición del candidato. Su tolerancia nativa de astigmatismo se corrigió de 1.5 D a <strong>1.75 D</strong>, no requiere add-on tórico. Ver <a onclick="goToSection('s2')" style="cursor:pointer; color:var(--teal); text-decoration:underline;">Sección 2</a> y <a onclick="goToSection('s4')" style="cursor:pointer; color:var(--teal); text-decoration:underline;">Sección 4</a>.</p>
-      <p style="font-size:14px; margin:0 0 8px 18px;"><strong>Nomenclatura doctor vs. cirujano:</strong> el personal usa siempre <strong>"doctor" o "facultativo"</strong>, nunca "cirujano". La palabra "cirujano" solo aparece cuando es el propio paciente quien la dice. Ver <a onclick="goToSection('s10')" style="cursor:pointer; color:var(--teal); text-decoration:underline;">Sección 10</a>.</p>
-      <p style="font-size:14px; margin:0 0 8px 18px;"><strong>Paciente que pide ver al Dr. Santiago directamente:</strong> es una <strong>solicitud legítima, no una objeción</strong>. El framing correcto no es "Dr. Santiago u otro doctor", sino "fue asignado a un doctor capacitado del equipo iOPR, y podemos coordinar una visita con el Dr. Santiago si la necesita". No reasignar sin coordinación institucional. Ver <a onclick="goToSection('s10')" style="cursor:pointer; color:var(--teal); text-decoration:underline;">Sección 10, Objeción 6</a>.</p>
-      <p style="font-size:14px; margin:0 0 12px 18px;"><strong>Paralelismo de nombres entre enfoques:</strong> los cinco perfiles aplican en paralelo a ambos enfoques. El sufijo "Plus" es paralelo, Esencial Plus es LASIK Plus en Corneal y Monofocal Plus en Lenticular; lo mismo en Completa, LASIK Premium (WaveLight) y PanOptix Pro. Ver la matriz en <a onclick="goToSection('s2')" style="cursor:pointer; color:var(--teal); text-decoration:underline;">Sección 2</a>.</p>
-    </div>
-
-    <div style="margin-top:14px;">
-      <p style="margin:0 0 6px 0;"><strong>Junio 2026, Flujo del paciente y protocolo post-operatorio</strong></p>
-      <p style="font-size:14px; margin:0 0 8px 18px;"><strong>Las cinco etapas del flujo del paciente:</strong> (1) Pre-consulta, (2) Consulta clínica, (3) Coordinación, (4) Día de cirugía, (5) Post-operatorio. La Etapa 0 (pre-visita: SMS, cuestionario y video) precede a las cinco como preparación. Ver <a onclick="goToSection('s6')" style="cursor:pointer; color:var(--teal); text-decoration:underline;">Sección 6</a>.</p>
-      <p style="font-size:14px; margin:0 0 8px 18px;"><strong>Manejo de objeciones de facultad médica:</strong> se cubre el paciente que pide ver al Dr. Santiago, a un oftalmólogo, a un cirujano, o que no quiere al optómetra. Principio: el optómetra apoya workup y refracción; la decisión clínica y quirúrgica es siempre del oftalmólogo. Ver <a onclick="goToSection('s10')" style="cursor:pointer; color:var(--teal); text-decoration:underline;">Sección 10, Objeción 6</a>.</p>
-      <p style="font-size:14px; margin:0 0 8px 18px;"><strong>Régimen estándar de gotas post-op:</strong> Antibiótico 4 veces/día × 1 semana; AINE 2 veces/día × 4 semanas (prevención de EMC); Esteroide 4 veces/día × 1 semana con tapering por 4 semanas (si el paciente no tolera el AINE). Ver <a onclick="goToSection('s6')" style="cursor:pointer; color:var(--teal); text-decoration:underline;">Sección 6, Etapa 5</a>.</p>
-      <p style="font-size:14px; margin:0 0 12px 18px;"><strong>Esquema típico de seguimiento:</strong> POD #1 (revisión de flap, AV mayor de 20/20, comodidad ocular); POW #1 (AV mayor de 20/20, refracción Cronos, evaluación de superficie ocular); POM #1 (AV mayor de 20/20, estabilidad refractiva, evaluación de ojo seco, Pentacam AXL/Wave, iTrace). Ver <a onclick="goToSection('s6')" style="cursor:pointer; color:var(--teal); text-decoration:underline;">Sección 6, Etapa 5</a>.</p>
-    </div>
-
-    <div style="margin-top:14px;">
-      <p style="margin:0 0 6px 0;"><strong>Junio 2026, Approach C 2.0: transparencia con precios institucionales</strong></p>
-      <p style="font-size:14px; margin:0 0 12px 18px;">El principio <strong>Approach C</strong> se refinó. La decisión clínica del doctor sigue siendo el eje, pero ahora los precios institucionales son <strong>públicos y se comparten abiertamente</strong>. Lo que requiere evaluación clínica es la recomendación específica para el caso del paciente (qué perfil aplica, categorización RLE vs catarata). iOPR es la primera práctica oftalmológica en Puerto Rico en publicar precios, diferenciador institucional. Ver <a onclick="goToSection('s5')" style="cursor:pointer; color:var(--teal); text-decoration:underline;">Sección 5, Política RLE vs Catarata</a> y <a onclick="goToSection('s7')" style="cursor:pointer; color:var(--teal); text-decoration:underline;">Sección 7, Inversión y precios</a>.</p>
-    </div>
-
-    <div style="margin-top:14px;">
-      <p style="margin:0 0 6px 0;"><strong>Junio 2026, Gotas para presbicia: jerarquía institucional</strong></p>
-      <p style="font-size:14px; margin:0 0 12px 18px;"><strong>Vizz</strong> (aceclidina 1.44%, FDA 2025) es la primera línea institucional cuando esté disponible en Puerto Rico; mientras llega al mercado local, <strong>Vuity</strong> (pilocarpina 1.25%) es la opción prescribible. La marca específica se define en consulta según disponibilidad.</p>
-      <p style="margin:0 0 6px 0;"><strong>Junio 2026, Etapa 0 (pre-visita) añadida al flujo del paciente</strong></p>
-      <p style="font-size:14px; margin:0 0 12px 18px;">El flujo del paciente pasa de 5 a 6 etapas. La nueva <strong>Etapa 0</strong> codifica la secuencia SMS pre-visita (T−7 confirmación + Compass, T−3 video V0, T−1 logística, día de cita). Operacionalizada por el Cuadro Telefónico. Ver <a onclick="goToSection('s6')" style="cursor:pointer; color:var(--teal); text-decoration:underline;">Sección 6, Flujo del paciente</a>.</p>
-    </div>
-
-    <div>
-      <p style="margin:0 0 6px 0;"><strong>Mayo 2026, Arquitectura paralela de 2 enfoques</strong></p>
-      <p style="font-size:14px; margin:0 0 12px 18px;">La arquitectura clínica se reorganizó de 3 enfoques anatómicos a <strong>2 enfoques paralelos</strong>: Corneal y Lenticular. El enfoque "Fáquico" como categoría separada se eliminó, EVO ICL ahora es Equilibrada en el Enfoque Corneal. Ver <a onclick="goToSection('s2')" style="cursor:pointer; color:var(--teal); text-decoration:underline;">Sección 2, Arquitectura clínica</a>.</p>
-    </div>
-
-    <div>
-      <p style="margin:0 0 6px 0;"><strong>Mayo 2026, Nueva nomenclatura institucional</strong></p>
-      <p style="font-size:14px; margin:0 0 12px 18px;">Los perfiles se renombraron a <strong>Esencial, Esencial Plus, Equilibrada, Completa, Combinada</strong>. Procedimientos: <strong>LASIK Plus</strong> (perfil Esencial Plus Corneal, WFO + registro de iris), <strong>LASIK Premium (WaveLight)</strong> (perfil Completa Corneal, FDA 2025). iOPR ya no ofrece LASIK básico, LASIK Plus es el piso de calidad. Ver <a onclick="goToSection('s7')" style="cursor:pointer; color:var(--teal); text-decoration:underline;">Sección 7, Inversión y precios</a>.</p>
-    </div>
-
-    <div>
-      <p style="margin:0 0 6px 0;"><strong>Mayo 2026, Plataforma femtosegundo: LenSx</strong></p>
-      <p style="font-size:14px; margin:0 0 0 18px;">El láser femtosegundo se identifica con su nombre oficial: <strong>LenSx</strong> (plataforma Alcon, exclusivo en Puerto Rico para iOPR). Disponible como add-on opcional en cualquier perfil del Enfoque Lenticular.</p>
-    </div>
-  </div>
 
   <div class="card" style="background:var(--bg-callout-teal); border-left:4px solid var(--teal); margin-top:30px;">
     <h4 style="margin-top:0; color:var(--text-strong);">Antes de comenzar, registro</h4>
@@ -3506,7 +3442,6 @@ tr:hover td { background: var(--sand-light); }
     <p style="margin-top:12px;">Ambos son trade-offs válidos. Algunos pacientes prefieren rango continuo aunque ningún punto sea pico; otros prefieren tres puntos pico aunque haya valles. La conversación con el doctor debe articular esta diferencia para que el paciente elija con conocimiento del tradeoff.</p>
     <p style="margin-top:10px; font-size:13px; color:var(--text-muted);"><em>Honestidad clínica baseline:</em> ninguna solución actual mejora ni alcanza la función de un cristalino natural saludable. Lo que iOPR ofrece son alternativas factibles y beneficiosas para pacientes con daño o limitaciones acomodativas, no reemplazos perfectos del cristalino joven.</p>
   </div>
-
 
   <div class="smart-educator-launcher">
     <div class="smart-educator-header">
@@ -7429,6 +7364,78 @@ tr:hover td { background: var(--sand-light); }
     <a href="https://smarteducator.myalcon.com/" target="_blank" rel="noopener noreferrer" style="display:inline-block;margin-top:8px;font-weight:600;">Abrir educador de Alcon ↗</a>
   </div>
 </div>
+
+
+<details class="vx-changelog" style="margin:18px 0;border:1px solid var(--border-color);border-radius:10px;background:var(--bg-surface);">
+<summary style="cursor:pointer;padding:12px 16px;font-weight:600;color:var(--text-strong);font-size:14.5px;list-style:none;">🔄 Historial de cambios y actualizaciones del sistema</summary>
+<div style="padding:4px 16px 16px 16px;">
+<p style="font-size:13px;color:var(--text-muted);margin:0 0 12px;">Registro de la evolución del Sistema VixiOn. Útil para quienes tomaron una versión anterior; el primer grupo puede omitirlo sin problema.</p>
+<p>Si completaste una versión anterior de esta capacitación, hay actualizaciones clave que conviene revisar. La arquitectura clínica y la nomenclatura institucional se actualizaron entre marzo y junio de 2026.</p>
+
+    <div style="margin-top:14px;">
+      <p style="margin:0 0 6px 0;"><strong>Junio 2026, Marcos clínicos de comunicación y decisión</strong></p>
+      <p style="font-size:14px; margin:0 0 12px 18px;">Añadidos a soft skills cinco referentes que complementan los de venta: el modelo de tres conversaciones de Elwyn (decisión compartida), la entrevista motivacional (Miller y Rollnick), el protocolo SPIKES para malas noticias (refuerza el Escenario 17 del Playbook), Gap Selling (estado actual vs deseado) y la Buoyancy de Daniel Pink (resiliencia ante el "no"). Los tres primeros son marcos clínicos basados en evidencia. Ver la sección de Soft skills.</p>
+    </div>
+
+    <div style="margin-top:14px;">
+      <p style="margin:0 0 6px 0;"><strong>Junio 2026, Principios de Jim Camp (traducidos al marco colaborativo)</strong></p>
+      <p style="font-size:14px; margin:0 0 12px 18px;">Añadidos a soft skills tres principios de Camp que complementan a Voss y SPIN, en clave ética y centrada en el paciente: empezar con el "No" (permiso para declinar), la ausencia de necesidad (cero presión por vender) y la pizarra en blanco (no asumir). Se adopta el principio, no el lenguaje adversarial. Ver la sección de Soft skills.</p>
+    </div>
+
+    <div style="margin-top:14px;">
+      <p style="margin:0 0 6px 0;"><strong>Junio 2026, Prácticas de experiencia del paciente (basadas en evidencia)</strong></p>
+      <p style="font-size:14px; margin:0 0 12px 18px;">Incorporadas prácticas de instituciones líderes y literatura peer-reviewed: regla del pico-final y diseño del cierre de la visita, la conversación financiera como acto de cuidado, los frameworks AIDET y R.E.D.E. en soft skills, teach-back en el handoff de gotas, recuperación del servicio en situaciones difíciles, y el Compass como ayuda de decisión. Ver <a onclick="goToSection('s4')" style="cursor:pointer; color:var(--teal); text-decoration:underline;">Sección 4</a>, <a onclick="goToSection('s6')" style="cursor:pointer; color:var(--teal); text-decoration:underline;">Sección 6</a>, <a onclick="goToSection('s10')" style="cursor:pointer; color:var(--teal); text-decoration:underline;">Sección 10</a> y la sección de Soft skills.</p>
+    </div>
+
+    <div style="margin-top:14px;">
+      <p style="margin:0 0 6px 0;"><strong>Junio 2026, Principio de counseling: conversar el qué antes del cómo</strong></p>
+      <p style="font-size:14px; margin:0 0 12px 18px;">La satisfacción del paciente depende más de la conversación y las expectativas que del resultado técnico. El equipo invierte el tiempo en qué quiere lograr el paciente y qué es alcanzable para su ojo; el doctor determina el cómo después. Base de evidencia (PubMed) en <a onclick="goToSection('s4')" style="cursor:pointer; color:var(--teal); text-decoration:underline;">Sección 4</a>, con refuerzo en <a onclick="goToSection('s6')" style="cursor:pointer; color:var(--teal); text-decoration:underline;">Sección 6, Etapa 2</a>.</p>
+    </div>
+
+    <div style="margin-top:14px;">
+      <p style="margin:0 0 6px 0;"><strong>Junio 2026, Feedback clínico del Dr. Santiago</strong></p>
+      <p style="font-size:14px; margin:0 0 8px 18px;"><strong>Apthera IC-8, reframe a "visión continua":</strong> Apthera ya no se presenta primariamente como "el lente para córnea irregular", sino como la opción de <strong>visión continua de lejos a cerca</strong>. La anatomía irregular es una indicación entre varias, no la definición del candidato. Su tolerancia nativa de astigmatismo se corrigió de 1.5 D a <strong>1.75 D</strong>, no requiere add-on tórico. Ver <a onclick="goToSection('s2')" style="cursor:pointer; color:var(--teal); text-decoration:underline;">Sección 2</a> y <a onclick="goToSection('s4')" style="cursor:pointer; color:var(--teal); text-decoration:underline;">Sección 4</a>.</p>
+      <p style="font-size:14px; margin:0 0 8px 18px;"><strong>Nomenclatura doctor vs. cirujano:</strong> el personal usa siempre <strong>"doctor" o "facultativo"</strong>, nunca "cirujano". La palabra "cirujano" solo aparece cuando es el propio paciente quien la dice. Ver <a onclick="goToSection('s10')" style="cursor:pointer; color:var(--teal); text-decoration:underline;">Sección 10</a>.</p>
+      <p style="font-size:14px; margin:0 0 8px 18px;"><strong>Paciente que pide ver al Dr. Santiago directamente:</strong> es una <strong>solicitud legítima, no una objeción</strong>. El framing correcto no es "Dr. Santiago u otro doctor", sino "fue asignado a un doctor capacitado del equipo iOPR, y podemos coordinar una visita con el Dr. Santiago si la necesita". No reasignar sin coordinación institucional. Ver <a onclick="goToSection('s10')" style="cursor:pointer; color:var(--teal); text-decoration:underline;">Sección 10, Objeción 6</a>.</p>
+      <p style="font-size:14px; margin:0 0 12px 18px;"><strong>Paralelismo de nombres entre enfoques:</strong> los cinco perfiles aplican en paralelo a ambos enfoques. El sufijo "Plus" es paralelo, Esencial Plus es LASIK Plus en Corneal y Monofocal Plus en Lenticular; lo mismo en Completa, LASIK Premium (WaveLight) y PanOptix Pro. Ver la matriz en <a onclick="goToSection('s2')" style="cursor:pointer; color:var(--teal); text-decoration:underline;">Sección 2</a>.</p>
+    </div>
+
+    <div style="margin-top:14px;">
+      <p style="margin:0 0 6px 0;"><strong>Junio 2026, Flujo del paciente y protocolo post-operatorio</strong></p>
+      <p style="font-size:14px; margin:0 0 8px 18px;"><strong>Las cinco etapas del flujo del paciente:</strong> (1) Pre-consulta, (2) Consulta clínica, (3) Coordinación, (4) Día de cirugía, (5) Post-operatorio. La Etapa 0 (pre-visita: SMS, cuestionario y video) precede a las cinco como preparación. Ver <a onclick="goToSection('s6')" style="cursor:pointer; color:var(--teal); text-decoration:underline;">Sección 6</a>.</p>
+      <p style="font-size:14px; margin:0 0 8px 18px;"><strong>Manejo de objeciones de facultad médica:</strong> se cubre el paciente que pide ver al Dr. Santiago, a un oftalmólogo, a un cirujano, o que no quiere al optómetra. Principio: el optómetra apoya workup y refracción; la decisión clínica y quirúrgica es siempre del oftalmólogo. Ver <a onclick="goToSection('s10')" style="cursor:pointer; color:var(--teal); text-decoration:underline;">Sección 10, Objeción 6</a>.</p>
+      <p style="font-size:14px; margin:0 0 8px 18px;"><strong>Régimen estándar de gotas post-op:</strong> Antibiótico 4 veces/día × 1 semana; AINE 2 veces/día × 4 semanas (prevención de EMC); Esteroide 4 veces/día × 1 semana con tapering por 4 semanas (si el paciente no tolera el AINE). Ver <a onclick="goToSection('s6')" style="cursor:pointer; color:var(--teal); text-decoration:underline;">Sección 6, Etapa 5</a>.</p>
+      <p style="font-size:14px; margin:0 0 12px 18px;"><strong>Esquema típico de seguimiento:</strong> POD #1 (revisión de flap, AV mayor de 20/20, comodidad ocular); POW #1 (AV mayor de 20/20, refracción Cronos, evaluación de superficie ocular); POM #1 (AV mayor de 20/20, estabilidad refractiva, evaluación de ojo seco, Pentacam AXL/Wave, iTrace). Ver <a onclick="goToSection('s6')" style="cursor:pointer; color:var(--teal); text-decoration:underline;">Sección 6, Etapa 5</a>.</p>
+    </div>
+
+    <div style="margin-top:14px;">
+      <p style="margin:0 0 6px 0;"><strong>Junio 2026, Approach C 2.0: transparencia con precios institucionales</strong></p>
+      <p style="font-size:14px; margin:0 0 12px 18px;">El principio <strong>Approach C</strong> se refinó. La decisión clínica del doctor sigue siendo el eje, pero ahora los precios institucionales son <strong>públicos y se comparten abiertamente</strong>. Lo que requiere evaluación clínica es la recomendación específica para el caso del paciente (qué perfil aplica, categorización RLE vs catarata). iOPR es la primera práctica oftalmológica en Puerto Rico en publicar precios, diferenciador institucional. Ver <a onclick="goToSection('s5')" style="cursor:pointer; color:var(--teal); text-decoration:underline;">Sección 5, Política RLE vs Catarata</a> y <a onclick="goToSection('s7')" style="cursor:pointer; color:var(--teal); text-decoration:underline;">Sección 7, Inversión y precios</a>.</p>
+    </div>
+
+    <div style="margin-top:14px;">
+      <p style="margin:0 0 6px 0;"><strong>Junio 2026, Gotas para presbicia: jerarquía institucional</strong></p>
+      <p style="font-size:14px; margin:0 0 12px 18px;"><strong>Vizz</strong> (aceclidina 1.44%, FDA 2025) es la primera línea institucional cuando esté disponible en Puerto Rico; mientras llega al mercado local, <strong>Vuity</strong> (pilocarpina 1.25%) es la opción prescribible. La marca específica se define en consulta según disponibilidad.</p>
+      <p style="margin:0 0 6px 0;"><strong>Junio 2026, Etapa 0 (pre-visita) añadida al flujo del paciente</strong></p>
+      <p style="font-size:14px; margin:0 0 12px 18px;">El flujo del paciente pasa de 5 a 6 etapas. La nueva <strong>Etapa 0</strong> codifica la secuencia SMS pre-visita (T−7 confirmación + Compass, T−3 video V0, T−1 logística, día de cita). Operacionalizada por el Cuadro Telefónico. Ver <a onclick="goToSection('s6')" style="cursor:pointer; color:var(--teal); text-decoration:underline;">Sección 6, Flujo del paciente</a>.</p>
+    </div>
+
+    <div>
+      <p style="margin:0 0 6px 0;"><strong>Mayo 2026, Arquitectura paralela de 2 enfoques</strong></p>
+      <p style="font-size:14px; margin:0 0 12px 18px;">La arquitectura clínica se reorganizó de 3 enfoques anatómicos a <strong>2 enfoques paralelos</strong>: Corneal y Lenticular. El enfoque "Fáquico" como categoría separada se eliminó, EVO ICL ahora es Equilibrada en el Enfoque Corneal. Ver <a onclick="goToSection('s2')" style="cursor:pointer; color:var(--teal); text-decoration:underline;">Sección 2, Arquitectura clínica</a>.</p>
+    </div>
+
+    <div>
+      <p style="margin:0 0 6px 0;"><strong>Mayo 2026, Nueva nomenclatura institucional</strong></p>
+      <p style="font-size:14px; margin:0 0 12px 18px;">Los perfiles se renombraron a <strong>Esencial, Esencial Plus, Equilibrada, Completa, Combinada</strong>. Procedimientos: <strong>LASIK Plus</strong> (perfil Esencial Plus Corneal, WFO + registro de iris), <strong>LASIK Premium (WaveLight)</strong> (perfil Completa Corneal, FDA 2025). iOPR ya no ofrece LASIK básico, LASIK Plus es el piso de calidad. Ver <a onclick="goToSection('s7')" style="cursor:pointer; color:var(--teal); text-decoration:underline;">Sección 7, Inversión y precios</a>.</p>
+    </div>
+
+    <div>
+      <p style="margin:0 0 6px 0;"><strong>Mayo 2026, Plataforma femtosegundo: LenSx</strong></p>
+      <p style="font-size:14px; margin:0 0 0 18px;">El láser femtosegundo se identifica con su nombre oficial: <strong>LenSx</strong> (plataforma Alcon, exclusivo en Puerto Rico para iOPR). Disponible como add-on opcional en cualquier perfil del Enfoque Lenticular.</p>
+    </div>
+</div>
+</details>
 
 <h3>Contactos institucionales</h3>
   <div class="card">
@@ -11442,7 +11449,6 @@ footer .sigs{margin-top:8px;font-style:italic;}
 </body>
 </html>
 </template>
-
 
 <script>
 (function(){
